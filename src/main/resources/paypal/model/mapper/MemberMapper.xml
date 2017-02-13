@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 패키지.클래스이름을 의미 -->
+<mapper namespace="paypal.model.mapper.MemberMapper">
+	
+	
+	<sql id="selectSql">
+		SELECT member_id memberId, email, phone, gender, to_char(birth, 'YYYY-MM-DD') birth, address, authority, deleted, name, regdate memberRegDate
+		FROM member
+	</sql>
+
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+		(email, passwd, name, address, phone, birth, gender, deleted, regdate)
+		VALUES
+		(#{email}, #{passwd}, #{name}, #{address}, #{phone}, #{birth}, #{gender}, 'N', NOW())		
+	</insert>
+
+<!-- 
+	SQL-객체 매핑 정의
+	<select id="selectMembers" 
+		resultType="andromeda.dto.member.Member">
+		<include refid="selectSql" />
+		WHERE deleted = 'N' AND authority = 'u'
+	</select>	
+	
+
+ 	<select id="selectMemberById" 
+		resultType="andromeda.dto.member.Member"		
+		parameterType="String">
+		<include refid="selectSql" />
+		WHERE member_id = #{memberId}
+	</select>
+
+ 	<select id="selectMemberByIdAndPasswdAndDeleted" 
+		resultType="andromeda.dto.member.Member"		
+		parameterType="HashMap">
+		<include refid="selectSql" />
+		WHERE member_id = #{memberId} AND password = #{passwd} AND deleted = 'N'
+	</select>
+
+	<select id="selectMemberByIdAndPasswd" 
+		resultType="andromeda.dto.member.Member"
+		parameterType="HashMap">
+		<include refid="selectSql" />
+		WHERE member_id = #{memberId} AND password = #{passwd}
+	</select> 
+	
+    <delete id="dropAccount" parameterType="String">
+        UPDATE MEMBER 
+        SET deleted = 'D'
+        WHERE member_id = #{memberId}
+	</delete>
+	
+	<select id="selectMemberByIdAndEdit"	 
+		resultType="andromeda.dto.member.Member"
+		parameterType="HashMap">	
+	    UPDATE MEMBER 
+        SET phone = #{phone}, email = #{email},  password = #{passwd}, post_no = #{postNo}, address = #{address}
+        WHERE member_id = #{memberId}
+    </select>
+	 -->
+	
+		
+</mapper>
+
+
+
+
+
+
+
+
+
