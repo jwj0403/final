@@ -50,19 +50,21 @@ public class MemberController {
 //	}
 //	
 //	
-//	@RequestMapping(value = "view.action", method = RequestMethod.GET)
-//	public String view(@RequestParam("memberid") String memberId, Model model) {
-//		
-//		if (memberId == null || memberId.length() == 0) {
-//			return "redirect:/main/index.action";
-//		}
-//		
+	@RequestMapping(value = "mypage.action", method = RequestMethod.GET)
+	//public String mypage(@RequestParam("memberid") String memberId, Model model) {
+	public String mypage(String email, Model model) {
+		
+		email = "email@email.com";
+		if (email == null || email.length() == 0) {
+			return "redirect:/main/index.action";
+		}
+		
 //		Member member = dao.getMemberById(memberId);
 //		model.addAttribute("member", member);
-//		
-//		return "member/view";
-//	}
-//	
+		
+		return "member/mypage";
+	}
+	
 	@RequestMapping(value = "register.action", method = RequestMethod.GET)
 	public String registerForm(
 		//스프링 태그 라이브러리를 사용하기 위해 구성한 전달인자 
