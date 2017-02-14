@@ -17,6 +17,7 @@ public class MemberDaoImpl implements MemberDao {
 	@Qualifier("memberMapper")
 	private MemberMapper memberMapper;
 	
+	//가입시 기본 정보 등록을 위한 DB Insert
 	@Override
 	public void insertMember(Member member) {
 
@@ -30,15 +31,20 @@ public class MemberDaoImpl implements MemberDao {
 //		
 //		return members;
 //	}
-//	
-//	@Override
-//	public Member getMemberById(String id) {
-//
-//		Member member = memberMapper.selectMemberById(id);
-//		
-//		return member;
-//	}
-//	
+	
+	@Override
+	public Member getMemberByEmail(String email) {
+
+		Member member = memberMapper.selectMemberByEmail(email);
+		
+		return member;
+	}
+
+	@Override
+	public void dropOutAccount(String email) {
+		memberMapper.deleteMemberByEmail(email);
+	}
+	
 //	@Override
 //	public Member getMemberByIdAndPasswdAndDeleted(String id, String passwd, String deleted) {
 //

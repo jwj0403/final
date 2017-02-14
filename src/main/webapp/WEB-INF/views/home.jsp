@@ -13,7 +13,8 @@
 <body>
 	<br>
 	<br>
-	<a href="member/register.action">회원가입</a>
+	<h2><a href="member/register.action">회원가입</a></h2>
+	<h2><a href="member/mypage.action">회원정보</a></h2>
 	
 </body>
 </html>

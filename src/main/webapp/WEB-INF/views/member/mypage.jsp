@@ -29,7 +29,7 @@
  
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
-        <input type="text" value="아이디 : ${ requestScope.member.memberId }" class="form-control" readonly="true" /> 
+        <input type="text" value="이름 : ${ requestScope.member.name }" class="form-control" readonly="true" /> 
     </div>
     <p>
     <div class="input-group">
@@ -49,7 +49,7 @@
     <p>
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span> 
-        <input type="text" value="가입일 : ${ member.memberRegDate }" class="form-control" readonly="true" /> 
+        <input type="text" value="가입일 : ${ requestScope.member.regdate }" class="form-control" readonly="true" /> 
     </div>    
     <p>
     <hr>
@@ -59,7 +59,7 @@
 	            <c:param name="memberid" value="${ loginuser.memberId }" />
 	        </c:url>
 	    <button onclick="location.href='${ viewUrl }';">회원정보수정</button>
-	    <button onclick="location.href='/andromeda/member/drop.action';">회원탈퇴</button>
+	    <button onclick="location.href='/paypal/member/dropout.action?email=${ requestScope.member.email}';">회원탈퇴</button>
     </div>	
       
     </div>

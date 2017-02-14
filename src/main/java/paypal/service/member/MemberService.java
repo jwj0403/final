@@ -21,4 +21,15 @@ public class MemberService {
 //		memberDao.dropAccount(memberId);
 //	}
 
+	public Member getMemberByEmail(String email) {
+		
+		Member member = memberDao.getMemberByEmail(email);
+		
+		return member;
+	}
+
+	public void dropOutAccount(String email) {
+		memberDao.dropOutAccount(email);
+	}
+
 }

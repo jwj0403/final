@@ -8,16 +8,29 @@
 	
 	
 	<sql id="selectSql">
-		SELECT member_id memberId, email, phone, gender, to_char(birth, 'YYYY-MM-DD') birth, address, authority, deleted, name, regdate memberRegDate
-		FROM member
+		SELECT email, name, shop_id, phone, birth, gender, address, card_type cardType, 
+			card_no cardNo, card_cvc cardCVC, card_exp_date cardExpDate, regdate 
+		FROM MEMBER
 	</sql>
 
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
-		(email, passwd, name, address, phone, birth, gender, deleted, regdate)
+			(email, passwd, name, address, phone, birth, gender, deleted, regdate)
 		VALUES
-		(#{email}, #{passwd}, #{name}, #{address}, #{phone}, #{birth}, #{gender}, 'N', NOW())		
+			(#{email}, #{passwd}, #{name}, #{address}, #{phone}, #{birth}, #{gender}, 'N', NOW())		
 	</insert>
+
+ 	<select id="selectMemberByEmail" parameterType="String" resultType="Member">
+		<include refid="selectSql" />
+		WHERE email = #{email} and deleted='N'
+	</select>
+		
+    <delete id="deleteMemberByEmail" parameterType="String">
+        UPDATE MEMBER 
+        SET deleted = 'D'
+        WHERE email = #{email}
+	</delete>
+	
 
 <!-- 
 	SQL-객체 매핑 정의
@@ -27,13 +40,6 @@
 		WHERE deleted = 'N' AND authority = 'u'
 	</select>	
 	
-
- 	<select id="selectMemberById" 
-		resultType="andromeda.dto.member.Member"		
-		parameterType="String">
-		<include refid="selectSql" />
-		WHERE member_id = #{memberId}
-	</select>
 
  	<select id="selectMemberByIdAndPasswdAndDeleted" 
 		resultType="andromeda.dto.member.Member"		
@@ -48,13 +54,7 @@
 		<include refid="selectSql" />
 		WHERE member_id = #{memberId} AND password = #{passwd}
 	</select> 
-	
-    <delete id="dropAccount" parameterType="String">
-        UPDATE MEMBER 
-        SET deleted = 'D'
-        WHERE member_id = #{memberId}
-	</delete>
-	
+
 	<select id="selectMemberByIdAndEdit"	 
 		resultType="andromeda.dto.member.Member"
 		parameterType="HashMap">	

@@ -10,14 +10,16 @@ public interface MemberMapper {
 
 	void insertMember(Member member);
 
+	Member selectMemberByEmail(String email);
+
+	void deleteMemberByEmail(String email);
+
 //	void dropAccount(String memberId);
 //	
 //	void editAccount(String memberId);
 //
 //	List<Member> selectMembers();
-//
-//	Member selectMemberById(String id);
-//	
+
 //	Member selectMemberByIdAndPasswdAndDeleted(HashMap<String, Object> params);
 //
 //	Member selectMemberByIdAndPasswd(HashMap<String, Object> params);

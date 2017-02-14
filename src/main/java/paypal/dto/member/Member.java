@@ -32,7 +32,7 @@ public class Member implements Serializable {
 	@NotEmpty
 	private String cardExpDate;
 	
-	private Date regDate;
+	private Date regdate;
 	private String deleted;
 	
 	public String getEmail() {
@@ -107,11 +107,11 @@ public class Member implements Serializable {
 	public void setCardExpDate(String cardExpDate) {
 		this.cardExpDate = cardExpDate;
 	}
-	public Date getRegDate() {
-		return regDate;
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
 	public String getDeleted() {
 		return deleted;

@@ -28,14 +28,35 @@ public class MemberController {
 	@Qualifier(value = "memberService")
 	private MemberService memberService;	
 	
-	@Autowired
-	@Qualifier("memberDao")
-	private MemberDao dao;
-	public void setMemberDao(MemberDao memberDao) {
-		this.dao = memberDao;
+//	@Autowired
+//	@Qualifier("memberDao")
+//	private MemberDao memberDao;
+	
+	//가입 양식 불러오기
+	@RequestMapping(value = "register.action", method = RequestMethod.GET)
+	public String registerForm(
+		//스프링 태그 라이브러리를 사용하기 위해 구성한 전달인자 
+		@ModelAttribute Member member) {		
+		return "member/registerform";
 	}
-//	
-//	
+			
+	//가입시 기본 정보 등록을 위한 DB Insert 실행 메서드
+	@RequestMapping(value = "register.action", method = RequestMethod.POST)
+	public String register(@Valid Member member, BindingResult result) {	
+		
+		if (result.hasErrors()) {
+		}
+		
+		member.setPasswd(Util.getHashedString(member.getPasswd(), "SHA-256"));
+		
+		memberService.insertMemberTx(member);
+//		profService.insertProfileTx(profile);		
+		
+		return "redirect:/";
+//		return "success";
+		
+	}
+	
 //	@RequestMapping(value = "list.action", method = RequestMethod.GET)
 //	public String list(Model model) {
 //		
@@ -49,48 +70,24 @@ public class MemberController {
 //		return "member/list";
 //	}
 //	
-//	
+
+	//
 	@RequestMapping(value = "mypage.action", method = RequestMethod.GET)
 	//public String mypage(@RequestParam("memberid") String memberId, Model model) {
 	public String mypage(String email, Model model) {
 		
 		email = "email@email.com";
 		if (email == null || email.length() == 0) {
-			return "redirect:/main/index.action";
+			return "redirect:/";
 		}
 		
-//		Member member = dao.getMemberById(memberId);
-//		model.addAttribute("member", member);
+		Member member = memberService.getMemberByEmail(email);
+		model.addAttribute("member", member);
 		
 		return "member/mypage";
 	}
+		
 	
-	@RequestMapping(value = "register.action", method = RequestMethod.GET)
-	public String registerForm(
-		//스프링 태그 라이브러리를 사용하기 위해 구성한 전달인자 
-		@ModelAttribute Member member) {
-		
-		return "member/registerform";
-	}
-	
-		
-	@RequestMapping(value = "register.action", method = RequestMethod.POST)
-	@ResponseBody
-	public String register(@Valid Member member, BindingResult result) {	
-		
-		if (result.hasErrors()) {
-		}
-		
-		member.setPasswd(Util.getHashedString(member.getPasswd(), "SHA-256"));
-		
-		memberService.insertMemberTx(member);
-//		profService.insertProfileTx(profile);		
-		
-		return "/";
-//		return "success";
-		
-	}	
-//	
 //	@RequestMapping(value="idCheck.action", method = RequestMethod.GET, produces = "text/plain; charset=utf8")
 //	@ResponseBody()
 //	public String idCheck(String memberId, Model model) {
@@ -110,6 +107,15 @@ public class MemberController {
 //		
 //		return message;
 //	}	
+	
+	//회원 탈퇴. 
+	@RequestMapping(value = "dropout.action", method = RequestMethod.GET)
+	public String dropOut(String email) {
+		//세션 파괴 및 포스트로 방식 변경
+		memberService.dropOutAccount(email);
+		
+		return "member/dropout";
+	}
 	
 	
 }
