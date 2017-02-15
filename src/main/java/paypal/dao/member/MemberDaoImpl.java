@@ -31,7 +31,7 @@ public class MemberDaoImpl implements MemberDao {
 //		
 //		return members;
 //	}
-	
+	//회원정보 조회
 	@Override
 	public Member getMemberByEmail(String email) {
 
@@ -39,12 +39,18 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return member;
 	}
-
+	//회원 정보 수정
+	@Override
+	public void modifyMember(Member member) {
+		memberMapper.updateMemberByEmail(member);
+	}
+	//회원 탈퇴
 	@Override
 	public void dropOutAccount(String email) {
 		memberMapper.deleteMemberByEmail(email);
+		
 	}
-	
+
 //	@Override
 //	public Member getMemberByIdAndPasswdAndDeleted(String id, String passwd, String deleted) {
 //

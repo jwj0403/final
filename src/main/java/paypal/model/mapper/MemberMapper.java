@@ -12,6 +12,8 @@ public interface MemberMapper {
 
 	Member selectMemberByEmail(String email);
 
+	void updateMemberByEmail(Member member);
+
 	void deleteMemberByEmail(String email);
 
 //	void dropAccount(String memberId);

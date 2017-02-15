@@ -30,7 +30,7 @@ public class Member implements Serializable {
 	@NotEmpty
 	private String cardCvc;
 	@NotEmpty
-	private String cardExpDate;
+	private String cardValidThru;
 	
 	private Date regdate;
 	private String deleted;
@@ -101,11 +101,11 @@ public class Member implements Serializable {
 	public void setCardCvc(String cardCvc) {
 		this.cardCvc = cardCvc;
 	}
-	public String getCardExpDate() {
-		return cardExpDate;
+	public String getCardValidThru() {
+		return cardValidThru;
 	}
-	public void setCardExpDate(String cardExpDate) {
-		this.cardExpDate = cardExpDate;
+	public void setCardValidThru(String cardValidThru) {
+		this.cardValidThru = cardValidThru;
 	}
 	public Date getRegdate() {
 		return regdate;

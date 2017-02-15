@@ -8,8 +8,8 @@
 	
 	
 	<sql id="selectSql">
-		SELECT email, name, shop_id, phone, birth, gender, address, card_type cardType, 
-			card_no cardNo, card_cvc cardCVC, card_exp_date cardExpDate, regdate 
+		SELECT email, name, phone, birth, gender, address, regdate <!-- DATE_FORMAT(regdate,'%Y-%m%-%d')  -->
+			,card_type cardType, card_no cardNo, card_cvc cardCvc, card_valid_thru cardValidThru 
 		FROM MEMBER
 	</sql>
 
@@ -17,19 +17,33 @@
 		INSERT INTO MEMBER
 			(email, passwd, name, address, phone, birth, gender, deleted, regdate)
 		VALUES
-			(#{email}, #{passwd}, #{name}, #{address}, #{phone}, #{birth}, #{gender}, 'N', NOW())		
+			(#{ email }, #{ passwd }, #{ name }, #{ address }, #{ phone }, #{ birth }, #{ gender }, 'N', NOW())		
 	</insert>
 
  	<select id="selectMemberByEmail" parameterType="String" resultType="Member">
 		<include refid="selectSql" />
-		WHERE email = #{email} and deleted='N'
+		WHERE email = #{ email } and deleted='N'
 	</select>
 		
-    <delete id="deleteMemberByEmail" parameterType="String">
+	<update id="updateMemberByEmail">
+		UPDATE MEMBER
+			<set>
+				<if test="passwd != null and passwd != ''">passwd = #{ passwd }, </if>
+				<if test="phone != null and phone != ''">phone = #{ phone }, </if>
+				<if test="address != null and address != ''">address = #{ address }, </if>
+				<if test="cardType != null and cardType != ''">card_type = #{ cardType }, </if>
+				<if test="cardNo != null and cardNo != ''">card_no = #{ cardNo }, </if>
+				<if test="cardCvc != null and cardCvc != ''">card_cvc =  #{ cardCvc }, </if>
+				<if test="cardValidThru != null and cardValidThru != ''">card_valid_thru = #{ cardValidThru } </if>
+			</set>
+		WHERE email = #{ email }
+	</update>
+		
+    <update id="deleteMemberByEmail" parameterType="String">
         UPDATE MEMBER 
         SET deleted = 'D'
         WHERE email = #{email}
-	</delete>
+	</update>
 	
 
 <!-- 

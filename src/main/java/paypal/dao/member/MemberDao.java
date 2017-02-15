@@ -12,7 +12,9 @@ public interface MemberDao {
 
 	//가입시 기본 정보 등록을 위한 DB Insert
 	Member getMemberByEmail(String email);
-
+	//회원정보 수정
+	void modifyMember(Member member);
+	//회원 탈퇴
 	void dropOutAccount(String email);
 
 //	Member getMemberByIdAndPasswd(String id, String passwd);

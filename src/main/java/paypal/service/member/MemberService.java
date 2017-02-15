@@ -17,15 +17,16 @@ public class MemberService {
 	public void insertMemberTx(Member member) {
 		memberDao.insertMember(member);
 	}
-//	public void dropAccount(String memberId) {
-//		memberDao.dropAccount(memberId);
-//	}
 
 	public Member getMemberByEmail(String email) {
 		
 		Member member = memberDao.getMemberByEmail(email);
 		
 		return member;
+	}
+
+	public void modifyMemberTx(Member member) {
+		memberDao.modifyMember(member);
 	}
 
 	public void dropOutAccount(String email) {

@@ -317,8 +317,8 @@
 				//AJAX(JSON)
 				 $.ajax({
 				   type:"GET",   //함께 이동하는 값이 url에 찍힘
-				   url: "idCheck.action",
-				   data: { "memberId":login_id },   //JSON형식으로 값 보내기     
+				   url: "idcheck.action",
+				   data: { "email":login_id },   //JSON형식으로 값 보내기     
 				   dataType: "text",
 				         success : function(data){
 				         alert(data);   //console창에 찍어보기
@@ -345,13 +345,16 @@
 <body>
 	<br>
 	<br>
-	<h1 id="title" style="font-size:30pt;color: white;">WELCOME ANDROMEDA !</h1>
+	<h1 id="title" style="font-size:30pt;color: white;">TarJane 가입 하기</h1>
 	<br>
 	<br>
 	<div class="containerw3layouts-agileits">		
 	    <form id="thisForm" action="register.action" method="post" action="login.action" method="post" novalidate>
 	        	<div class="form-group agileits-w3layouts">
 				    <input type="hidden" name="returnurl" value='${ empty requestScope.returnurl ? "" : requestScope.returnurl }' />
+				</div>
+				<div class="form-group w3-agile password" >
+					<input type="email" id="email" name="email" class="form-control agileinfo textbox" placeholder="이메일 양식에 맞게 입력하세요"/>
 				</div>
 				<div class="form-group w3-agile password">
 					<input type="text" id="id" name="memberId" class="form-control agileinfo textbox" placeholder="아이디(영문소문자로 시작하는 6~12자 영문소문자 또는 숫자)">					
@@ -362,9 +365,6 @@
 				</div>
 				<div class="form-group w3-agile password">
 					<input type="password" id="password_chk" name="confirm" class="form-control w3-agileits textbox" placeholder="비밀번호 확인">
-				</div>
-				<div class="form-group w3-agile password" >
-					<input type="email" id="email" name="email" class="form-control agileinfo textbox" placeholder="이메일 양식에 맞게 입력하세요"/>
 				</div>
 				<div class="form-group w3-agile password" >
 					<input type="tel" id="pnum" name="phone" class="form-control agileinfo textbox" placeholder="전화번호  -  를 제외하고 숫자만 입력하세요"/>
