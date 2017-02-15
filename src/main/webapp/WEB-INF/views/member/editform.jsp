@@ -18,7 +18,7 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>    
 	<!-- <script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script> -->
-	
+<!-- 	
 	<script>
     function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -155,7 +155,7 @@
 		//AJAX(JSON타입)
   		  $.ajax({
 		    type:"POST",     //페이지 이동시 넘어가는 값이 숨겨짐 
-		    url:"edit.action",     //이동할 페이지  
+		    url:"editmember.action",     //이동할 페이지  
 		    //data: "memberId="+login_id+"&passwd="+login_pw+"&name="+login_name+"&phone="+login_pnum+"&email="+login_email+"&gender="+login_gen,
 		    data: $('#editForm').serialize(),
 		    success:function(data){   //성공시 가져오는 데이터를 data에 저장하여 사용
@@ -178,7 +178,7 @@
  	
  	
 	</script>
-
+ -->
 
 	
 </head>
@@ -188,49 +188,45 @@
 
 <div class="container">
 
-  <p>
-  <p>
-  <p>
+  
+  
+  
   <hr>
   <h1>회원 정보 수정</h1>
   <hr>
-  <form:form id="editForm" action="edit.action" method="post" modelAttribute="member"><!-- 상대경로표시 -->
+  <form:form id="editForm" action="modifymember.action" method="post" modelAttribute="member"><!-- 상대경로표시 -->
+     
     <div class="input-group">
-        <span class="input-group-addon">아이디(ID) : </span> 
-        <form:input type="text" id="id" name="memberId" path="memberId" class="form-control" readonly="true" />
+        <span class="input-group-addon">이메일 : </span> 
+        <form:input type="email" id="email" name="email" path="email" class="form-control" readonly="true" /> 
     </div>
-    <p>
+    
     <div class="input-group">
         <span class="input-group-addon">패스워드 : </span>
         <form:password id="password" name="passwd" path="passwd" class="form-control" />
     </div>
-    <p>
+    
     <div class="input-group">
         <span class="input-group-addon">패스워드 확인 : </span>
         <input type="password" id="password_chk" name="confirm" class="form-control" />
     </div>    
-    <p>
-    <div class="input-group">
-        <span class="input-group-addon">이메일 : </span> 
-        <form:input type="email" id="email" name="email" path="email" class="form-control" /> 
-    </div>
-    <p>
+
     <div class="input-group">
         <span class="input-group-addon">전화번호 : </span> 
         <form:input type="tel" id="pnum" name="phone" path="phone" class="form-control" /> 
     </div>
-    <p>    
+<%--        
     <div class="input-group">
         <span class="input-group-addon">이름 : </span> 
         <form:input type="text" id="name" name="name" path="name" class="form-control" readonly="true" />
     </div>
-    <p>    
+        
     <div class="input-group">
         <span class="input-group-addon">생년월일 : </span> 
         <form:input type="text" id="birth" name="birth" path="birth" class="form-control" readonly="true" /> 
     </div>
-    <p>    
-<%--
+        
+
     <div class="input-group">
         <span class="input-group-addon">성별 : </span> 
         <form:input type="hidden" id="gender" name="gender" path="gender" class="form-control" readonly="true" /> 
@@ -241,31 +237,47 @@
         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span> 
         <form:input type="text" id="regdate" name="regdate" path="memberRegDate" class="form-control" readonly="true" /> 
     </div> 
---%>
+
 
     <input type="hidden" id="gender" name="gender" path="gender" />
     <input type="hidden" name="authority" value="u"/>        
     <input type="hidden" name="deleted" value="N"/>        
-    <p>    
+ --%>       
     <div class="input-group">
         <span class="input-group-addon">상세주소 : </span> 
         <input type="text" name="address" id="sample6_address" class="form-control" /> 
     </div>
-    <p>   
+  <!--      
     <div class="input-group">
         <span class="input-group-addon">우편번호 : </span> 
         <input type="text" name="postNo" id="sample6_postcode" class="form-control" /> 
     </div>
-    <p>
+    
     <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"/>
     <hr>       
-    
+    -->
+    <div class="input-group">
+        <span class="input-group-addon">카드종류 : </span> 
+        <input type="text" name="cardType" id="sample6_address" class="form-control" /> 
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">카드번호 : </span> 
+        <input type="text" name="cardNo" id="sample6_address" class="form-control" /> 
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">카드CVC : </span> 
+        <input type="text" name="cardCvc" id="sample6_address" class="form-control" /> 
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">카드유효기간 : </span> 
+        <input type="text" name="cardValidThru" id="sample6_address" class="form-control" /> 
+    </div>
 
 	<button id="edit_button">정보수정</button>
 		
     </form:form>
     <button onclick="location.href='../';" >취소</button>
-    <p>
+    
     </div>
 
 </body>
