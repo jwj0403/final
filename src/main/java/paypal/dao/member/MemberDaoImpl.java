@@ -20,25 +20,16 @@ public class MemberDaoImpl implements MemberDao {
 	//가입시 기본 정보 등록을 위한 DB Insert
 	@Override
 	public void insertMember(Member member) {
-
 		memberMapper.insertMember(member);
 	}
-
-//	@Override
-//	public List<Member> getList() {
-//		
-//		List<Member> members = memberMapper.selectMembers();
-//		
-//		return members;
-//	}
+	
 	//회원정보 조회
 	@Override
 	public Member getMemberByEmail(String email) {
-
 		Member member = memberMapper.selectMemberByEmail(email);
-		
 		return member;
 	}
+	
 	//회원 정보 수정
 	@Override
 	public void modifyMember(Member member) {
@@ -48,58 +39,22 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public void dropOutAccount(String email) {
 		memberMapper.deleteMemberByEmail(email);
-		
 	}
 
-//	@Override
-//	public Member getMemberByIdAndPasswdAndDeleted(String id, String passwd, String deleted) {
-//
-//		HashMap<String, Object> params = new HashMap<>();
-//		params.put("memberId", id);
-//		params.put("passwd", passwd);
-//		params.put("deleted", deleted);
-//		
-//		Member member = memberMapper.selectMemberByIdAndPasswdAndDeleted(params);
-//		
-//		return member;
-//	}
-//	
-//	
-//	@Override
-//	public Member getMemberByIdAndPasswd(String id, String passwd) {
-//
-//		HashMap<String, Object> params = new HashMap<>();
-//		params.put("memberId", id);
-//		params.put("passwd", passwd);
-//		
-//		Member member = memberMapper.selectMemberByIdAndPasswd(params);
-//		
-//		return member;
-//	}
-//
-//	
-//	@Override
-//	public Member getMemberByIdAndEdit(String id, String passwd, String phone, String email, String postNo, String address) {
-//
-//		HashMap<String, Object> params = new HashMap<>();
-//		params.put("memberId", id);
-//		params.put("passwd", passwd);
-//		params.put("phone", phone);
-//		params.put("email", email);
-//		params.put("postNo", postNo);
-//		params.put("address", address);
-//		
-//		Member member = memberMapper.selectMemberByIdAndEdit(params);
-//		
-//		return member;
-//	}
-//	
-//	
-//	
-//	@Override
-//	public void dropAccount(String memberId) {
-//		memberMapper.dropAccount(memberId);
-//	}
+	
+	
+	//로그인 정보 불러오기
+	@Override
+	public Member getMemberLoginData(String email, String passwd) {
+
+		HashMap<String, Object> param = new HashMap<>();
+		param.put("email", email);
+		param.put("passwd", passwd);
+		
+		Member member = memberMapper.selectMemberLoginData(param);
+		
+		return member;
+	}
 
 	
 }

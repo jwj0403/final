@@ -2,6 +2,7 @@ package paypal.controller.member;
 
 import java.text.SimpleDateFormat;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,60 +26,37 @@ public class MemberController {
 	@Autowired
 	@Qualifier(value = "memberService")
 	private MemberService memberService;	
-	
-//	@Autowired
-//	@Qualifier("memberDao")
-//	private MemberDao memberDao;
-	
+
 	//가입 양식 불러오기.
 	@RequestMapping(value = "register.action", method = RequestMethod.GET)
-	public String registerForm(
-		//스프링 태그 라이브러리를 사용하기 위해 구성한 전달인자 
-		@ModelAttribute Member member) {		
-		return "member/registerform0";
+	public String registerForm(@ModelAttribute Member member) {		
+		return "member/registerform";
 	}
 			
-	//가입시 기본 정보 등록을 위한 DB Insert 실행 메서드.
+	//가입 정보 등록을 위한 DB Insert 실행 메서드.
 	@RequestMapping(value = "register.action", method = RequestMethod.POST)
-	public String register(@Valid Member member, BindingResult result) {	
-		
-		if (result.hasErrors()) {
-		}
+	public String register(Member member, BindingResult result) {	
 		
 		member.setPasswd(Util.getHashedString(member.getPasswd(), "SHA-256"));
 		
 		memberService.insertMemberTx(member);	
 		
 		return "redirect:/";
-//		return "success";
-		
 	}
 	
-//	@RequestMapping(value = "list.action", method = RequestMethod.GET)
-//	public String list(Model model) {
-//		
-//		//1. 데이터 조회 (dao 사용)
-//		List<Member> members = dao.getList();
-//		
-//		//2. 데이터 저장 (jsp에서 사용할 수 있도록)
-//		model.addAttribute("members", members);
-//		
-//		//3. 뷰 반환
-//		return "member/list";
-//	}
-//	
 
 	//내 정보 페이지 보여주기.
 	@RequestMapping(value = "mypage.action", method = RequestMethod.GET)
 	//public String mypage(@RequestParam("memberid") String memberId, Model model) {
-	public String mypage(String email, Model model) {
+	public String mypage(Model model, HttpSession session) {
 		
-		email = "email@email.com";
-		if (email == null || email.length() == 0) {
+		Member member = (Member) session.getAttribute("loginuser");
+		
+		if (member.getEmail() == null || member.getEmail().length() == 0) {
 			return "redirect:/";
 		}
 		
-		Member member = memberService.getMemberByEmail(email);
+		member = memberService.getMemberByEmail(member.getEmail());
 
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String regdate = transFormat.format(member.getRegdate());
@@ -90,9 +68,9 @@ public class MemberController {
 	}
 		
 	//아이디 중복 체크
-	@RequestMapping(value="idcheck.action", method = RequestMethod.GET, produces = "text/plain; charset=utf8")
+	@RequestMapping(value="emailcheck.action", method = RequestMethod.POST, produces = "text/plain; charset=utf8")
 	@ResponseBody()
-	public String idCheck(String email, Model model) {
+	public String emailCheck(String email, Model model) {
 		
 		Member member = memberService.getMemberByEmail(email);
 		
@@ -101,11 +79,11 @@ public class MemberController {
 		if(member != null) {
 			message = String.format("%s은(는) 이미 가입 된 이메일 주소입니다.", member.getEmail());
 		} else if (((email.indexOf('@')) <=0) || (email.indexOf('.')<=0)) {
-			message = "이메일 주소의 형식을 확인 해주세요.\r(example@naver.com)";
+			message = "이메일 주소를 바르게 입력해 주세요.";
 		} else {
-			message = "사용 가능한 이메일 주소입니다.";
+			message = "가입 되어 있지 않은 이메일 주소입니다.";
 		}
-		
+			
 		return message;
 	}	
 
@@ -114,7 +92,6 @@ public class MemberController {
 //	public String view(@RequestParam("memberid") String memberId, Model model) {
 	public String editForm(String email, Model model) {
 			
-		email = "email@email.com";
 		if (email == null || email.length() == 0) {
 			return "redirect:/";
 		}
@@ -127,26 +104,69 @@ public class MemberController {
 	
 	//내 정보 수정 하기.
 	@RequestMapping(value = "modifymember.action", method = RequestMethod.POST)
-	public String editMember(Member member, BindingResult result) {	
-		
-		if (result.hasErrors()) {
-		}
-		
+	public String modifyMember(Member member, BindingResult result) {	
 		member.setPasswd(Util.getHashedString(member.getPasswd(), "SHA-256"));
 		memberService.modifyMemberTx(member);	
 		
 		return "redirect:/";
-//		return "success";
 		
 	}
 	
 	//회원 탈퇴. 
-	@RequestMapping(value = "dropout.action", method = RequestMethod.GET)
-	public String dropOut(String email) {
-		//세션 파괴 및 포스트로 방식 변경
-		memberService.dropOutAccount(email);
+	@RequestMapping(value = "dropout.action", method = RequestMethod.POST)
+	public String dropOut(Member member, HttpSession session) {
+		
+		memberService.dropOutAccount(member.getEmail());
+		session.removeAttribute("loginuser");
 		
 		return "member/dropout";
+	}
+	
+	
+	//--------------------로그인 관리------------------
+	@RequestMapping(value = "login.action", method = RequestMethod.GET)
+	public String loginForm() {
+		return "member/loginform";
+	}
+	@RequestMapping(value = "login.action", method = RequestMethod.POST, produces = "text/plain; charset=utf8")
+	//@ResponseBody
+	public String login(String email, String passwd, HttpSession session) {
+		
+		passwd = Util.getHashedString(passwd, "SHA-256");		
+		
+		Member member = memberService.getMemberLoginData(email, passwd);
+		
+		//Member member = memberService.getMemberByEmail(email);
+		//String message = "";
+		
+//		if(member == null) {
+//			message = "가입 정보가 없습니다. 가입 후 시도해 주세요.";
+		//}  if (member.getDeleted().equals("D")) {
+			//message = "탈퇴 한 회원입니다.";
+//		}  if (passwd.equals(member.getPasswd())) {
+//			message = "로그인 되었습니다.";
+//		} else {
+//			message = "비밀번호를 확인 해주세요.";
+//		}
+		
+		if (member != null) {			
+			//세션에 로그인 정보 저장
+			session.setAttribute("loginuser", member);
+			// Binding Session Listener
+			//session.setAttribute("listener", SessionBindingListener.getInstance());
+			//session.setAttribute("listener", new SessionBindingListener());
+			return "redirect:/"; 
+		} else {
+			return "member/loginform";
+		}		
+//		return message;
+	}
+	
+	//로그아웃
+	@RequestMapping(value = "logout.action", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.removeAttribute("loginuser");
+		return "redirect:/";
 	}
 	
 	

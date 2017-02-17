@@ -33,4 +33,11 @@ public class MemberService {
 		memberDao.dropOutAccount(email);
 	}
 
+	public Member getMemberLoginData(String email, String passwd) {
+
+		Member member = memberDao.getMemberLoginData(email, passwd);
+		
+		return member;
+	}
+
 }
