@@ -13,6 +13,7 @@
   	<typeAliases>
   		<typeAlias type="java.util.List" alias="List" />
   	 	<typeAlias type="paypal.dto.member.Member" alias="Member" />
+  	 	<typeAlias type="paypal.dto.member.Notice" alias="Notice" />
   	</typeAliases>
   
   	<environments default="development">
@@ -30,5 +31,6 @@
  	<!-- SQL, Objects's Mapping Info -->
   	<mappers>
      	<mapper resource="paypal/model/mapper/MemberMapper.xml"/>
+     	<mapper resource="paypal/model/mapper/NoticeMapper.xml"/>
   	</mappers>
 </configuration>

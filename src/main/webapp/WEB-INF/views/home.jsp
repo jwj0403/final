@@ -16,7 +16,7 @@
 	
 	<br>
 	<br>
-	<h2><a href="member/register.action">회원가입</a></h2>
+	<h1>Home!!!!!!!!!!!!!!!</h1>
 	
 </body>
 </html>

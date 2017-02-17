@@ -101,7 +101,7 @@
 					 
 			//전화번호 정규식
 			for (var i = 0; i < login_pnum.value.length; i++) {
-				var regexp =  /[01](0|1|6|7|8|9)(\d{4}|\d{3})\d{4}$/g;
+				var regexp =  /[01](0|1|6|7|8|9)-(\d{4}|\d{3})-\d{4}$/g;
 				 if (!regexp.test(login_pnum.value)) {
 					alert("핸드폰 번호를 확인해 주세요.");
 					login_pnum.focus();
@@ -161,7 +161,7 @@
 		</div>    
 		
 		<div class="input-group">
-		    <span class="input-group-addon">전화번호 : </span> 
+		    <span class="input-group-addon">핸드폰번호 : </span> 
 		    <input type="text" id="pnum" name="phone" class="form-control" /> 
 		</div>
 	
