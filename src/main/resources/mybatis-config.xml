@@ -30,5 +30,6 @@
  	<!-- SQL, Objects's Mapping Info -->
   	<mappers>
      	<mapper resource="paypal/model/mapper/MemberMapper.xml"/>
+     	<mapper resource="paypal/model/mapper/AnalyzeMapper.xml"/>
   	</mappers>
 </configuration>

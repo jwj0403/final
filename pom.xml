@@ -180,6 +180,12 @@
 			    <artifactId>mysql-connector-java</artifactId>
 			    <version>5.1.36</version>
 			</dependency>
+		<!-- Mybatis Type Handler -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-typehandlers-jsr310</artifactId>
+		    <version>1.0.2</version>
+		</dependency>
 		
 		<!-- AspectJWeaver -->
 		<dependency>
