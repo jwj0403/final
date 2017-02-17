@@ -197,6 +197,28 @@
     					$("input[name='areaAllClicked']").val("Not-Checked");
     				}
     				
+    				// div 대신 svg로...
+    				$("#chart").empty();
+    				if (!(!!$("label").length)) {
+	    				$("#chart").after($("<form>", {
+	    					"id": "svg"
+	    				}));
+	    				$("#svg").append($("<label>").append($("<input>", {
+	    					"type": "radio",
+	    					"name": "mode",
+	    					"value": "grouped"
+	    				})).append(" Grouped").append($("<br>")));
+	    				$("#svg").append($("<label>").append($("<input>", {
+	    					"type": "radio",
+	    					"name": "mode",
+	    					"value": "stacked"
+	    				})).append(" Stacked"));
+	    				$("#svg").after($("<svg>", {
+	    					"width": 1360,
+	    					"height": 800
+	    				}));
+    				}
+    				
     				$.ajax({
     					type: "GET",
     					url: "../analyze/analyze.action",
@@ -223,11 +245,15 @@
     		
     		// 트리 보기
     		function loadProductTree() {
-    			alert("aa");
+    			$("svg").remove(); // <svg>
+    			$("#svg").remove(); // form#svg
     			// 상품트리 로드
     			if ($("input[name='load']").val() === "init") {
+    				$("#chart").empty();
 					$.getJSON("../analyze/productTreeChart.action", 
 						function(data, status, xhr) {
+							loadVariablesForTree();
+							showConditions();
 							showTree();
 						}
 					);
@@ -235,8 +261,6 @@
     		}
     		
     		function showConditions(flag) {
-    			
-    			alert("ab");
     			if (flag === "show") {
 	    			$("#gender-div").show();
 	    			$("#age-div").show();
@@ -339,7 +363,6 @@
 			
 			var tree = d3.layout.tree().size([h, w - 360]);
 			var diagonal = d3.svg.diagonal().projection(function(d) {
-				alert("an");
 				return [d.y, d.x];
 			});
 			
@@ -359,18 +382,10 @@
 			    .range(d3.schemeCategory20c);
 	    	
 			var xz = d3.range(m),
-			    yz = d3.range(n).map(function() { 
-			    	alert("ao");
-			    	return bumps(m); }),
+			    yz = d3.range(n).map(function() { return bumps(m); }),
 			    y01z = d3.stack().keys(d3.range(n))(d3.transpose(yz)),
-			    yMax = d3.max(yz, function(y) { 
-			    	alert("ap");
-			    	return d3.max(y); }),
-			    y1Max = d3.max(y01z, function(y) { 
-			    	alert("aq");
-			    	return d3.max(y, function(d) { 
-			    		alert("ar");
-			    		return d[1]; }); });
+			    yMax = d3.max(yz, function(y) { return d3.max(y); }),
+			    y1Max = d3.max(y01z, function(y) { return d3.max(y, function(d) { return d[1]; }); });
 			
 			var svg = d3.select("svg"),
 			    margin = {top: 40, right: 10, bottom: 20, left: 10},
@@ -393,26 +408,19 @@
 				.data(y01z)
 				.enter().append("g")
 			    .attr("fill", function(d, i) { 
-			    	alert("as");
 			    	return color(i); });
 			
 			// 막대그래프의 사각형
 			var rect = series.selectAll("rect")
-				.data(function(d) { 
-					alert("at");
-					return d; })
+				.data(function(d) { return d; })
 				.enter().append("rect")
-			    .attr("x", function(d, i) { 
-			    	alert("au");
-			    	return x(i); })
+			    .attr("x", function(d, i) { return x(i); })
 			    .attr("y", height)
 			    .attr("width", x.bandwidth())
 			    .attr("height", 0);
 			
 			
-			function showTree() {
-				alert("ac");
-				d3.json("/paypal/resources/data/p.json", function(json) {
+			function showTree() { d3.json("/paypal/resources/data/p.json", function(json) {
 					json.x0 = 800;
 				  	json.y0 = 0;
 				  	root = "";
@@ -424,7 +432,6 @@
 			
 			
 			function update(source) {
-				alert("ad");
 				// Compute the new tree layout
 				// reverse()는 노드 클릭시 텍스트의 각도
 				// console.log("v_---------\n" + root);
@@ -524,7 +531,6 @@
 			
 			// Toggle children on click
 			function click(d) {
-				alert("ae");
 				if (d.children) {
 					d._children = d.children;
 					d.children = null;
@@ -537,7 +543,6 @@
 			
 			// Node Name Click Event
 			function selectNode(d) {
-				alert("af");
 				var id = "node-" + d.name + "-" + d.depth;
 				$("circle").each(function() {
 					if (id === $(this).attr("id")) {
@@ -552,7 +557,6 @@
 			
 			// single product event
 			function selectSingleProduct() {
-				alert("ag");
 				var productChosenCount = 0;
 				$("circle").each(function() {
 					if ($(this).css("fill").indexOf("rgb(255,") >= 0) { // red
@@ -576,7 +580,6 @@
 			
 			// 분석된 막대그래프 보이기
 			function showBarChart() {
-				alert("ah");
 				rect.transition()
 				    .delay(function(d, i) { return i * 10; })
 				    .attr("y", function(d) { return y(d[1]); })
@@ -595,14 +598,12 @@
 			}
 			
 			var timeout = d3.timeout(function() {
-				alert("ai");
 				d3.select("input[value=\"grouped\"]")
 			      .property("checked", true)
 			      .dispatch("change");
 			}, 2000);
 			
 			function changed() {
-				alert("aj");
 				timeout.stop();
 			  	if (this.value === "grouped") {
 			  		transitionGrouped();
@@ -612,7 +613,6 @@
 			}
 			
 			function transitionGrouped() {
-				alert("ak");
 				y.domain([0, yMax]);
 			
 			  	rect.transition()
@@ -629,7 +629,6 @@
 			}
 			
 			function transitionStacked() {
-				alert("al");
 				y.domain([0, y1Max]);
 			
 			  	rect.transition()
@@ -644,7 +643,6 @@
 			
 			// 분석 데이터 구성
 			function bumps(m) {
-				alert("am");
 				var values = [], i, j, w, x, y, z;
 			
 			  	// Initialize with uniform random values in [0.1, 0.2).
@@ -670,6 +668,75 @@
 				} */
 			  	
 				return values;
+			}
+			
+			function loadVariablesForTree() {
+				w = 1360;
+				h = 800;
+				i = 0;
+				duration = 3000;
+				root;
+				
+				// 검색 및 분석
+				treeNodeName = "";
+				treeNodeDepth = "";
+				
+				tree = d3.layout.tree().size([h, w - 360]);
+				diagonal = d3.svg.diagonal().projection(function(d) {
+					return [d.y, d.x];
+				});
+				
+				vis = d3.select("#chart").append("svg:svg")
+							.attr("width", w)
+							.attr("height", h)
+							.append("svg:g")
+							.attr("transform", "translate(200, 0)");
+				
+				n = 12, // The number of series.
+			    m = 17; // The number of values per series.
+			    
+			    	
+		    	// 색상
+				color = d3.scaleOrdinal()
+				    .domain(d3.range(n))
+				    .range(d3.schemeCategory20c);
+		    	
+				xz = d3.range(m),
+				yz = d3.range(n).map(function() { return bumps(m); }),
+				y01z = d3.stack().keys(d3.range(n))(d3.transpose(yz)),
+				yMax = d3.max(yz, function(y) { return d3.max(y); }),
+				    y1Max = d3.max(y01z, function(y) { return d3.max(y, function(d) { return d[1]; }); });
+				
+				svg = d3.select("svg"),
+				margin = {top: 40, right: 10, bottom: 20, left: 10},
+				width = svg.attr("width") - margin.left - margin.right,
+				height = svg.attr("height") - margin.top - margin.bottom,
+				g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+				
+				x = d3.scaleBand()
+				    .domain(xz)
+				    .rangeRound([0, width])
+				    // bar group 간격
+				    .padding(0.3);
+				
+				y = d3.scaleLinear()
+				    .domain([0, y1Max])
+				    // bar의 시작위치
+				    .range([height, 0]);
+				
+				series = g.selectAll(".series")
+					.data(y01z)
+					.enter().append("g")
+				    .attr("fill", function(d, i) { return color(i); });
+				
+				// 막대그래프의 사각형
+				rect = series.selectAll("rect")
+					.data(function(d) { return d; })
+					.enter().append("rect")
+				    .attr("x", function(d, i) { return x(i); })
+				    .attr("y", height)
+				    .attr("width", x.bandwidth())
+				    .attr("height", 0);
 			}
 		</script>
 	</body>
