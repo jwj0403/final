@@ -7,25 +7,15 @@ import paypal.dto.member.Member;
 
 //com.mvcdemoweb.model.mapper.MemberMapper 파일에 대응하는 인터페이스
 public interface MemberMapper {
-
-	void insertMember(Member member);
-
-	Member selectMemberByEmail(String email);
-
-	void updateMemberByEmail(Member member);
-
-	void deleteMemberByEmail(String email);
-
-//	void dropAccount(String memberId);
-//	
-//	void editAccount(String memberId);
-//
-//	List<Member> selectMembers();
-
-//	Member selectMemberByIdAndPasswdAndDeleted(HashMap<String, Object> params);
-//
-//	Member selectMemberByIdAndPasswd(HashMap<String, Object> params);
-//	
-//	Member selectMemberByIdAndEdit(HashMap<String, Object> params);
 	
+	//회원 가입 정보 DB에 등록
+	void insertMember(Member member);
+	//Email로 회원 정보 조회
+	Member selectMemberByEmail(String email);
+	//회원 정보 수정
+	void updateMemberByEmail(Member member);
+	//회원 정보 삭제(탈퇴)
+	void deleteMemberByEmail(String email);
+	//로그인 정보 조회
+	Member selectMemberLoginData(HashMap<String, Object> param);
 }
