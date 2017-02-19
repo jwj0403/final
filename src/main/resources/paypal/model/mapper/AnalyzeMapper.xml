@@ -477,6 +477,12 @@
 			where me.email = pa.email
 			and pa.pay_no = pr.pay_no) a
 		group by a.product_name
+		
+		1. x축 레이블 쿼리
+		2. 페이지에서 축 레이블 셋팅
+		3. 페이지에서 데이터 셋팅
+		4. 데이터 검증
+		5. 템플릿 적용
     </select>
 </mapper>
 
