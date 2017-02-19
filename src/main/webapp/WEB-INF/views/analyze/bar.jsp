@@ -44,7 +44,7 @@
 		    y01z = d3.stack().keys(d3.range(n))(d3.transpose(yz)),
 		    yMax = d3.max(yz, function(y) { return d3.max(y); }),
 		    y1Max = d3.max(y01z, function(y) { return d3.max(y, function(d) { return d[1]; }); });
-		
+		    
 		var svg = d3.select("svg"),
 		    margin = {top: 40, right: 10, bottom: 20, left: 10},
 		    width = svg.attr("width") - margin.left - margin.right,
@@ -56,7 +56,7 @@
 		    .rangeRound([0, width])
 		    // bar group 간격
 		    .padding(0.3);
-		
+
 		var y = d3.scaleLinear()
 		    .domain([0, y1Max])
 		    // bar의 시작위치
@@ -72,16 +72,16 @@
 		  .enter().append("g")
 		    .attr("fill", function(d, i) { return color(i); });
 		
-		var rect = series.selectAll("rect")
+		var rect = series.selectAll("rect")//
 		  .data(function(d) { return d; })
 		  .enter().append("rect")
-		    .attr("x", function(d, i) { return x(i); })
+		    .attr("xl", function(d, i) { return x(i); })
 		    .attr("y", height)
 		    .attr("width", x.bandwidth())
 		    .attr("height", 0);
 		
 		function showBarChart() {
-			rect.transition()
+			rect.transition()//
 			    .delay(function(d, i) { return i * 10; })
 			    .attr("y", function(d) { return y(d[1]); })
 			    .attr("height", function(d) { return y(d[0]) - y(d[1]); });
@@ -116,7 +116,7 @@
 		function transitionGrouped() {
 		  	y.domain([0, yMax]);
 		
-		  	rect.transition()
+		  	rect.transition()//
 		      	.duration(500)
 		      	.delay(function(d, i) { 
 		      		// i = m * n : (0 ~ m) * n
@@ -130,9 +130,10 @@
 		}
 		
 		function transitionStacked() {
+			alert("e");
 		  	y.domain([0, y1Max]);
 		
-		  	rect.transition()
+		  	rect.transition()//
 		      	.duration(500)
 		      	.delay(function(d, i) { return i * 10; })
 		      	.attr("y", function(d) { return y(d[1]); })

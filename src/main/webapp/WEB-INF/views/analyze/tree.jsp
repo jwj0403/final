@@ -44,241 +44,7 @@
 		<script type="text/javascript" src="http://d3js.org/d3.v4.min.js"></script>
     	<script type="text/javascript" src="/paypal/resources/js/d3.layout.js"></script>
     	<script type="text/javascript" src="/paypal/resources/js/jquery-3.1.1.js"></script>
-    	<script type="text/javascript">
-    		$("document").ready(function() {
-    			// 검색옵션 보이기
-    			showConditions("show");
-    			
-    			// 기간입력창 숨기기
-    			$("#period-span").hide();
-    			
-    			// 검색옵션에 이벤트 걸기
-    			// 나이
-    			$("input[id^='age-a']").prop("checked", true); // 페이지 로드시.
-    			$("#age-a").on("click", function() {
-    				if ($(this).prop("checked") === true) {
-    					$("input[id^='age-ax']").prop("checked", true);
-    				} else {
-    					$("input[id^='age-ax']").prop("checked", false);
-    				}
-    			});
-    			$("input[id^='age-ax']").each(function() {
-    				$(this).on("click", function() {
-    					if ($("#age-ax1").prop("checked") && $("#age-ax2").prop("checked") && $("#age-ax3").prop("checked") && $("#age-ax4").prop("checked") && $("#age-ax5").prop("checked") && $("#age-ax6").prop("checked")) {
-        					$("#age-a").prop("checked", true);
-        				} else {
-        					$("#age-a").prop("checked", false);
-        				}
-    				});
-    			});
-    			
-    			// 지역
-    			$("#area-a").prop("checked", false); // 페이지 로드시.
-    			$("#area-a").on("click", function() {
-    				if ($(this).prop("checked") === true) {
-    					$("input[id^='area-ar']").prop("checked", true);
-    				} else {
-    					$("input[id^='area-ar']").prop("checked", false);
-    				}
-    			});
-    			$("input[id^='area-ar']").each(function() {
-    				$(this).on("click", function() {
-    					if ($("#area-ar1").prop("checked") && $("#area-ar2").prop("checked") && $("#area-ar3").prop("checked") && $("#area-ar4").prop("checked") 
-    							&& $("#area-ar5").prop("checked") && $("#area-ar6").prop("checked") && $("#area-ar7").prop("checked") && $("#area-ar8").prop("checked") 
-    							&& $("#area-ar9").prop("checked") && $("#area-ar10").prop("checked") && $("#area-ar11").prop("checked") && $("#area-ar12").prop("checked") 
-    							&& $("#area-ar13").prop("checked") && $("#area-ar14").prop("checked")) {
-        					$("#area-a").prop("checked", true);
-        				} else {
-        					$("#area-a").prop("checked", false);
-        				}
-    					
-    					var count = $("input[id^='area-ar']:checked").length; // 지역 체크박스 중 체크된 지역의 개수
-    					if (count > 1) { // 지역 데이터가 1 지역 이상이면,
-    						$("#product-single").click(); //----------------------------------------------------- 단일상품 클릭시 이벤트 걸어주기
-    						selectSingleProduct();
-    						$("#period-a").prop("checked", true); //---------------------------------------------------------- 전체기간 클릭시 이벤트 걸어주기
-    					}
-    				});
-    			});
-    			
-    			// 기간
-    			$("input[name='period']").each(function() {
-    				$(this).on("click", function() {
-    					if ($(this).val() === "Specified") {
-        					$("#period-span").show();
-        				} else {
-        					$("#period-span").hide();
-        				}
-    					
-    					if ($(this).val() === "Year" || $(this).val() === "Quater" || $(this).val() === "Month") {
-    						$("#product-single").click(); //----------------------------------------------------- 단일상품 클릭시 이벤트 걸어주기
-    						selectSingleProduct();
-    						if ($(this).prop("checked") === true) { // 지역
-    	    					var areaCount = $("input[id^='area-ar']:checked").length;
-    	    					if (areaCount !== 1 ) {
-    	    						if ($("#area-a").prop("checked") === false) {
-    	    							$("#area-a").click();
-    	    						}
-    	    					}
-    	    				}
-    					}
-    				});
-    			});
-    			
-    			// 상품
-    			$("#product-group").on("click", function() {
-    				if ($(this).prop("checked") === true) { // 지역
-    					var areaCount = $("input[id^='area-ar']:checked").length;
-    					if (areaCount !== 1 ) {
-    						if ($("#area-a").prop("checked") === false) {
-    							$("#area-a").click();
-    						}
-    					}
-    				}
-    				
-    				$("#period-a").click(); // 기간
-    			});
-    			
-    			// 분석
-    			$("input[name='analyze']").on("click", function() {
-    				// 특정기간 선택시 validation
-    				if ($("#period-specified").prop("checked") === true) {
-    					var fromValue = $("#periodFrom").val();
-    					var toValue = $("#periodTo").val();
-    					if (fromValue === "" || fromValue === null || fromValue === undefined) {
-    						alert("검색시작기간을 입력하십시오.");
-    						return;
-    					}
-    					if (toValue === "" || toValue === null || toValue === undefined) {
-    						alert("검색종료기간을 입력하십시오.");
-    						return;
-    					}
-    					var fromValueNumber = parseInt(fromValue.replace("-", ""));
-    					var toValueNumber = parseInt(toValue.replace("-", ""));
-    					if (fromValueNumber > toValueNumber) {
-    						alert("검색시작일자가 검색종료일자보다 클 수 없습니다.");
-    						return;
-    					}
-    				}
-    				
-    				// 데이터 전송
-    				var xAxisLabel = ""; // x 축 레이블
-    				if ($("#product-group").prop("checked") === true) {
-    					xAxisLabel = "product";
-    				} else if ($("#period-year").prop("checked") === true || $("#period-quater").prop("checked") === true || $("#period-month").prop("checked") === true) {
-    					xAxisLabel = "period";
-    				} else {
-    					xAxisLabel = "area";
-    				}
-    				$("input[name='xAxisLabel']").val(xAxisLabel);
-    				
-    				// ajax
-    				// 연령데이터
-    				var ageData = "";
-    				$("input[id^='age-']:checked").each(function() {
-    					ageData += $(this).val() + "@";
-    				});
-    				// 지역데이터
-    				var areaData = "";
-    				$("input[id^='area-']:checked").each(function() {
-    					areaData += $(this).val() + "@";
-    				});
-    				
-    				$("input[name='treeNodeName']").val(treeNodeName);
-    				$("input[name='treeNodeDepth']").val(treeNodeDepth);
-    				if ($("#age-a").prop("checked") === true) {
-    					$("input[name='ageAllClicked']").val("Checked");
-    				} else {
-    					$("input[name='ageAllClicked']").val("Not-Checked");
-    				}
-    				if ($("#area-a").prop("checked") === true) {
-    					$("input[name='areaAllClicked']").val("Checked");
-    				} else {
-    					$("input[name='areaAllClicked']").val("Not-Checked");
-    				}
-    				
-    				// div 대신 svg로...
-    				$("#chart").empty();
-    				if (!(!!$("label").length)) {
-	    				$("#chart").after($("<form>", {
-	    					"id": "svg"
-	    				}));
-	    				$("#svg").append($("<label>").append($("<input>", {
-	    					"type": "radio",
-	    					"name": "mode",
-	    					"value": "grouped"
-	    				})).append(" Grouped").append($("<br>")));
-	    				$("#svg").append($("<label>").append($("<input>", {
-	    					"type": "radio",
-	    					"name": "mode",
-	    					"value": "stacked"
-	    				})).append(" Stacked"));
-	    				$("#svg").after($("<svg>", {
-	    					"width": 1360,
-	    					"height": 800
-	    				}));
-    				}
-    				
-    				$.ajax({
-    					type: "GET",
-    					url: "../analyze/analyze.action",
-    					data: $("#conditions").serialize(),
-	    				success: function(data, textStatus) {
-	    					//alert("d : " + data);
-	    					//alert("t : " + textStatus);
-	    					$("input[name='load']").val("loaded");
-	    					showBarChart();
-	    				},
-    					error: function (xhr, textStatus, error) {
-    						alert("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+error);
-    				    }
-    				});
-    			});
-    			
-    			// 상품트리 로드
-    			loadProductTree();
-    			
-    			$("input[name='view-tree']").on("click", function() {
-    				loadProductTree();
-    			});
-    		});
-    		
-    		// 트리 보기
-    		function loadProductTree() {
-    			$("svg").remove(); // <svg>
-    			$("#svg").remove(); // form#svg
-    			// 상품트리 로드
-    			if ($("input[name='load']").val() === "init") {
-    				$("#chart").empty();
-					$.getJSON("../analyze/productTreeChart.action", 
-						function(data, status, xhr) {
-							loadVariablesForTree();
-							showConditions();
-							showTree();
-						}
-					);
-    			}
-    		}
-    		
-    		function showConditions(flag) {
-    			if (flag === "show") {
-	    			$("#gender-div").show();
-	    			$("#age-div").show();
-	    			$("#area-div").show();
-	    			$("#period-div").show();
-	    			$("#product-div").show();
-	    			$("#search-conditions").show();
-    			} else if (flag === "hide") {
-    				$("#gender-div").hide();
-	    			$("#age-div").hide();
-	    			$("#area-div").hide();
-	    			$("#period-div").hide();
-	    			$("#product-div").hide();
-	    			$("#search-conditions").hide();
-    			}
-    		}
-    	</script>
-		
+    	<script type="text/javascript" src="/paypal/resources/js/draw-chart.js"></script>
 	</head>
 	<body>
 		<h1 class="text-center">Data Analysis Chart</h1>
@@ -340,7 +106,6 @@
 				<input type="hidden" name="xAxisLabel">
 				<input type="hidden" name="ageAllClicked">
 				<input type="hidden" name="areaAllClicked">
-				<input type="hidden" name="load" value="init">
 				<input type="hidden" id="config">
 			</form>
 			<div id="analyze-div">
@@ -348,78 +113,55 @@
 				<input type="button" name="view-tree" value="트리보기">
 			</div>
 		</div>
-		<div id="chart"></div>
 		
 		<script type="text/javascript">
-			var w = 1360;
-			var h = 800;
-			var i = 0;
-			var duration = 3000;
-			var root;
+			// x축 레이블
+			var xAxisLabel;
+			var areaAxisLabel = ["서울", "부산", "대구", "광주", "대전", "울산", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남"];
+			//==========
 			
+			var w;
+			var h;
+			var i;
+			var duration;
+			var root;			
 			// 검색 및 분석
 			var treeNodeName = "";
-			var treeNodeDepth = "";
+			var treeNodeDepth = "";			
+			var tree;
+			var diagonal;			
+			var vis;
 			
-			var tree = d3.layout.tree().size([h, w - 360]);
-			var diagonal = d3.svg.diagonal().projection(function(d) {
-				return [d.y, d.x];
-			});
-			
-			var vis = d3.select("#chart").append("svg:svg")
-						.attr("width", w)
-						.attr("height", h)
-						.append("svg:g")
-						.attr("transform", "translate(200, 0)");
-			
-			var n = 12, // The number of series.
-		    	m = 17; // The number of values per series.
-		    
-		    	
+			initTreeVariables();
+			// ===================== 이상 트리 차트의 변수와 초기화
+			var n, // The number of series.
+		    	m; // The number of values per series.		    	
 	    	// 색상
-			var color = d3.scaleOrdinal()
-			    .domain(d3.range(n))
-			    .range(d3.schemeCategory20c);
-	    	
-			var xz = d3.range(m),
-			    yz = d3.range(n).map(function() { return bumps(m); }),
-			    y01z = d3.stack().keys(d3.range(n))(d3.transpose(yz)),
-			    yMax = d3.max(yz, function(y) { return d3.max(y); }),
-			    y1Max = d3.max(y01z, function(y) { return d3.max(y, function(d) { return d[1]; }); });
+			var color;    	
+			var xz,
+			    yz,
+			    y01z,
+			    yMax,
+			    y1Max;
 			
-			var svg = d3.select("svg"),
-			    margin = {top: 40, right: 10, bottom: 20, left: 10},
-			    width = svg.attr("width") - margin.left - margin.right,
-			    height = svg.attr("height") - margin.top - margin.bottom,
-			    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			var svg,
+			    margin,
+			    width,
+			    height,
+			    g;
 			
-			var x = d3.scaleBand()
-			    .domain(xz)
-			    .rangeRound([0, width])
-			    // bar group 간격
-			    .padding(0.3);
-			
-			var y = d3.scaleLinear()
-			    .domain([0, y1Max])
-			    // bar의 시작위치
-			    .range([height, 0]);
-			
-			var series = g.selectAll(".series")
-				.data(y01z)
-				.enter().append("g")
-			    .attr("fill", function(d, i) { 
-			    	return color(i); });
+			var x;			
+			var y;			
+			var series;
+			var xn;
 			
 			// 막대그래프의 사각형
-			var rect = series.selectAll("rect")
-				.data(function(d) { return d; })
-				.enter().append("rect")
-			    .attr("x", function(d, i) { return x(i); })
-			    .attr("y", height)
-			    .attr("width", x.bandwidth())
-			    .attr("height", 0);
+			var rect;
 			
-			
+			// 분석데이터
+			var condition;
+			var analData;
+			// ==================== 이상 막대 그래프의 변수와 초기화
 			function showTree() { d3.json("/paypal/resources/data/p.json", function(json) {
 					json.x0 = 800;
 				  	json.y0 = 0;
@@ -427,9 +169,7 @@
 				  	update(root = json);
 				  	// console.log("c :" + tree.nodes(root));
 				});
-			}
-				
-			
+			}			
 			
 			function update(source) {
 				// Compute the new tree layout
@@ -577,21 +317,37 @@
 					});
 				}				
 			}
+			// ========================================= 이상 트리차트의 함수
 			
 			// 분석된 막대그래프 보이기
 			function showBarChart() {
 				rect.transition()
 				    .delay(function(d, i) { return i * 10; })
 				    .attr("y", function(d) { return y(d[1]); })
-				    .attr("height", function(d) { return y(d[0]) - y(d[1]); });
+				    .attr("height", function(d) { return y(d[0]) - y(d[1]); });				
 				
-				
+				// X Axis
 				g.append("g")
 				    .attr("class", "axis axis--x")
 				    .attr("transform", "translate(0," + height + ")")
 				    .call(d3.axisBottom(x)
 				        .tickSize(0)
-				        .tickPadding(6));
+				        .tickPadding(6))
+			        .selectAll("text")
+			        .attr("transform", "rotate(-60)")
+			        .attr("dx", "-.8em")
+			        .attr("dy", ".25em")
+			        .style("text-anchor", "end")
+			        .style("font-size", "12px");
+				
+				// Y Axis
+				g.append("g")
+			    .attr("class", "axis axis--y")
+			    .attr("transform", "translate(0, 0)")
+			    .call(d3.axisLeft(y)
+			        .tickSize(0)
+			        .tickPadding(6))
+			    .attr("font-size", "12px");
 				
 				d3.selectAll("input")
 				    .on("change", changed);
@@ -621,7 +377,7 @@
 			      		// i = m * n : (0 ~ m) * n
 			      		return i * 10; })
 			      	.attr("x", function(d, i) {
-			      		return x(i) + x.bandwidth() / n * this.parentNode.__data__.key; })
+			      		return xn(i) + xn.bandwidth() / n * this.parentNode.__data__.key; })
 			      	.attr("width", x.bandwidth() / n)
 			    	.transition()
 			      	.attr("y", function(d) { return y(d[1] - d[0]); })
@@ -637,7 +393,7 @@
 			      	.attr("y", function(d) { return y(d[1]); })
 			      	.attr("height", function(d) { return y(d[0]) - y(d[1]); })
 			    	.transition()
-			      	.attr("x", function(d, i) { return x(i); })
+			      	.attr("x", function(d, i) { return xn(i); })
 			      	.attr("width", x.bandwidth());
 			}
 			
@@ -651,7 +407,7 @@
 			    	// console.log(i + ": " + values[i]);
 			  	}
 			
-			  	/* // Add five random bumps.
+			  	// Add five random bumps.
 			  	for (j = 0; j < 5; ++j) {
 			    	x = 1 / (0.1 + Math.random());
 			    	y = 2 * Math.random() - 0.5;
@@ -665,12 +421,25 @@
 			  	// Ensure all values are positive.
 				for (i = 0; i < m; ++i) {
 					values[i] = Math.max(0, values[i]);
-				} */
+				}
 			  	
 				return values;
 			}
+			// ==================================== 이상 막대그래프의 함수
+			/**
+			 * 막대그래프 그리는 순서
+			 * 1. showBarChart();
+			 * 2. timeout();
+			 * 3. changed();
+			 * 4. transitionGrouped();
+			 * 5. changed();
+			 * 6. transitionStacked();
+			 * 7. changed();
+			 * 8. transitionGrouped();
+			 */
 			
-			function loadVariablesForTree() {
+			// 모든 변수 초기화하는 함수
+			function initTreeVariables() {
 				w = 1360;
 				h = 800;
 				i = 0;
@@ -691,49 +460,103 @@
 							.attr("height", h)
 							.append("svg:g")
 							.attr("transform", "translate(200, 0)");
+			 }
+			 
+			 function initBarVariables(_condition, _data) {
+				// 분석조건과 데이터 대입
+				condition = _condition;
+				analData = _data;
+				//=====
+				var genderLength = 1;
+				if (condition.gender === "C") {
+					genderLength = 2;
+				}
 				
-				n = 12, // The number of series.
+				n = genderLength * condition.age.length, // 성별 * 연령
 			    m = 17; // The number of values per series.
+			    
+			   	if (condition.xAxisLabel === "product") {
+			   		if (condition.treeNodeDepth === 0) {
+			   			
+			   		} else {
+			   			if (condition.group === "S") {
+							genderLength = 1;
+						} else if (condition.group === "G") {
+							
+						}
+			   		}
+			   	} else if (condition.xAxisLabel === "period") {
+			   		if (condition.period === "All") {
+			   			m = 1;
+			   		} else if (condition.period === "Year") {
+			   			
+			   		} else if (condition.period === "Quater") {
+			   			
+			   		} else if (condition.period === "Month") {
+			   			
+			   		} else if (condition.period === "Specified") {
+			   			m = 1;
+			   		}
+			   	} else if (condition.xAxisLabel === "area") {
+			   		m = condition.areaLength;
+			   		if (m > 14) {
+			   			m = 14;
+			   		}
+			   	}
 			    
 			    	
 		    	// 색상
 				color = d3.scaleOrdinal()
 				    .domain(d3.range(n))
 				    .range(d3.schemeCategory20c);
-		    	
-				xz = d3.range(m),
+			    
+			    var xLabel = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q'];
+				xz = d3.range(xLabel.length),
 				yz = d3.range(n).map(function() { return bumps(m); }),
 				y01z = d3.stack().keys(d3.range(n))(d3.transpose(yz)),
 				yMax = d3.max(yz, function(y) { return d3.max(y); }),
 				    y1Max = d3.max(y01z, function(y) { return d3.max(y, function(d) { return d[1]; }); });
 				
 				svg = d3.select("svg"),
-				margin = {top: 40, right: 10, bottom: 20, left: 10},
+				margin = {top: 40, right: 10, bottom: 20, left: 30},
 				width = svg.attr("width") - margin.left - margin.right,
 				height = svg.attr("height") - margin.top - margin.bottom,
 				g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 				
 				x = d3.scaleBand()
-				    .domain(xz)
+				    .domain(xLabel)
 				    .rangeRound([0, width])
 				    // bar group 간격
 				    .padding(0.3);
 				
+				xn = d3.scaleBand()
+			    .domain(xz)
+			    .rangeRound([0, width])
+			    // bar group 간격
+			    .padding(0.3);
+				
 				y = d3.scaleLinear()
-				    .domain([0, y1Max])
+				    .domain([0, Math.ceil(y1Max)])
 				    // bar의 시작위치
 				    .range([height, 0]);
+				
+				timeout = d3.timeout(function() {
+					d3.select("input[value=\"grouped\"]")
+				      .property("checked", true)
+				      .dispatch("change");
+				}, 2000);
 				
 				series = g.selectAll(".series")
 					.data(y01z)
 					.enter().append("g")
 				    .attr("fill", function(d, i) { return color(i); });
-				
+			
 				// 막대그래프의 사각형
 				rect = series.selectAll("rect")
 					.data(function(d) { return d; })
-					.enter().append("rect")
-				    .attr("x", function(d, i) { return x(i); })
+					.enter()
+					.append("rect")
+				    .attr("xl", function(d, i) { return xn(i); })
 				    .attr("y", height)
 				    .attr("width", x.bandwidth())
 				    .attr("height", 0);

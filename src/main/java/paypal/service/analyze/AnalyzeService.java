@@ -18,7 +18,11 @@ public class AnalyzeService {
 
 	public String analyzeData(AnalyzeCondition con) {
 		Gson gson = new Gson();
-		return gson.toJson(dao.selectAnalyzedData(con));
+		String result = "{";
+		result += 			"\"condition\" : " + gson.toJson(con) + ",";
+		result += 			"\"data\" : " + gson.toJson(dao.selectAnalyzedData(con));
+		result += "}";
+		return result;
 	}
 
 }

@@ -109,16 +109,25 @@
 			</otherwise>
 		</choose>
 		
+		/* 상품 조건 */
 		<choose>
-			<when test="xAxisLabel != null and (xAxisLabel eq 'product')">/* X축에 상품정보를 나타낼 경우 */
-			/* 성별, 연령, 지역, 기간 */
-				<if test="areaLength > 0 and areaLength != 15">
-					AND me.address1 IN
-					<foreach collection="area" item="eacharea" index="index" open="(" close=")" separator=",">/* b group by */
-						#{eacharea}
-					</foreach>
-				</if>
-				
+			<when test='group eq "S"'>
+				<choose>
+					<when test="treeNodeDepth eq 0">
+						/* 아무것도 하지 않는다.*/
+					</when>
+					<when test="treeNodeDepth eq 1">
+						AND pr.category1 = #{treeNodeName}
+					</when>
+					<when test="treeNodeDepth eq 2">
+						AND pr.category2 = #{treeNodeName}
+					</when>
+					<when test="treeNodeDepth eq 3">
+						AND pr.product_name = #{treeNodeName}
+					</when>
+				</choose>
+			</when>
+			<when test='group eq "G"'>
 				<choose>
 					<when test="treeNodeDepth eq 0">
 						/* 아무것도 하지 않는다.*/
@@ -130,9 +139,21 @@
 						AND pr.category2 IN (SELECT category2 FROM PRODUCT_INFO WHERE category1  IN (SELECT category1 FROM PRODUCT_INFO WHERE category2 = #{treeNodeName}) GROUP BY category2)
 					</when>
 					<when test="treeNodeDepth eq 3">
-						AND pr.product_name IN (SELECT product_name FROM PRODUCT_INFO WHERE category2  IN (SELECT category2 FROM PRODUCT_INFO WHERE product_name = #{treeNodeName}) GROUP BY product_name)
+						AND pr.product_name IN (SELECT product_name FROM PRODUCT_INFO WHERE category2  IN (SELECT category2 FROM PRODUCT_INFO WHERE product_name = #{treeNodeName} GROUP BY category2) GROUP BY product_name)
 					</when>
 				</choose>
+			</when>
+		</choose>
+		
+		<choose>
+			<when test="xAxisLabel != null and (xAxisLabel eq 'product')">/* X축에 상품정보를 나타낼 경우 */
+			/* 성별, 연령, 지역, 기간 */
+				<if test="areaLength > 0 and areaLength != 15">
+					AND me.address1 IN
+					<foreach collection="area" item="eacharea" index="index" open="(" close=")" separator=",">/* b group by */
+						#{eacharea}
+					</foreach>
+				</if>
 				
 				<choose>
 					<when test="period != null and (period eq 'All')">
@@ -159,7 +180,7 @@
 					</foreach>
 				</if>
 				<if test="period eq 'Specified'">
-					AND pe.pay_date > #{periodFrom} AND pe.pay_date &lt; #{periodTo}
+					AND pa.pay_date > #{periodFrom} AND pa.pay_date &lt; #{periodTo}
 				</if>					
 			</when>
 			
@@ -285,6 +306,177 @@
 		FROM PRODUCT_INFO
 		WHERE category2 = #{nodeName}
 		GROUP BY product_name
+    </select>
+    
+    <!-- X축 레이블 조회 -->
+    <select id="selectAxisLabel" parameterType="paypal.dto.analyze.AnalyzeCondition" resultType="java.util.HashMap">
+    	SELECT *
+    	FROM (
+    	<choose>
+    		<when test="xAxisLabel eq 'product'">
+    			<choose>
+    				<when test="treeNodeDepth eq 0">
+    					product_name as label 
+    				</when>
+    				<when test="treeNodeDepth eq 1">
+    					category1 as label 
+    				</when>
+    				<when test="treeNodeDepth eq 2">
+    					category2 as label 
+    				</when>
+    				<when test="treeNodeDepth eq 3">
+    					product_name as label 
+    				</when>
+    			</choose>  
+    		</when>
+    		<when test="xAxisLabel eq 'period'">
+    			<choose>
+    				<when test="period eq 'All'">
+    					'모든 기간' as label 
+    				</when>
+    				<when test="period eq 'Year'">
+    					YEAR(pay_date) as label 
+    				</when>
+    				<when test="period eq 'Quater'">
+    					concat(YEAR(pa.pay_date), '년 ', CEIL(MONTH(pa.pay_date) / 3), '분기') as label 
+    				</when>
+    				<when test="period eq 'Month'">
+    					concat(YEAR(pa.pay_date), '년 ', MONTH(pa.pay_date), '월') as label 
+    				</when>
+    				<when test="period eq 'Specified'">
+    					pa.pay#{periodFrom}, '~', #{periodTo}) as label  
+    				</when>
+    			</choose>
+    		</when>
+    		<when test="xAxisLabel eq 'area'">
+    			<if test="areaLength > 0 and areaLength &lt; 15">
+    				address1 as label 
+    			</if>
+    		</when>
+    	</choose> 
+		
+		FROM MEMBER me, PAY_INFO pa, PRODUCT_INFO pr
+		WHERE me.email = pa.email
+		AND pa.pay_no = pr.pay_no
+		
+		<choose>
+    		<when test="xAxisLabel eq 'product'">
+    			<choose>
+    				<when test="treeNodeDepth eq 0">
+    				
+    				</when>
+    				<when test="treeNodeDepth eq 1">
+    					AND category1 = #{treeNodeName} 
+    				</when>
+    				<when test="treeNodeDepth eq 2">
+    					AND category2 = #{treeNodeName}
+    				</when>
+    				<when test="treeNodeDepth eq 3">
+    					AND product_name = #{treeNodeName}
+    				</when>
+    			</choose>  
+    		</when>
+    		<when test="xAxisLabel eq 'period'">
+    			<choose>
+    				<when test="period eq 'All'">
+    				
+    				</when>
+    				<when test="period eq 'Year'">
+    					
+    				</when>
+    				<when test="period eq 'Quater'">
+    					
+    				</when>
+    				<when test="period eq 'Month'">
+    					
+    				</when>
+    				<when test="period eq 'Specified'">
+    					AND pa.pay_date > #{periodFrom} AND pa.pay_date &lt; #{periodTo}
+    				</when>
+    			</choose>
+    		</when>
+    		<when test="xAxisLabel eq 'area'">
+    			<if test="areaLength > 0 and areaLength &gt; 15">
+    				AND address1 IN  
+					<foreach collection="area" item="eacharea" index="index" open="(" close=")" separator=",">
+						#{eacharea}
+					</foreach>
+    			</if>
+    		</when>
+    	</choose> 
+    	)
+    	
+		/* group by */
+		
+		<trim prefix="GROUP BY " prefixOverrides="AND | OR" suffixOverrides=",">
+			<choose>
+	    		<when test="xAxisLabel eq 'product'">
+	    			<choose>
+	    				<when test="treeNodeDepth eq 0">
+	    					product_name
+	    				</when>
+	    				<when test="treeNodeDepth eq 1">
+	    					category1
+	    				</when>
+	    				<when test="treeNodeDepth eq 2">
+	    					category2
+	    				</when>
+	    				<when test="treeNodeDepth eq 3">
+	    					product_name
+	    				</when>
+	    			</choose>  
+	    		</when>
+	    		<when test="xAxisLabel eq 'period'">
+	    			<choose>
+	    				<when test="period eq 'All'">
+	    				
+	    				</when>
+	    				<when test="period eq 'Year'">
+	    					YEAR(pa.pay_date)
+	    				</when>
+	    				<when test="period eq 'Quater'">
+	    					YEAR(pa.pay_date), quater
+	    				</when>
+	    				<when test="period eq 'Month'">
+	    					year, month
+	    				</when>
+	    			</choose>
+	    		</when>
+	    		<when test="xAxisLabel eq 'area'">
+	    			<if test="areaLength > 0 and areaLength &gt; 15">
+	    				AND address1 IN  
+						<foreach collection="area" item="eacharea" index="index" open="(" close=")" separator=",">
+							#{eacharea}
+						</foreach>
+	    			</if>
+	    		</when>
+	    	</choose> 
+	    </trim>
+		
+
+		else if period
+			if all
+				
+			else if year
+				group by year
+			else if quater
+				group by year, quater
+			else if month
+				group by year, month
+			else if period
+				
+		else if area
+			group by address1
+			
+			
+			
+			
+		select product_name label from(
+			select product_name, category1, category2, Year(pa.pay_date) _year, month(pa.pay_date) _month,
+			CEIL(MONTH(pa.pay_date) / 3) quater, address1 from MEMBER me, PAY_INFO pa, PRODUCT_INFO pr
+			where me.email = pa.email
+			and pa.pay_no = pr.pay_no) a
+		group by a.product_name
     </select>
 </mapper>
 
