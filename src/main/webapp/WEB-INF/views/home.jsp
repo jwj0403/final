@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Goran | Goran is a modern responsive business and corporate theme that helps you to create a strong&#8211;yet beautiful&#8211;online presence for your business</title>
+<title>신세계에 오신걸 환영합니다.</title>
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="https://gorandemo.wordpress.com/xmlrpc.php">
 
@@ -264,7 +264,7 @@ class="attachment-edin-thumbnail-landscape size-edin-thumbnail-landscape wp-post
 			    
 			    <li id="menu-item-226" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-226"><a href="">회사소개</a></li>
                 <li id="menu-item-227" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-227"><a href="">채용정보</a></li>
-				<li id="menu-item-228" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-228"><a href="">수수료안내</a></li>
+				<li id="menu-item-228" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-228"><a href="">이용약관</a></li>
 				</ul>
 				</div>
 				</aside>				
