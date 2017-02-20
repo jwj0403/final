@@ -141,7 +141,7 @@ img.emoji {
 
 					<nav id="site-navigation" class="main-navigation" role="navigation">
 				<button class="menu-toggle">Menu</button>
-				<div class="menu-primary"><ul id="menu-main" class="clear"><li id="menu-item-131" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-106 current_page_item menu-item-131"><a href="https://gorandemo.wordpress.com/">홈</a></li>
+				<div class="menu-primary"><ul id="menu-main" class="clear"><li id="menu-item-131" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-106 current_page_item menu-item-131"><a href="http://localhost:8888/paypal/">홈</a></li>
 <li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/member/register.action">회원가입</a></li>
 <li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/member/login.action">로그인</a></li>
 <li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/notice/list.action">공지사항</a></li>
@@ -167,7 +167,7 @@ img.emoji {
 						<div class="entry-content">
 				<h2 style="color: aqua;">신세계가 구매자를 보호해 드립니다.</h2><br />
 <h5>걱정은 신세계에 맡기고 마음껏 쇼핑을 즐겨보세요.</h5><br />
-<a class="button" href="https://gorandemo.wordpress.com/">지금 가입하기</a></p>
+<a class="button" href="/paypal/member/register.action">지금 가입하기</a></p>
 							</div><!-- .entry-content -->
 					</article><!-- #post-## -->
 
