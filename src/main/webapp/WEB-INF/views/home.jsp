@@ -18,6 +18,9 @@
 	<br>
 	<h1>Home!!!!!!!!!!!!!!!</h1>
 	
+	
+	<a href="/paypal/notice/list.action" >공지리</a>
+	
 </body>
 </html>
 
