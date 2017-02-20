@@ -10,6 +10,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 		
 	<import resource="classpath:member.xml" />
+	<import resource="classpath:analyze.xml" />
 		
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		

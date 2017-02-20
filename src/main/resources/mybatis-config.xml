@@ -31,6 +31,10 @@
  	<!-- SQL, Objects's Mapping Info -->
   	<mappers>
      	<mapper resource="paypal/model/mapper/MemberMapper.xml"/>
+<<<<<<< HEAD
      	<mapper resource="paypal/model/mapper/NoticeMapper.xml"/>
+=======
+     	<mapper resource="paypal/model/mapper/AnalyzeMapper.xml"/>
+>>>>>>> branch 'HEAD' of https://github.com/jwj0403/final.git
   	</mappers>
 </configuration>

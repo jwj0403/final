@@ -1,4 +1,4 @@
-package paypal.dao.analyze;
+package paypal.model.mapper;
 
 import java.util.List;
 
@@ -6,10 +6,8 @@ import paypal.dto.analyze.AnalyzeCondition;
 import paypal.dto.analyze.AnalyzeData;
 import paypal.dto.analyze.ProductNode;
 
-public interface AnalyzeDao {
-
+public interface AnalyzeMapper {
 	List<AnalyzeData> selectAnalyzedData(AnalyzeCondition con);
 
-	ProductNode selectProductNodes();
-
+	List<ProductNode> selectProductNodes();
 }
