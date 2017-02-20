@@ -142,9 +142,9 @@ img.emoji {
 					<nav id="site-navigation" class="main-navigation" role="navigation">
 				<button class="menu-toggle">Menu</button>
 				<div class="menu-primary"><ul id="menu-main" class="clear"><li id="menu-item-131" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-106 current_page_item menu-item-131"><a href="https://gorandemo.wordpress.com/">홈</a></li>
-<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="https://gorandemo.wordpress.com/blog/">회원가입</a></li>
-<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="https://gorandemo.wordpress.com/blog/">로그인</a></li>
-<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="https://gorandemo.wordpress.com/blog/">공지사항</a></li>
+<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/member/register.action">회원가입</a></li>
+<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/member/login.action">로그인</a></li>
+<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/notice/list.action">공지사항</a></li>
 
 <li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-135"><a href="https://gorandemo.wordpress.com/page-templates/">분석현황</a>
 <ul class="sub-menu">
