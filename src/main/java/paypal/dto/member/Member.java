@@ -22,7 +22,6 @@ public class Member implements Serializable {
 	@NotEmpty
 	private String address3;
 	
-	private String shopId;
 	@NotEmpty
 	private String birth;
 	@NotEmpty
@@ -80,12 +79,6 @@ public class Member implements Serializable {
 	}
 	public void setAddress3(String address3) {
 		this.address3 = address3;
-	}
-	public String getShopId() {
-		return shopId;
-	}
-	public void setShopId(String shopId) {
-		this.shopId = shopId;
 	}
 	public String getBirth() {
 		return birth;

@@ -12,10 +12,6 @@
 	<!-- Meta-Tags -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="keywords" content="Valid Login Form Responsive, Login Form Web Template, 
-		Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, 
-		Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
-	
 	
 	<!-- //Meta-Tags -->
 	
@@ -164,16 +160,8 @@
 			var login_name  = document.getElementById("name");
 			var login_birth  = document.getElementById("birth");
 			var login_gen  = document.getElementById("gender");
-			var login_pnum  = document.getElementById("pnum");
-			var login_address = document.getElementById("address3");
-			
-			/* var login_email  = $("#email").val();
-			var login_pw  = $("#passwd").val();
-			var login_pw2  = $("#passwd_chk").val();
-			var login_name  = $("#name").val();
-			var login_birth  = $("#birth").val();
-			var login_gen  = $("#gender").val();
-			var login_pnum  = $("#pnum").val(); */
+			var login_phone  = document.getElementById("phone");
+			var login_address = document.getElementById("sample6_address");
 			
 			//이메일 입력여부 검사
 			if(login_email.value == "") {
@@ -241,19 +229,19 @@
 			 };	 
 					 
 			//전화번호 입력여부 검사
-			if(login_pnum.value == ""){ 
+			if(login_phone.value == ""){ 
 				alert("핸드폰 번호를 입력해주세요.");
 				login_phone.focus();
 				return;
 			};
 			//전화번호 정규식
-			for (var i = 0; i < login_pnum.value.length; i++) {
+			for (var i = 0; i < login_phone.value.length; i++) {
 				var regexp =  /[01](0|1|6|7|8|9)(\d{4}|\d{3})\d{4}$/g;
-				 if (!regexp.test(login_pnum.value)) {
+				 if (!regexp.test(login_phone.value)) {
 					alert("핸드폰 번호를 확인해 주세요.");
-					login_pnum.focus();
-					login_pnum.select();
-					login_pnum.value ="";
+					login_phone.focus();
+					login_phone.select();
+					login_phone.value ="";
 						return;
 				 }
 			};
@@ -352,7 +340,7 @@
 			</div>
 			
 	      	<div class="form-group w3-agile password" >
-				<input type="tel" id="pnum" name="phone" class="form-control agileinfo textbox" placeholder="핸드폰번호  ex)010-1234-5678"/>
+				<input type="tel" id="phone" name="phone" class="form-control agileinfo textbox" placeholder="핸드폰번호  ex)010-1234-5678"/>
 			</div>
 					        		        
 	        <div class="form-group w3-agile password">
