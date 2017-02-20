@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 패키지.클래스이름을 의미 -->
+<mapper namespace="paypal.model.mapper.MainMapper">
+
+
+    <insert id="insertMemberMainTransportTotDto" parameterType="paypal.dto.main.MainTransportTotDto">
+		INSERT INTO MEMBER
+		(passwd, name, phone, birth, gender, regdate, address1, address2, address3, card_type, card_no, deleted, email, card_cvc, card_valid_thru)
+		VALUES
+		('N', #{name}, #{phone}, #{birth}, #{gender}, now(), #{address1}, #{address2}, #{address3}, 'N', 'N', 'N', #{email}, 'N', 'N')
+	</insert>
+		
+	<insert id="insertPayInfoMainTransportTotDto" parameterType="paypal.dto.main.MainTransportTotDto" useGeneratedKeys="true" keyColumn="pay_no" keyProperty="pay_no">
+		INSERT INTO PAY_INFO
+		(cancel, order_no, email, client_no, shop_id)
+		VALUES
+		('S', #{orderListNo}, #{email}, '15', #{memberId})
+	</insert>
+
+	<insert id="insertProductInfoMainTransportProDto" parameterType="paypal.dto.main.MainTransportProDto">
+		INSERT INTO PRODUCT_INFO
+		(product_name, category1, category2, price, product_count, pay_no)
+		VALUES
+		(#{productName}, #{category1}, #{category2}, #{price}, #{qty}, #{pay_no})
+	</insert>
+	
+	
+	
+	
+			
+	
+	
+<!-- 	<insert id="insertMain" parameterType="paypal.dto.main.MainTransportTotDto">
+		INSERT INTO MEMBER
+		(email, passwd, shop_id, phone, birth, gender, address, card_type, card_no, card_cvc, card_exp_date, deleted)
+		VALUES
+		(#{email}, #{}, #{memberId}, #{phone}, #{birth}, #{gender}, #{address1}, #{}, #{}, #{}, #{}, #{})
+		
+		INSERT INTO PAY_INFO
+		(pay_no, pay_date, cancel, product_no, pay_divide, pay_sum, email, client_no)
+		VALUES
+		(#{orderListNo}, #{pay_date}, #{}, #{}, #{}, #{}, #{email}, #{})
+
+		INSERT INTO PRODUCT_INFO
+		(product_no, pay_no, product_name, category_a_no, category_b_no, price)
+		VALUES
+		(#{}, #{orderListNo}, #{productName}, #{category1}, #{category2}, #{price})				
+	</insert>	 -->
+		
+</mapper>
+
+
+
+
+
+
+
+
+
