@@ -20,7 +20,8 @@ public class AnalyzeService {
 		Gson gson = new Gson();
 		String result = "{";
 		result += 			"\"condition\" : " + gson.toJson(con) + ",";
-		result += 			"\"data\" : " + gson.toJson(dao.selectAnalyzedData(con));
+		result += 			"\"data\" : " + gson.toJson(dao.selectAnalyzedData(con)) + ",";
+		result += 			"\"xAxisLabel\" : " + gson.toJson(dao.selectXAxisLabel(con));
 		result += "}";
 		return result;
 	}

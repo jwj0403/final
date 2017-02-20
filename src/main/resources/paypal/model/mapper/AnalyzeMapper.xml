@@ -42,6 +42,11 @@
 		<result column="month" property="month" />
 	</resultMap>
 	
+	<!-- x축 레이블 맵 -->
+	<resultMap id="xAxisLabelMap" type="paypal.dto.analyze.XAxisLabel">
+		<result column="label" property="label" />
+	</resultMap>
+	
 	<!-- 데이터 분석, 차트 소스 데이터 -->
 	<select id="selectAnalyzedData" parameterType="paypal.dto.analyze.AnalyzeCondition"	resultMap="analizedResultMap">	
 	    SELECT sum(a.product_count) quantity
@@ -51,7 +56,7 @@
 		<if test="(ageAllClicked != null) and (ageAllClicked eq 'Not-Checked') and (ageLength > 0)">/* 연령 전체선택 */
 			, a.age
 		</if>
-		<if test="(areaAllClicked != null) and (areaAllClicked eq 'Not-Checked') and (areaLength > 0)">/* 지역 전체선택 */
+		<if test="(areaAllClicked != null and areaAllClicked eq 'Not-Checked' and areaLength > 0) or (xAxisLabel eq 'area')">/* 지역 전체선택 */
 			, a.address1 AS address
 		</if>
 		<choose>
@@ -209,7 +214,7 @@
 			<if test="(ageAllClicked != null) and (ageAllClicked eq 'Not-Checked') and (ageLength > 0)">/* 연령 전체선택 */
 				a.age,
 			</if>
-			<if test="(areaAllClicked != null) and (areaAllClicked eq 'Not-Checked') and (areaLength > 0)">/* 지역 전체선택 */
+			<if test="(areaAllClicked != null and areaAllClicked eq 'Not-Checked' and areaLength > 0) or (xAxisLabel eq 'area')">/* 지역 전체선택 */
 				a.address1,
 			</if>
 			<if test="xAxisLabel != null and (xAxisLabel eq 'product')">/* X축에 상품 정보를 나타낼 경우 */
@@ -307,13 +312,114 @@
 		WHERE category2 = #{nodeName}
 		GROUP BY product_name
     </select>
+    
+    <!-- X축 레이블 조회 -->
+    <select id="selectXAxisLabel" parameterType="paypal.dto.analyze.AnalyzeCondition" resultMap="xAxisLabelMap">
+    	SELECT label
+    	FROM (
+			SELECT 
+    	<choose>
+    		<when test="xAxisLabel eq 'product'">
+    			<choose>
+    				<when test="treeNodeDepth eq 0">
+    					product_name as label 
+    				</when>
+    				<when test="treeNodeDepth eq 1">
+    					category1 as label 
+    				</when>
+    				<when test="treeNodeDepth eq 2">
+    					category2 as label 
+    				</when>
+    				<when test="treeNodeDepth eq 3">
+    					product_name as label 
+    				</when>
+    			</choose>  
+    		</when>
+    		<when test="xAxisLabel eq 'period'">
+    			<choose>
+    				<when test="period eq 'All'">
+    					'모든 기간' as label 
+    				</when>
+    				<when test="period eq 'Year'">
+    					_year as label 
+    				</when>
+    				<when test="period eq 'Quater'">
+    					concat(_year, '년 ', quater, '분기') as label 
+    				</when>
+    				<when test="period eq 'Month'">
+    					concat(_year, '년 ', _month, '월') as label 
+    				</when>
+    				<when test="period eq 'Specified'">
+    					concat(#{periodFrom}, ' ~ ', #{periodTo}) as label  
+    				</when>
+    			</choose>
+    		</when>
+    		<when test="xAxisLabel eq 'area'">
+    			address1 as label
+    		</when>
+    	</choose> 
+		
+		FROM (
+			SELECT a.*, if (a.age_temp = '0', '1', (if (a.age_temp > 6, '6', a.age_temp))) age
+			FROM (
+				SELECT me.gender, me.address1, FLOOR((YEAR(SYSDATE()) - SUBSTR(me.birth, 1, 4)) / 10) age_temp, pr.category1, pr.category2, pr.product_name, YEAR(pa.pay_date) _year, CEIL(MONTH(pa.pay_date) / 3) quater, MONTH(pa.pay_date) _month 
+				FROM MEMBER me, PAY_INFO pa, PRODUCT_INFO pr
+				WHERE me.email = pa.email
+				AND pa.pay_no = pr.pay_no
+		
+			<if test="xAxisLabel eq 'product' or xAxisLabel eq 'period'">
+	   			<choose>
+					<when test='group eq "S"'>
+						<choose>
+							<when test="treeNodeDepth eq 0">
+								/* 아무것도 하지 않는다.*/
+							</when>
+							<when test="treeNodeDepth eq 1">
+								AND pr.category1 = #{treeNodeName}
+							</when>
+							<when test="treeNodeDepth eq 2">
+								AND pr.category2 = #{treeNodeName}
+							</when>
+							<when test="treeNodeDepth eq 3">
+								AND pr.product_name = #{treeNodeName}
+							</when>
+						</choose>
+					</when>
+					<when test='group eq "G"'>
+						<choose>
+							<when test="treeNodeDepth eq 0">
+								/* 아무것도 하지 않는다.*/
+							</when>
+							<when test="treeNodeDepth eq 1">
+								AND pr.category1 IN (SELECT category1 FROM PRODUCT_INFO GROUP BY category1)
+							</when>
+							<when test="treeNodeDepth eq 2">
+								AND pr.category2 IN (SELECT category2 FROM PRODUCT_INFO WHERE category1  IN (SELECT category1 FROM PRODUCT_INFO WHERE category2 = #{treeNodeName}) GROUP BY category2)
+							</when>
+							<when test="treeNodeDepth eq 3">
+								AND pr.product_name IN (SELECT product_name FROM PRODUCT_INFO WHERE category2  IN (SELECT category2 FROM PRODUCT_INFO WHERE product_name = #{treeNodeName} GROUP BY category2) GROUP BY product_name)
+							</when>
+						</choose>
+					</when>
+				</choose>
+			</if>
+			<if test="period eq 'Specified'">
+				AND pa.pay_date > #{periodFrom} AND pa.pay_date &lt; #{periodTo}
+			</if>
+   			<if test="areaLength > 0 and areaLength &gt; 15">
+   				AND address1 IN 
+				<foreach collection="area" item="eacharea" index="index" open="(" close=")" separator=",">
+					#{eacharea}
+				</foreach>
+   			</if>
+		    	) a
+		    ) a
+	    ) a
+    	
+		/* group by */
+		
+		<trim prefix="GROUP BY " prefixOverrides="AND | OR" suffixOverrides=",">
+			a.label
+		</trim>
+	</select>
 </mapper>
-
-
-
-
-
-
-
-
-

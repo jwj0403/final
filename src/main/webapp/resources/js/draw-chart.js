@@ -177,7 +177,7 @@ $("document").ready(function() {
 			url: "../analyze/analyze.action",
 			data: $("#conditions").serialize(),
 			success: function(data, textStatus) {
-				initBarVariables(data.condition, data.data);
+				initBarVariables(data.condition, data.data, data.xAxisLabel);
 				showBarChart();
 				timeout;
 				changed();
