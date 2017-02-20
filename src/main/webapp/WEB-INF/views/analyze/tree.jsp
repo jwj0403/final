@@ -325,6 +325,16 @@
 			}
 			// ========================================= 이상 트리차트의 함수
 			
+			// 레이블 기울기 각도
+			var rotate = 0;
+			if (xLabel.length > 10) {
+				rotate = -20;
+			} else if (xLabel.length > 20) {
+				rotate = -40;
+			} else if (xLabel.length > 30) {
+				rotate = - 60;
+			}
+			
 			// 분석된 막대그래프 보이기
 			function showBarChart() {
 				rect.transition()
@@ -340,7 +350,7 @@
 				        .tickSize(0)
 				        .tickPadding(6))
 			        .selectAll("text")
-			        .attr("transform", "rotate(0)") // -60
+			        .attr("transform", "rotate(" + rotate + ")") // -60
 			        .attr("dx", "-.8em")
 			        .attr("dy", ".25em")
 			        .style("text-anchor", "end")
@@ -353,7 +363,6 @@
 			    .call(d3.axisLeft(y)
 			        .tickSize(0)
 			        .tickPadding(6))
-			    .attr("font-size", "12px");
 				
 				d3.selectAll("input")
 				    .on("change", changed);
@@ -449,6 +458,9 @@
 						seriesData.xAxisLabel = xLabel[k];
 						seriesData.gender = temp[seriesIndex].gender;
 						seriesData.age = temp[seriesIndex].age;
+						seriesData.year = temp[seriesIndex].year;
+						seriesData.quater = temp[seriesIndex].quater;
+						seriesData.month = temp[seriesIndex].month;
 						
 						values[l++] = setValue(seriesData);
 					}
@@ -484,17 +496,17 @@
 						}
 					} else if (condition.xAxisLabel === "period") {
 						if (condition.period === "Year") {
-			  				periodName = seriesData.year;
+			  				periodName = analData[i].year;
 			  			} else if (condition.period === "Quater") {
-			  				periodName = seriesData.year + "년 " + seriesData.quater + "분기";
+			  				periodName = analData[i].year + "년 " + analData[i].quater + "분기";
 			  			} else if (condition.period === "Month") {
-			  				periodName = seriesData.year + "년 " + seriesData.month + "월";
+			  				periodName = analData[i].year + "년 " + analData[i].month + "월";
 			  			} else if (condition.period === "Specified") {
 			  				periodName = condition.periodFrom + " ~ " + condition.periodTo;
 			  			} else if (condition.period === "All") {
 			  				periodName = "전체";
 			  			}
-			  			
+						
 						if (!!analData[i] && analData[i].gender === seriesData.gender && analData[i].age == seriesData.age && periodName === seriesData.xAxisLabel) {
 							if (!!analData[i].quantity) {
 								value = analData[i].quantity;
@@ -508,7 +520,7 @@
 							break;
 						}
 					} else if (condition.xAxisLabel === "area") {
-						if (!!analData[i] && analData[i].gender === seriesData.gender && analData[i].age === seriesData.age && analData[i].address === seriesData.xAxisLabel) {
+						if (!!analData[i] && analData[i].gender === seriesData.gender && analData[i].age == seriesData.age && analData[i].address === seriesData.xAxisLabel) {
 							if (!!analData[i].quantity) {
 								value = analData[i].quantity;
 								break;

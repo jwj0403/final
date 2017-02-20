@@ -406,12 +406,19 @@
 			<if test="period eq 'Specified'">
 				AND pa.pay_date > #{periodFrom} AND pa.pay_date &lt; #{periodTo}
 			</if>
-   			<if test="areaLength > 0 and areaLength &gt; 15">
-   				AND address1 IN 
-				<foreach collection="area" item="eacharea" index="index" open="(" close=")" separator=",">
-					#{eacharea}
-				</foreach>
-   			</if>
+   			<if test="xAxisLabel != null and (xAxisLabel eq 'area')">/* X 축에 지역정보를 나타낼 경우 */
+				<choose>
+					<when test="areaAllClicked eq 'Checked' or areaLength eq 0">
+						/* 아무것도 하지 않는다.*/
+					</when>
+					<otherwise>
+						AND address1 IN
+						<foreach collection="area" item="eacharea" index="index" open="(" close=")" separator=",">
+							#{eacharea}
+						</foreach>
+					</otherwise>
+				</choose>
+			</if>
 		    	) a
 		    ) a
 	    ) a
