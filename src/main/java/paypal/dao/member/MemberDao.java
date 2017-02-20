@@ -4,22 +4,15 @@ import paypal.dto.member.Member;
 
 public interface MemberDao {
 
+	//회원 가입 정보 등록
 	void insertMember(paypal.dto.member.Member member);
-	
-//	void dropAccount(String memberId);
-
-//	List<Member> getList();
-
-	//가입시 기본 정보 등록을 위한 DB Insert
+	//Email로 회원 정보 조회
 	Member getMemberByEmail(String email);
-
+	//회원정보 수정
+	void modifyMember(Member member);
+	//회원 탈퇴
 	void dropOutAccount(String email);
-
-//	Member getMemberByIdAndPasswd(String id, String passwd);
-	
-//	Member getMemberByIdAndPasswdAndDeleted(String id, String passwd, String deleted);
-
-//	Member getMemberByIdAndEdit(String id, String passwd, String phone, String email, String postNo, String address);
-	
+	//Email과 Password로 회원 정보 조회(로그인 시 사용)
+	Member getMemberLoginData(String email, String passwd);
 
 }

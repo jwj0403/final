@@ -7,63 +7,54 @@
 <mapper namespace="paypal.model.mapper.MemberMapper">
 	
 	
-	<sql id="selectSql">
-		SELECT email, name, shop_id, phone, birth, gender, address, card_type cardType, 
-			card_no cardNo, card_cvc cardCVC, card_exp_date cardExpDate, regdate 
+	<sql id="selectMember">
+		SELECT email, name, phone, birth, gender, address1, address2, address3, regdate <!-- DATE_FORMAT(regdate,'%Y-%m%-%d')  -->
+			,card_type cardType, card_no cardNo, card_cvc cardCvc, card_valid_thru cardValidThru 
 		FROM MEMBER
 	</sql>
 
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
-			(email, passwd, name, address, phone, birth, gender, deleted, regdate)
+			(email, passwd, name, address1, address2, address3, phone, birth, gender, deleted, regdate)
 		VALUES
-			(#{email}, #{passwd}, #{name}, #{address}, #{phone}, #{birth}, #{gender}, 'N', NOW())		
+			(#{ email }, #{ passwd }, #{ name }, #{ address1 }, #{ address2 }, #{ address3 }, #{ phone }, #{ birth }, #{ gender }, 'N', NOW())		
 	</insert>
 
  	<select id="selectMemberByEmail" parameterType="String" resultType="Member">
-		<include refid="selectSql" />
-		WHERE email = #{email} and deleted='N'
+		<include refid="selectMember" />
+		WHERE email = #{ email } and deleted='N'
 	</select>
 		
-    <delete id="deleteMemberByEmail" parameterType="String">
+	<update id="updateMemberByEmail" parameterType="Member">
+		UPDATE MEMBER
+			<set>
+				<if test="passwd != null and passwd != '' 
+					and passwd != 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'">passwd = #{ passwd }, </if>
+				<if test="phone != null and phone != ''">phone = #{ phone }, </if>
+				<if test="address3 != null and address3 != ''">address3 = #{ address3 }, </if>
+				<if test="cardType != null and cardType != ''">card_type = #{ cardType }, </if>
+				<if test="cardNo != null and cardNo != ''">card_no = #{ cardNo }, </if>
+				<if test="cardCvc != null and cardCvc != ''">card_cvc =  #{ cardCvc }, </if>
+				<if test="cardValidThru != null and cardValidThru != ''">card_valid_thru = #{ cardValidThru } </if>
+			</set>
+		WHERE email = #{ email }
+	</update>
+		
+    <update id="deleteMemberByEmail" parameterType="String">
         UPDATE MEMBER 
         SET deleted = 'D'
         WHERE email = #{email}
-	</delete>
+	</update>
 	
 
-<!-- 
-	SQL-객체 매핑 정의
-	<select id="selectMembers" 
-		resultType="andromeda.dto.member.Member">
-		<include refid="selectSql" />
-		WHERE deleted = 'N' AND authority = 'u'
-	</select>	
-	
 
- 	<select id="selectMemberByIdAndPasswdAndDeleted" 
-		resultType="andromeda.dto.member.Member"		
-		parameterType="HashMap">
-		<include refid="selectSql" />
-		WHERE member_id = #{memberId} AND password = #{passwd} AND deleted = 'N'
+<!-- 로그인 관련 SQL문 -->
+
+	<select id="selectMemberLoginData" resultType="Member" parameterType="HashMap">
+		<include refid="selectMember" />
+		WHERE email = #{email} AND passwd = #{passwd} AND deleted = 'N'
 	</select>
 
-	<select id="selectMemberByIdAndPasswd" 
-		resultType="andromeda.dto.member.Member"
-		parameterType="HashMap">
-		<include refid="selectSql" />
-		WHERE member_id = #{memberId} AND password = #{passwd}
-	</select> 
-
-	<select id="selectMemberByIdAndEdit"	 
-		resultType="andromeda.dto.member.Member"
-		parameterType="HashMap">	
-	    UPDATE MEMBER 
-        SET phone = #{phone}, email = #{email},  password = #{passwd}, post_no = #{postNo}, address = #{address}
-        WHERE member_id = #{memberId}
-    </select>
-	 -->
-	
 		
 </mapper>
 

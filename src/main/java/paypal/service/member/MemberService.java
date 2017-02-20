@@ -17,9 +17,6 @@ public class MemberService {
 	public void insertMemberTx(Member member) {
 		memberDao.insertMember(member);
 	}
-//	public void dropAccount(String memberId) {
-//		memberDao.dropAccount(memberId);
-//	}
 
 	public Member getMemberByEmail(String email) {
 		
@@ -28,8 +25,19 @@ public class MemberService {
 		return member;
 	}
 
+	public void modifyMemberTx(Member member) {
+		memberDao.modifyMember(member);
+	}
+
 	public void dropOutAccount(String email) {
 		memberDao.dropOutAccount(email);
+	}
+
+	public Member getMemberLoginData(String email, String passwd) {
+
+		Member member = memberDao.getMemberLoginData(email, passwd);
+		
+		return member;
 	}
 
 }

@@ -11,6 +11,7 @@
 		
 	<import resource="classpath:member.xml" />
 	<import resource="classpath:main.xml" />
+	<import resource="classpath:analyze.xml" />
 		
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		

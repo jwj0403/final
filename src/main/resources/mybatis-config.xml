@@ -32,5 +32,6 @@
   	<mappers>
      	<mapper resource="paypal/model/mapper/MemberMapper.xml"/>
      	<mapper resource="paypal/model/mapper/MainMapper.xml"/>
+     	<mapper resource="paypal/model/mapper/AnalyzeMapper.xml"/>
   	</mappers>
 </configuration>
