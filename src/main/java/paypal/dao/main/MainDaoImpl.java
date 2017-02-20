@@ -15,10 +15,10 @@ public class MainDaoImpl implements MainDao {
 	@Qualifier("mainMapper")
 	private MainMapper mainMapper;
 	
-	@Override
-	public void insertMember(MainTransportTotDto mainTransportTotDto) {
-		mainMapper.insertMemberMainTransportTotDto(mainTransportTotDto);		
-	}	
+//	@Override
+//	public void insertMember(MainTransportTotDto mainTransportTotDto) {
+//		mainMapper.insertMemberMainTransportTotDto(mainTransportTotDto);		
+//	}	
 
 	@Override
 	public void insertPayInfo(MainTransportTotDto mainTransportTotDto) {

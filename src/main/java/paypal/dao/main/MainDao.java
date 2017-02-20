@@ -5,7 +5,7 @@ import paypal.dto.main.MainTransportTotDto;
 
 public interface MainDao {
 
-	void insertMember(MainTransportTotDto mainTransportTotDto);
+//	void insertMember(MainTransportTotDto mainTransportTotDto);
 	void insertPayInfo(MainTransportTotDto mainTransportTotDto);
 	void insertProductInfo(MainTransportProDto mainTransportProDto);
 

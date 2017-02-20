@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import paypal.dao.main.MainDao;
+import paypal.dao.member.MemberDao;
 import paypal.dto.main.MainTransportProDto;
 import paypal.dto.main.MainTransportTotDto;
+import paypal.dto.member.Member;
 
 
 @Service(value="mainService")
@@ -21,7 +23,7 @@ public class MainService {
 	
 	public void insertMainTx(MainTransportTotDto mainTransportTotDto) {
 
-	    mainDao.insertMember(mainTransportTotDto);
+//	    mainDao.insertMember(mainTransportTotDto);
 		mainDao.insertPayInfo(mainTransportTotDto);
 		
 		System.out.println("vvvvv" + mainTransportTotDto.getPay_no());

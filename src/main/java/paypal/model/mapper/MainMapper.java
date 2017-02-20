@@ -5,7 +5,7 @@ import paypal.dto.main.MainTransportTotDto;
 
 public interface MainMapper {
 
-	void insertMemberMainTransportTotDto(MainTransportTotDto mainTransportTotDto);
+//	void insertMemberMainTransportTotDto(MainTransportTotDto mainTransportTotDto);
 
 	void insertPayInfoMainTransportTotDto(MainTransportTotDto mainTransportTotDto);
 

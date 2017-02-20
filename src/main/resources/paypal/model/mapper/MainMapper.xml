@@ -6,14 +6,14 @@
 <!-- namespace는 패키지.클래스이름을 의미 -->
 <mapper namespace="paypal.model.mapper.MainMapper">
 
-
-    <insert id="insertMemberMainTransportTotDto" parameterType="paypal.dto.main.MainTransportTotDto">
+ 
+<!--     <insert id="insertMemberMainTransportTotDto" parameterType="paypal.dto.main.MainTransportTotDto">
 		INSERT INTO MEMBER
 		(passwd, name, phone, birth, gender, regdate, address1, address2, address3, card_type, card_no, deleted, email, card_cvc, card_valid_thru)
 		VALUES
 		('N', #{name}, #{phone}, #{birth}, #{gender}, now(), #{address1}, #{address2}, #{address3}, 'N', 'N', 'N', #{email}, 'N', 'N')
-	</insert>
-		
+	</insert> -->
+	
 	<insert id="insertPayInfoMainTransportTotDto" parameterType="paypal.dto.main.MainTransportTotDto" useGeneratedKeys="true" keyColumn="pay_no" keyProperty="pay_no">
 		INSERT INTO PAY_INFO
 		(cancel, order_no, email, client_no, shop_id)
