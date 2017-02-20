@@ -3,9 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="noticeDao" class="paypal.dao.member.NoticeDaoImpl" />
+    <bean id="noticeDao" class="paypal.dao.notice.NoticeDaoImpl" />
     
-    <bean id="noticeService" class="paypal.service.member.NoticeService" />
+    <bean id="noticeService" class="paypal.service.notice.NoticeService" />
  
 	<bean id="noticeMapper"
 		class="org.mybatis.spring.mapper.MapperFactoryBean">

@@ -2,7 +2,7 @@ package paypal.model.mapper;
 
 import java.util.List;
 
-import paypal.dto.member.Notice;
+import paypal.dto.notice.Notice;
 
 public interface NoticeMapper {
 	

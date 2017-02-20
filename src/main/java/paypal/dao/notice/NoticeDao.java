@@ -1,8 +1,8 @@
-package paypal.dao.member;
+package paypal.dao.notice;
 
 import java.util.List;
 
-import paypal.dto.member.Notice;
+import paypal.dto.notice.Notice;
 
 public interface NoticeDao {
 

@@ -1,4 +1,4 @@
-package paypal.controller.member;
+package paypal.controller.notice;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import paypal.dto.member.Notice;
-import paypal.service.member.NoticeService;
+import paypal.dto.notice.Notice;
+import paypal.service.notice.NoticeService;
 
 @Controller
 @RequestMapping(value = "/notice/")

@@ -1,4 +1,4 @@
-package paypal.dao.member;
+package paypal.dao.notice;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import paypal.dto.member.Notice;
+import paypal.dto.notice.Notice;
 import paypal.model.mapper.NoticeMapper;
 
 @Repository(value = "noticeDao")

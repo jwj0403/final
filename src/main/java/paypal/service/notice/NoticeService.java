@@ -1,4 +1,4 @@
-package paypal.service.member;
+package paypal.service.notice;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import paypal.dao.member.NoticeDao;
-import paypal.dto.member.Notice;
+import paypal.dao.notice.NoticeDao;
+import paypal.dto.notice.Notice;
 
 
 

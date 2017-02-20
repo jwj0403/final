@@ -1,4 +1,4 @@
-package paypal.dto.member;
+package paypal.dto.notice;
 
 import java.io.Serializable;
 import java.util.Date;
