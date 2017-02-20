@@ -16,7 +16,10 @@
 	
 	<br>
 	<br>
-	<h2><a href="member/register.action">회원가입</a></h2>
+	<h1>Home!!!!!!!!!!!!!!!</h1>
+	
+	
+	<a href="/paypal/notice/list.action" >공지리</a>
 	
 </body>
 </html>

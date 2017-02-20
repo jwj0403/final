@@ -14,6 +14,7 @@
   		<typeAlias type="java.util.List" alias="List" />
   	 	<typeAlias type="paypal.dto.member.Member" alias="Member" />
   	 	<typeAlias type="paypal.dto.main.MainTransportTotDto" alias="Main" />
+  	 	<typeAlias type="paypal.dto.notice.Notice" alias="Notice" />
   	</typeAliases>
   
   	<environments default="development">
@@ -33,5 +34,6 @@
      	<mapper resource="paypal/model/mapper/MemberMapper.xml"/>
      	<mapper resource="paypal/model/mapper/MainMapper.xml"/>
      	<mapper resource="paypal/model/mapper/AnalyzeMapper.xml"/>
+     	<mapper resource="paypal/model/mapper/NoticeMapper.xml"/>
   	</mappers>
 </configuration>

@@ -65,6 +65,7 @@
 	
 	<script type="text/javascript">
 		
+	// 재우 스크립트 공간 시작 ************************************************************************************************************************************
 	$(function(){
  		
  		//등록 버튼 눌렀을 때 유효성 검사.
@@ -76,9 +77,18 @@
 			//전송할 데이터의 형식 검사를 위해서 요소들을 변수에 담기
 			var login_pw  = document.getElementById("passwd");
 			var login_pw2  = document.getElementById("passwd_chk");
+			var login_birth  = document.getElementById("birth");
+			var login_gen  = document.getElementById("gender");
 			var login_pnum  = document.getElementById("pnum");
 			
-		 
+			//이메일 형식체크 (@,'.' 가 있아야함) 
+			 if (((login_email.value.indexOf('@')) <=0) && (login_email.value.indexOf('.')<=0)){
+				alert("이메일 형식을 확인해주세요.");
+				login_email.value = "";
+				login_email.focus();
+				return;
+			 };
+			 
 			//패스워드 유효성 검사(영문 + 숫자 6~20자리)
 			for (var i = 0; i < login_pw.value.length; i++) {
 				var regexp =  /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
@@ -101,7 +111,7 @@
 					 
 			//전화번호 정규식
 			for (var i = 0; i < login_pnum.value.length; i++) {
-				var regexp =  /[01](0|1|6|7|8|9)-(\d{4}|\d{3})-\d{4}$/g;
+				var regexp =  /[01](0|1|6|7|8|9)(\d{4}|\d{3})\d{4}$/g;
 				 if (!regexp.test(login_pnum.value)) {
 					alert("핸드폰 번호를 확인해 주세요.");
 					login_pnum.focus();
@@ -111,17 +121,17 @@
 				 }
 			};
 			
-			//AJAX로 수정 할 정보 form 보내기
+			//AJAX로 가입 정보 form 보내기
 			$.ajax({
 				type : "POST",
 				url : "modifymember.action",
-				data : $('#modify_form').serialize(),
+				data : $('#modifyForm').serialize(),
 				success:function(data){   //성공시 가져오는 데이터를 data에 저장하여 사용
 			         alert("정보가 수정 되었습니다.");
-			         location.href='mypage.action?email=' + $('#email')
+			         location.href='../'
 			     },
-			     error:function(jqXHR, textStatus, errorThrown){
-			         alert("수정 할 정보를 입력 해주세요.");
+			     error:function(jqXHR, textStatus, errorThrown){     //에러발생시 출력할 메세지
+			         alert("에러 발생가 발생했습니다. 다시 시도 해주세요.");
 			         self.close();
 			     }
 			});
@@ -136,35 +146,62 @@
 	
 </head>
 
-<body background="/paypal/resources/images/bgg.jpg">
+<body>
 
 
 <div class="container">
 	<hr>
 	<h1>회원 정보 수정</h1>
 	<hr>
-	<form id="modify_form" action="modifymember.action" method="post">
+	<form:form id="editForm" action="modifymember.action" method="post" modelAttribute="member"><!-- 상대경로표시 -->
 	
 		<div class="input-group">
 		    <span class="input-group-addon">이메일 : </span> 
-		    <input type="text" id="email" name="email" value='${ requestScope.member.email }' class="form-control" readonly="readonly"/> 
+		    <form:input type="email" id="email" name="email" path="email" class="form-control" readonly="true" /> 
 		</div>
 		
 		<div class="input-group">
 		    <span class="input-group-addon">패스워드 : </span>
-		    <input type="password" id="passwd" name="passwd" class="form-control" />
+		    <form:password id="passwd" name="passwd" path="passwd" class="form-control" />
 		</div>
 		
 		<div class="input-group">
 		    <span class="input-group-addon">패스워드 확인 : </span>
-		    <input type="password" id="passwd_chk" name="confirm" class="form-control" />
+		    <input type="password" id="password_chk" name="confirm" class="form-control" />
 		</div>    
 		
 		<div class="input-group">
-		    <span class="input-group-addon">핸드폰번호 : </span> 
-		    <input type="text" id="pnum" name="phone" class="form-control" /> 
+		    <span class="input-group-addon">전화번호 : </span> 
+		    <form:input type="tel" id="pnum" name="phone" path="phone" class="form-control" /> 
 		</div>
-	
+	<%--        
+		<div class="input-group">
+		    <span class="input-group-addon">이름 : </span> 
+		    <form:input type="text" id="name" name="name" path="name" class="form-control" readonly="true" />
+		</div>
+		    
+		<div class="input-group">
+		    <span class="input-group-addon">생년월일 : </span> 
+		    <form:input type="text" id="birth" name="birth" path="birth" class="form-control" readonly="true" /> 
+		</div>
+		    
+		
+		<div class="input-group">
+		    <span class="input-group-addon">성별 : </span> 
+		    <form:input type="hidden" id="gender" name="gender" path="gender" class="form-control" readonly="true" /> 
+		</div>
+	 --%>
+<%-- 		    
+		<div class="input-group">
+		    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span> 
+		    <form:input type="text" id="regdate" name="regdate" path="memberRegDate" class="form-control" readonly="true" /> 
+		</div> 
+		
+		
+		<input type="hidden" id="gender" name="gender" path="gender" />
+		<input type="hidden" name="authority" value="u"/>        
+		<input type="hidden" name="deleted" value="N"/>        
+		   --%>  
 		<div class="input-group">
 		    <span class="input-group-addon">상세주소 : </span> 
 		    <input type="text" name="address3" id="sample6_address" class="form-control" /> 
@@ -180,25 +217,25 @@
 		
 		<div class="input-group">
 		    <span class="input-group-addon">카드종류 : </span> 
-		    <input type="text" name="cardType" class="form-control" /> 
+		    <input type="text" name="cardType" id="sample6_address" class="form-control" /> 
 		</div>
 		<div class="input-group">
 		    <span class="input-group-addon">카드번호 : </span> 
-		    <input type="text" name="cardNo" class="form-control" /> 
+		    <input type="text" name="cardNo" id="sample6_address" class="form-control" /> 
 		</div>
 		<div class="input-group">
 		    <span class="input-group-addon">카드CVC : </span> 
-		    <input type="text" name="cardCvc" class="form-control" /> 
+		    <input type="text" name="cardCvc" id="sample6_address" class="form-control" /> 
 		</div>
 		<div class="input-group">
 		    <span class="input-group-addon">카드유효기간 : </span> 
-		    <input type="text" name="cardValidThru" class="form-control" /> 
+		    <input type="text" name="cardValidThru" id="sample6_address" class="form-control" /> 
 		</div>
 	
 		<button id="modify_button">정보수정</button>
 	
-	</form>
-	<button onclick="location.href='mypage.action?email=${ member.email}';" >취소</button>
+	</form:form>
+	<button onclick="location.href='../';" >취소</button>
 
 </div>
 

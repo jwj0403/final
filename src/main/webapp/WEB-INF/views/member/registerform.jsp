@@ -165,6 +165,7 @@
 			var login_birth  = document.getElementById("birth");
 			var login_gen  = document.getElementById("gender");
 			var login_pnum  = document.getElementById("pnum");
+			var login_address = document.getElementById("address3");
 			
 			/* var login_email  = $("#email").val();
 			var login_pw  = $("#passwd").val();
@@ -228,7 +229,8 @@
 			 };	
 			//생년월일 정규식
 			for (var i = 0; i < login_birth.value.length; i++) {
-				 var regexp = /[12][0-9]{3}[01][0-9][0-3][0-9]/;
+				 //var regexp = /[19|20][0-9]{2}-[01|02|03|04|05|06|07|08|09|10|11|12]-[01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31]/;
+				 var regexp = /[12][0-9]{3}-[01][0-9]-[0-3][0-9]/;
 				 if (!regexp.test(login_birth.value)) {
 					alert("생년월일을 확인 해주세요.");
 					login_birth.focus();
@@ -254,6 +256,13 @@
 					login_pnum.value ="";
 						return;
 				 }
+			};
+			
+			//주소 입력여부 검사
+			if(login_address.value == ""){ 
+				alert("주소를 입력해주세요.");
+				login_address.focus();
+				return;
 			};
 
 			//AJAX로 가입 정보 form 보내기
@@ -335,7 +344,7 @@
 				<input type="text" id="name" name="name" class="form-control agileinfo textbox" placeholder="이름"/>
 			</div>
 			<div class="form-group w3-agile password">
-		    	<input type="text" id="birth" name="birth" class="form-control agileinfo textbox" placeholder="생년월일(숫자로만 입력 해주세요. ex)19700101 )"/>
+		    	<input type="text" id="birth" name="birth" class="form-control agileinfo textbox" placeholder="생년월일 ex)1970-01-01 )"/>
 	        </div>
 	        <div class="form-group w3-agile password" style="text-align:left;">
 				<a style="color: white;">남성 </a><input type="radio" id="m" name="gender" value="M"  checked="checked"/>
@@ -343,14 +352,14 @@
 			</div>
 			
 	      	<div class="form-group w3-agile password" >
-				<input type="tel" id="pnum" name="phone" class="form-control agileinfo textbox" placeholder="핸드폰번호  ( - 를 빼고 숫자로만 입력 해주세요)"/>
+				<input type="tel" id="pnum" name="phone" class="form-control agileinfo textbox" placeholder="핸드폰번호  ex)010-1234-5678"/>
 			</div>
 					        		        
 	        <div class="form-group w3-agile password">
 	        	<input type="text" name="postNo" id="sample6_postcode" class="form-control agileinfo textbox" placeholder="우편번호" />      
 	        </div>
 	        <div class="form-group w3-agile password">		                    
-				<input type="text" name="address" id="sample6_address" class="form-control agileinfo textbox" placeholder="상세주소"/>
+				<input type="text" name="address3" id="sample6_address" class="form-control agileinfo textbox" placeholder="상세주소"/>
 			</div>
 			<div class="form-group w3-agile password"  style="text-align:left;">
 				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="text-align:left;"/>
@@ -361,7 +370,7 @@
 				<button type="submit" id="register_button" class="btn btn-default btn-osx w3-agileits btn-lg"><i class="fa agileinfo fa-arrow-circle-right"></i></button>				
 				<!-- <input type="submit" id="register_button" value="회원가입"> -->					
 			</div>
-			<!-- <div class="alert agileits-w3layouts alert-success hidden" role="alert">등록완료!</div> -->
+			<div class="alert agileits-w3layouts alert-success hidden" role="alert">등록완료!</div>
 		</form>
 	</div>
 
