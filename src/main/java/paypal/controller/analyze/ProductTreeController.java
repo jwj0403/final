@@ -41,8 +41,8 @@ public class ProductTreeController {
 	private void writeProductNodesJson(HttpSession session) {
 		ServletContext app = session.getServletContext();
 		String productNodesJson = service.getProductNodes();
-		//String path = "C:\\Users\\stu\\git\\final3\\src\\main\\webapp\\resources\\data\\"; // 서버에 올린 뒤에 서버경로로 바꿔 줄 것.
-		String path = "D:\\final\\final\\src\\main\\webapp\\resources\\data\\";
+		String path = "C:\\Users\\stu\\git\\final3\\src\\main\\webapp\\resources\\data\\"; // 서버에 올린 뒤에 서버경로로 바꿔 줄 것.
+		//String path = "D:\\final\\final\\src\\main\\webapp\\resources\\data\\";
 		String fileName = "p.json";
 		File file = new File(path, fileName);
 		

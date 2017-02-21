@@ -113,11 +113,13 @@
 				<input type="button" name="view-tree" value="트리보기">
 			</div>
 		</div>
+		<br><br>
 		
 		<script type="text/javascript">
 			// x축 레이블
 			var xAxisLabel;
 			var areaAxisLabel = ["서울", "부산", "대구", "광주", "대전", "울산", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남"];
+			var xLabel = [];
 			//==========
 			
 			var w;
@@ -154,6 +156,9 @@
 			var y;			
 			var series;
 			var xn;
+			var genders = [];
+			var ages = [];
+			var seriesIndex = 0;
 			
 			// 막대그래프의 사각형
 			var rect;
@@ -161,6 +166,7 @@
 			// 분석데이터
 			var condition;
 			var analData;
+			var values = [];
 			// ==================== 이상 막대 그래프의 변수와 초기화
 			function showTree() { d3.json("/paypal/resources/data/p.json", function(json) {
 					json.x0 = 800;
@@ -319,6 +325,16 @@
 			}
 			// ========================================= 이상 트리차트의 함수
 			
+			// 레이블 기울기 각도
+			var rotate = 0;
+			if (xLabel.length > 10) {
+				rotate = -20;
+			} else if (xLabel.length > 20) {
+				rotate = -40;
+			} else if (xLabel.length > 30) {
+				rotate = - 60;
+			}
+			
 			// 분석된 막대그래프 보이기
 			function showBarChart() {
 				rect.transition()
@@ -334,7 +350,7 @@
 				        .tickSize(0)
 				        .tickPadding(6))
 			        .selectAll("text")
-			        .attr("transform", "rotate(-60)")
+			        .attr("transform", "rotate(" + rotate + ")") // -60
 			        .attr("dx", "-.8em")
 			        .attr("dy", ".25em")
 			        .style("text-anchor", "end")
@@ -347,7 +363,6 @@
 			    .call(d3.axisLeft(y)
 			        .tickSize(0)
 			        .tickPadding(6))
-			    .attr("font-size", "12px");
 				
 				d3.selectAll("input")
 				    .on("change", changed);
@@ -382,6 +397,7 @@
 			    	.transition()
 			      	.attr("y", function(d) { return y(d[1] - d[0]); })
 			      	.attr("height", function(d) { return y(0) - y(d[1] - d[0]); });
+			  	seriesIndex = 0;
 			}
 			
 			function transitionStacked() {
@@ -395,35 +411,130 @@
 			    	.transition()
 			      	.attr("x", function(d, i) { return xn(i); })
 			      	.attr("width", x.bandwidth());
+			  	seriesIndex = 0;
 			}
 			
 			// 분석 데이터 구성
-			function bumps(m) {
-				var values = [], i, j, w, x, y, z;
-			
-			  	// Initialize with uniform random values in [0.1, 0.2).
-			  	for (i = 0; i < m; ++i) {
-			    	values[i] = 0.1 + 0.1 * Math.random();
-			    	// console.log(i + ": " + values[i]);
-			  	}
-			
-			  	// Add five random bumps.
-			  	for (j = 0; j < 5; ++j) {
-			    	x = 1 / (0.1 + Math.random());
-			    	y = 2 * Math.random() - 0.5;
-			    	z = 10 / (0.1 + Math.random());
-			    	for (i = 0; i < m; i++) {
-			      		w = (i / m - y) * z;
-			      		values[i] += x * Math.exp(-w * w);
-			    	}
-			  	}
-			
-			  	// Ensure all values are positive.
-				for (i = 0; i < m; ++i) {
-					values[i] = Math.max(0, values[i]);
+			function bumps(m) {				
+				if (condition.gender === "C") {
+					genders[0] = "M";
+					genders[1] = "W";
+				} else if (condition.gender === "M") {
+					genders[0] = "M";
+				} else if (condition.gender === "W") {
+					genders[0] = "W";
+				} else {
+					genders[0] = "All";
 				}
+				
+				if (condition.age[0] === "All") {
+					ages[0] = 0;
+				} else {
+					ages = condition.age;
+				}
+				
+				var values = [], i, j, w, x, y, z;
+				var period = "";
+				var prodName = "";
+				var periodName = "";
+			
+				var xValue = "";
+				var l = 0;
+				var t = 0;
 			  	
+				// Initialize with analized data
+				var temp = [];
+				for (var i = 0; i < genders.length; i++) {
+					for (var j = 0; j < ages.length; j++) {
+						temp[t] = {};
+						temp[t].gender = genders[i];
+						temp[t++].age = ages[j];
+					}
+				}
+				
+				for ( ; seriesIndex < temp.length; ) {
+					for (var k = 0; k < xLabel.length; k++) {
+						var seriesData = {};
+						seriesData.xAxisLabel = xLabel[k];
+						seriesData.gender = temp[seriesIndex].gender;
+						seriesData.age = temp[seriesIndex].age;
+						seriesData.year = temp[seriesIndex].year;
+						seriesData.quater = temp[seriesIndex].quater;
+						seriesData.month = temp[seriesIndex].month;
+						
+						values[l++] = setValue(seriesData);
+					}
+					seriesIndex++;
+					break;
+				}
+
 				return values;
+			}
+			
+			function setValue(seriesData) {
+				for (var i = 0; i < analData.length; i++) {
+					if (condition.xAxisLabel === "product") {
+						if (condition.treeNodeDepth === "0" || condition.treeNodeDepth === "3") {
+		  					prodName = analData[i].productName;
+		  				} else if (condition.treeNodeDepth === "1") {
+		  					prodName = analData[i].category1;
+		  				} else if (condition.treeNodeDepth === "2") {
+		  					prodName = analData[i].category2;
+		  				}
+						
+						if (!!analData[i] && analData[i].gender === seriesData.gender && analData[i].age == seriesData.age && prodName === seriesData.xAxisLabel) {
+							if (!!analData[i].quantity) {
+								value = analData[i].quantity;
+								break;
+							} else {
+								value = 0;
+								break;
+							}
+						} else {
+							value = 0;
+							break;
+						}
+					} else if (condition.xAxisLabel === "period") {
+						if (condition.period === "Year") {
+			  				periodName = analData[i].year;
+			  			} else if (condition.period === "Quater") {
+			  				periodName = analData[i].year + "년 " + analData[i].quater + "분기";
+			  			} else if (condition.period === "Month") {
+			  				periodName = analData[i].year + "년 " + analData[i].month + "월";
+			  			} else if (condition.period === "Specified") {
+			  				periodName = condition.periodFrom + " ~ " + condition.periodTo;
+			  			} else if (condition.period === "All") {
+			  				periodName = "전체";
+			  			}
+						
+						if (!!analData[i] && analData[i].gender === seriesData.gender && analData[i].age == seriesData.age && periodName === seriesData.xAxisLabel) {
+							if (!!analData[i].quantity) {
+								value = analData[i].quantity;
+								break;
+							} else {
+								value = 0;
+								break;
+							}
+						} else {
+							value = 0;
+							break;
+						}
+					} else if (condition.xAxisLabel === "area") {
+						if (!!analData[i] && analData[i].gender === seriesData.gender && analData[i].age == seriesData.age && analData[i].address === seriesData.xAxisLabel) {
+							if (!!analData[i].quantity) {
+								value = analData[i].quantity;
+								break;
+							} else {
+								value = 0;
+								break;
+							}
+						} else {
+							value = 0;
+							break;
+						}
+					}
+				}
+  				return value;
 			}
 			// ==================================== 이상 막대그래프의 함수
 			/**
@@ -462,60 +573,39 @@
 							.attr("transform", "translate(200, 0)");
 			 }
 			 
-			 function initBarVariables(_condition, _data) {
+			 function initBarVariables(_condition, _data, _xAxisLabel) {
 				// 분석조건과 데이터 대입
 				condition = _condition;
 				analData = _data;
+				xAxisLabel = _xAxisLabel;
 				//=====
 				var genderLength = 1;
+				var ageLength = 0;
 				if (condition.gender === "C") {
 					genderLength = 2;
 				}
+				if (condition.age[0] === "All") {
+					ageLength = 1;
+				} else {
+					ageLength = condition.age.length;
+				}
 				
-				n = genderLength * condition.age.length, // 성별 * 연령
-			    m = 17; // The number of values per series.
+				n = genderLength * ageLength, // 성별 * 연령
+			    m = xAxisLabel.length; // The number of values per series.
 			    
-			   	if (condition.xAxisLabel === "product") {
-			   		if (condition.treeNodeDepth === 0) {
-			   			
-			   		} else {
-			   			if (condition.group === "S") {
-							genderLength = 1;
-						} else if (condition.group === "G") {
-							
-						}
-			   		}
-			   	} else if (condition.xAxisLabel === "period") {
-			   		if (condition.period === "All") {
-			   			m = 1;
-			   		} else if (condition.period === "Year") {
-			   			
-			   		} else if (condition.period === "Quater") {
-			   			
-			   		} else if (condition.period === "Month") {
-			   			
-			   		} else if (condition.period === "Specified") {
-			   			m = 1;
-			   		}
-			   	} else if (condition.xAxisLabel === "area") {
-			   		m = condition.areaLength;
-			   		if (m > 14) {
-			   			m = 14;
-			   		}
-			   	}
-			    
-			    	
 		    	// 색상
 				color = d3.scaleOrdinal()
 				    .domain(d3.range(n))
 				    .range(d3.schemeCategory20c);
 			    
-			    var xLabel = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q'];
+			    for (var i = 0; i < xAxisLabel.length; i++) {
+			    	xLabel[i] = xAxisLabel[i].label;
+			    }
 				xz = d3.range(xLabel.length),
 				yz = d3.range(n).map(function() { return bumps(m); }),
 				y01z = d3.stack().keys(d3.range(n))(d3.transpose(yz)),
 				yMax = d3.max(yz, function(y) { return d3.max(y); }),
-				    y1Max = d3.max(y01z, function(y) { return d3.max(y, function(d) { return d[1]; }); });
+				y1Max = d3.max(y01z, function(y) { return d3.max(y, function(d) { return d[1]; }); });
 				
 				svg = d3.select("svg"),
 				margin = {top: 40, right: 10, bottom: 20, left: 30},
@@ -527,7 +617,7 @@
 				    .domain(xLabel)
 				    .rangeRound([0, width])
 				    // bar group 간격
-				    .padding(0.3);
+				    .padding(0.08);
 				
 				xn = d3.scaleBand()
 			    .domain(xz)
