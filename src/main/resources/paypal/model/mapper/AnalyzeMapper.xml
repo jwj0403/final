@@ -50,7 +50,7 @@
 	<!-- 데이터 분석, 차트 소스 데이터 -->
 	<select id="selectAnalyzedData" parameterType="paypal.dto.analyze.AnalyzeCondition"	resultMap="analizedResultMap">	
 	    SELECT sum(a.product_count) quantity
-	    <if test='(gender != null) and (gender eq "C")'>/* 남녀비교 */
+	    <if test='gender != "All"'>/* 남녀비교 */
 			, a.gender
 		</if>
 		<if test="(ageAllClicked != null) and (ageAllClicked eq 'Not-Checked') and (ageLength > 0)">/* 연령 전체선택 */
@@ -61,7 +61,14 @@
 		</if>
 		<choose>
 			<when test="treeNodeDepth eq 0">
-				, a.product_name AS productName
+				<choose>
+					<when test="xAxisLabel eq 'area' or xAxisLabel eq 'period'">
+						/*, a.product_name AS productName*/
+					</when>
+					<otherwise>
+						, a.product_name AS productName
+					</otherwise>
+				</choose>
 			</when>
 			<when test="treeNodeDepth eq 1">
 				, a.category1
@@ -81,7 +88,7 @@
 				, a._year AS year, a.quater
 			</when>
 			<when test="period eq 'Month'">
-				, a._month AS month
+				, a._year AS year, a._month AS month
 			</when>
 		</choose>
 
@@ -105,7 +112,10 @@
 		<choose>
 			<when test="ageAllClicked != null and (ageAllClicked eq 'Checked')">/* 연령 전체선택 */
 				/* 아무것도 하지 않는다.*/
-			</when>					
+			</when>
+			<when test="ageLength eq 0">
+				/* 아무것도 하지 않는다. */
+			</when>			
 			<otherwise>
 				AND FLOOR((YEAR(SYSDATE()) - SUBSTR(BIRTH, 1, 4)) / 10) IN
 				<foreach collection="age" item="eachage" index="index" open="(" close=")" separator=",">
@@ -153,7 +163,7 @@
 		<choose>
 			<when test="xAxisLabel != null and (xAxisLabel eq 'product')">/* X축에 상품정보를 나타낼 경우 */
 			/* 성별, 연령, 지역, 기간 */
-				<if test="areaLength > 0 and areaLength != 15">
+				<if test="areaLength > 0 and areaLength != 17">
 					AND me.address1 IN
 					<foreach collection="area" item="eacharea" index="index" open="(" close=")" separator=",">/* b group by */
 						#{eacharea}
@@ -171,21 +181,21 @@
 					<when test="period != null and (period eq 'Month')">					
 					</when>					
 					<when test="period != null and (period eq 'Specified')">
-						AND pa.pay_date > #{periodFrom} AND pa.pay_date &lt; #{periodTo}
+						AND pa.pay_date > STR_TO_DATE(#{periodFrom}, '%Y, %m, %d') AND pa.pay_date &lt; STR_TO_DATE(#{periodTo}, '%Y, %m, %d')
 					</when>
 				</choose>
 			</when>
 				
 			<when test="xAxisLabel != null and (xAxisLabel eq 'period')">/* X축에 기간 정보를 나타낼 경우 */
 			/* 성별, 연령, 지역, 기간 */
-				<if test="areaLength > 0 and areaLength != 15">
+				<if test="areaLength > 0 and areaLength != 17">
 					AND me.address1 IN
 					<foreach collection="area" item="eacharea" index="index" open="(" close=")" separator=",">/* b group by */
 						#{eacharea}
 					</foreach>
 				</if>
 				<if test="period eq 'Specified'">
-					AND pa.pay_date > #{periodFrom} AND pa.pay_date &lt; #{periodTo}
+					AND pa.pay_date > STR_TO_DATE(#{periodFrom}, '%Y, %m, %d') AND pa.pay_date &lt; STR_TO_DATE(#{periodTo}, '%Y, %m, %d')
 				</if>					
 			</when>
 			
@@ -208,16 +218,16 @@
 			) a
 				
 		<trim prefix="GROUP BY " prefixOverrides="AND | OR" suffixOverrides=",">
-			<if test='gender != null and (gender eq "C")'>/* 남녀비교 */
+			<if test='gender != "All"'>
 				a.gender,
 			</if>
-			<if test="(ageAllClicked != null) and (ageAllClicked eq 'Not-Checked') and (ageLength > 0)">/* 연령 전체선택 */
+			<if test="(ageAllClicked != null) and (ageAllClicked eq 'Not-Checked') and (ageLength > 0)">
 				a.age,
 			</if>
-			<if test="(areaAllClicked != null and areaAllClicked eq 'Not-Checked' and areaLength > 0) or (xAxisLabel eq 'area')">/* 지역 전체선택 */
+			<if test="(areaAllClicked != null and areaAllClicked eq 'Not-Checked' and areaLength > 0) or (xAxisLabel eq 'area')">
 				a.address1,
 			</if>
-			<if test="xAxisLabel != null and (xAxisLabel eq 'product')">/* X축에 상품 정보를 나타낼 경우 */
+			<if test="xAxisLabel != null and (xAxisLabel eq 'product')">
 				<choose>
 					<when test="treeNodeDepth eq 0">
 						a.product_name,
@@ -233,21 +243,7 @@
 					</when>
 				</choose>
 			</if>
-			<if test="xAxisLabel != null and (xAxisLabel eq 'period')">/* X축에 기간 정보를 나타낼 경우 */
-				<choose>
-					<when test="treeNodeDepth eq 0">
-						a.product_name,
-					</when>
-					<when test="treeNodeDepth eq 1">
-						a.category1,
-					</when>
-					<when test="treeNodeDepth eq 2">
-						a.category2,
-					</when>
-					<when test="treeNodeDepth eq 3">
-						a.product_name,
-					</when>
-				</choose>
+			<if test="xAxisLabel != null and (xAxisLabel eq 'period')">
 				<choose>
 					<when test="period eq 'Year'">
 						a._year,
@@ -256,14 +252,14 @@
 						a._year, a.quater,
 					</when>
 					<when test="period eq 'Month'">
-						a._month,
+						a._year, a._month,
 					</when>
 				</choose>
 			</if>
-			<if test="xAxisLabel != null and (xAxisLabel eq 'area')">/* X 축에 지역정보를 나타낼 경우 */
+			<if test="xAxisLabel != null and (xAxisLabel eq 'area')">
 				<choose>
 					<when test="treeNodeDepth eq 0">
-						a.product_name,
+						
 					</when>
 					<when test="treeNodeDepth eq 1">
 						a.category1,
@@ -366,7 +362,7 @@
 				FROM MEMBER me, PAY_INFO pa, PRODUCT_INFO pr
 				WHERE me.email = pa.email
 				AND pa.pay_no = pr.pay_no
-		
+				
 			<if test="xAxisLabel eq 'product' or xAxisLabel eq 'period'">
 	   			<choose>
 					<when test='group eq "S"'>
@@ -404,7 +400,7 @@
 				</choose>
 			</if>
 			<if test="period eq 'Specified'">
-				AND pa.pay_date > #{periodFrom} AND pa.pay_date &lt; #{periodTo}
+				AND pa.pay_date > STR_TO_DATE(#{periodFrom}, '%Y, %m, %d') AND pa.pay_date &lt; STR_TO_DATE(#{periodTo}, '%Y, %m, %d')
 			</if>
    			<if test="xAxisLabel != null and (xAxisLabel eq 'area')">/* X 축에 지역정보를 나타낼 경우 */
 				<choose>

@@ -112,6 +112,10 @@ $("document").ready(function() {
 				alert("검색시작일자가 검색종료일자보다 클 수 없습니다.");
 				return;
 			}
+			if ($("input[name='age']:checked").length === 0) {
+				alert("조회하고자 하는 연령조건을 선택하십시오.");
+				$("#age-a")[0].click();
+			}
 		}
 		
 		// 데이터 전송
