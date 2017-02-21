@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import paypal.dto.analyze.AnalyzeCondition;
 import paypal.dto.analyze.AnalyzeData;
 import paypal.dto.analyze.ProductNode;
+import paypal.dto.analyze.XAxisLabel;
 import paypal.model.mapper.AnalyzeMapper;
 
 @Repository(value = "analyzeDao")
@@ -40,5 +41,10 @@ public class AnalyzeDaoImpl implements AnalyzeDao {
 			node.setChildren(children);
 		}
 		return node;
+	}
+
+	@Override
+	public List<XAxisLabel> selectXAxisLabel(AnalyzeCondition con) {
+		return mapper.selectXAxisLabel(con);
 	}
 }
