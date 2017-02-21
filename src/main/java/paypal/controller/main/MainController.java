@@ -49,11 +49,17 @@ public class MainController {
 	@CrossOrigin
 	@RequestMapping(value="/returnorderinfo.action", method={RequestMethod.GET,RequestMethod.POST}, produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String postConnectedFromAnyMall(String key, String email, String passwd) {		
+	public String postConnectedFromAnyMall(String key) {		
 
 		System.out.println("키값 들어옴 : " + key);		 
 
-		Member member = memberService.getMemberLoginData(email, passwd);		
+		MainTransportTotDto recievedKey = gson.fromJson(key, MainTransportTotDto.class);
+
+		System.out.println(recievedKey.getPaypalEmail());
+		System.out.println(recievedKey.getPaypalPasswd());
+		
+
+		Member member = memberService.getMemberLoginData(recievedKey.getPaypalEmail(), recievedKey.getPaypalPasswd());		
 		
 		String result = "error";
 		if(member != null) {

@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>신세계에 오신걸 환영합니다.</title>
+<title>타제인에 오신걸 환영합니다.</title>
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="https://gorandemo.wordpress.com/xmlrpc.php">
 
@@ -135,7 +135,7 @@ img.emoji {
 		</div><!-- .site-top-content -->
 		
 		<div class="site-branding">
-						<h1 class="site-title"><a href="" rel="home">S H I N S E G A E</a></h1>
+						<h1 class="site-title"><a href="" rel="home">T A R J A N E</a></h1>
 			<h2 class="site-description">Goran is a modern responsive business and corporate theme that helps you to create a strong&#8211;yet beautiful&#8211;online presence for your business</h2>
 		</div><!-- .site-branding -->
 
@@ -168,8 +168,8 @@ img.emoji {
 	<div class="hero with-featured-image">
 		<article id="post-106" class="post-106 page type-page status-publish has-post-thumbnail hentry">
 			<div class="entry-content">
-				<h2 style="color: aqua;">신세계가 구매자를 보호해 드립니다.</h2><br />
-				<h5>걱정은 신세계에 맡기고 마음껏 쇼핑을 즐겨보세요.</h5><br />
+				<h2 style="color: aqua;">타제인이 구매자를 보호해 드립니다.</h2><br />
+				<h5>걱정은 타제인에 맡기고 마음껏 쇼핑을 즐겨보세요.</h5><br />
 				<a class="button" href="/paypal/member/register.action">지금 가입하기</a></p>
 			</div><!-- .entry-content -->
 		</article><!-- #post-## -->
@@ -262,7 +262,7 @@ img.emoji {
 			
 		<div class="footer-widget">
 		    <aside id="text-3" class="widget widget_text"><h2 class="widget-title">누구에게나 언제든지 결제가 가능합니다.</h2>
-		    <div class="textwidget"><p>이메일 주소 하나로 더욱 쉽고 안전하게 물건이나 서비스 금액을 결제하세요. 모든 지역의 판매자들이 신세계를 이용한 결제를 환영할 것입니다.</p>
+		    <div class="textwidget"><p>이메일 주소 하나로 더욱 쉽고 안전하게 물건이나 서비스 금액을 결제하세요. 모든 지역의 판매자들이 타제인을 이용한 결제를 환영할 것입니다.</p>
 		</div>
 		
 		    </aside>				
@@ -287,7 +287,7 @@ img.emoji {
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 				<div class="site-info">
-        			<a>소비자에게 알림: 신세계™ 이용약관을 주의 깊게 읽어보시기 바랍니다.</a>
+        			<a>소비자에게 알림: 타제인™ 이용약관을 주의 깊게 읽어보시기 바랍니다.</a>
 				</div><!-- .site-info -->
 	</footer><!-- #colophon -->
 	</div><!-- #page -->

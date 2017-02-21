@@ -10,6 +10,8 @@ public class MainTransportTotDto {
 	//key value(보낼 주소 : /mall/product/requestorderinfo.action)
 	private String memberId; //전달할 멤버아이디
 	private int orderListNo; //전달할 주문번호
+	private String paypalEmail;
+	private String paypalPasswd;
 	private String category1; //분석후 보낼 카테고리1
 	private String category2; //분석후 보낼 카테고리2
 	private String clientNo;
@@ -187,6 +189,22 @@ public class MainTransportTotDto {
 
 	public void setOrderListInfo(List<MainTransportProDto> orderListInfo) {
 		this.orderListInfo = orderListInfo;
+	}
+
+	public String getPaypalEmail() {
+		return paypalEmail;
+	}
+
+	public void setPaypalEmail(String paypalEmail) {
+		this.paypalEmail = paypalEmail;
+	}
+
+	public String getPaypalPasswd() {
+		return paypalPasswd;
+	}
+
+	public void setPaypalPasswd(String paypalPasswd) {
+		this.paypalPasswd = paypalPasswd;
 	}
 
 
