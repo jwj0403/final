@@ -70,6 +70,7 @@
 					<input id="age-ax4" type="checkbox" name="age" value="4">&nbsp;40대&nbsp;&nbsp;&nbsp;
 					<input id="age-ax5" type="checkbox" name="age" value="5">&nbsp;50대&nbsp;&nbsp;&nbsp;
 					<input id="age-ax6" type="checkbox" name="age" value="6">&nbsp;60대 이상&nbsp;&nbsp;&nbsp;
+					<input id="age-compare-all" type="checkbox" name="ageCompare" value="Compare">&nbsp;전 연령 비교&nbsp;
 					<br><br>
 				</div>
 				<div id="area-div">
@@ -80,16 +81,17 @@
 					<input id="area-ar4" type="checkbox" name="area" value="강원">&nbsp;강원&nbsp;&nbsp;&nbsp;
 					<input id="area-ar5" type="checkbox" name="area" value="충북">&nbsp;충북&nbsp;&nbsp;&nbsp;
 					<input id="area-ar6" type="checkbox" name="area" value="충남">&nbsp;충남&nbsp;&nbsp;&nbsp;
-					<input id="area-ar7" type="checkbox" name="area" value="대전">&nbsp;대전&nbsp;&nbsp;&nbsp;
-					<input id="area-ar8" type="checkbox" name="area" value="전북">&nbsp;전북&nbsp;&nbsp;&nbsp;
-					<input id="area-ar9" type="checkbox" name="area" value="전남">&nbsp;전남&nbsp;&nbsp;&nbsp;
-					<input id="area-ar10" type="checkbox" name="area" value="광주">&nbsp;광주&nbsp;&nbsp;&nbsp;
-					<input id="area-ar11" type="checkbox" name="area" value="경북">&nbsp;경북&nbsp;&nbsp;&nbsp;
-					<input id="area-ar12" type="checkbox" name="area" value="대구">&nbsp;대구&nbsp;&nbsp;&nbsp;
-					<input id="area-ar13" type="checkbox" name="area" value="경남">&nbsp;경남&nbsp;&nbsp;&nbsp;
-					<input id="area-ar14" type="checkbox" name="area" value="부산">&nbsp;부산&nbsp;&nbsp;&nbsp;
-					<input id="area-ar15" type="checkbox" name="area" value="울산">&nbsp;울산&nbsp;&nbsp;&nbsp;
-					<input id="area-ar16" type="checkbox" name="area" value="제주">&nbsp;제주&nbsp;&nbsp;&nbsp;
+					<input id="area-ar7" type="checkbox" name="area" value="세종">&nbsp;세종&nbsp;&nbsp;&nbsp;
+					<input id="area-ar8" type="checkbox" name="area" value="대전">&nbsp;대전&nbsp;&nbsp;&nbsp;
+					<input id="area-ar9" type="checkbox" name="area" value="전북">&nbsp;전북&nbsp;&nbsp;&nbsp;
+					<input id="area-ar10" type="checkbox" name="area" value="전남">&nbsp;전남&nbsp;&nbsp;&nbsp;
+					<input id="area-ar11" type="checkbox" name="area" value="광주">&nbsp;광주&nbsp;&nbsp;&nbsp;
+					<input id="area-ar12" type="checkbox" name="area" value="경북">&nbsp;경북&nbsp;&nbsp;&nbsp;
+					<input id="area-ar13" type="checkbox" name="area" value="대구">&nbsp;대구&nbsp;&nbsp;&nbsp;
+					<input id="area-ar14" type="checkbox" name="area" value="경남">&nbsp;경남&nbsp;&nbsp;&nbsp;
+					<input id="area-ar15" type="checkbox" name="area" value="부산">&nbsp;부산&nbsp;&nbsp;&nbsp;
+					<input id="area-ar16" type="checkbox" name="area" value="울산">&nbsp;울산&nbsp;&nbsp;&nbsp;
+					<input id="area-ar17" type="checkbox" name="area" value="제주">&nbsp;제주&nbsp;&nbsp;&nbsp;
 					<br><br>
 				</div>
 				<div id="period-div">
@@ -423,8 +425,10 @@
 				}
 				
 				if (!!condition.age) {
-					if (condition.age[0] === "All") {
-						ages[0] = 0;
+					if (condition.ageCompare === "Compare") {
+						ages = ["1", "2", "3", "4", "5", "6"];
+					} else if (condition.age[0] === "All") {
+						ages[0] = "0";
 					} else {
 						ages = condition.age;
 					}
@@ -470,11 +474,6 @@
 					seriesIndex++;
 					break;
 				}
-				
-				/* alert("x : " + values.length);
-				for(var i = 0; i < values.length; i++) {
-					alert("y : " + values[i]);
-				} */
 
 				return values;
 			}
@@ -482,49 +481,42 @@
 			function setProductValue(seriesData) {
 				var value = 0;
 				for (var i = 0; i < analData.length; i++) {
-					if (condition.xAxisLabel === "product") {
-						if (condition.treeNodeDepth === "0" || condition.treeNodeDepth === "3") {
-		  					prodName = analData[i].productName;
-		  				} else if (condition.treeNodeDepth === "1") {
-		  					prodName = analData[i].category1;
-		  				} else if (condition.treeNodeDepth === "2") {
-		  					prodName = analData[i].category2;
-		  				}
-						
-						if (!!analData[i] && !!analData[i].gender && analData[i].gender === seriesData.gender && analData[i].age == seriesData.age && prodName === seriesData.xAxisLabel) { // 데이터, 성별, 연령, 지역 데이터가 모두 있는 경우
-							if (!!analData[i].quantity) {
-								value = eval(analData[i].quantity);
-								break;
-							} else {
-								value = 0;
-								break;
-							}
-						} else if (!!analData[i] && !!analData[i].gender && analData[i].gender !== seriesData.gender && analData[i].age == seriesData.age && prodName === seriesData.xAxisLabel) { // 성별이 다른 경우
-							value = 0;
+					if (condition.treeNodeDepth === "0" || condition.treeNodeDepth === "3") {
+	  					prodName = analData[i].productName;
+	  				} else if (condition.treeNodeDepth === "1") {
+	  					prodName = analData[i].category1;
+	  				} else if (condition.treeNodeDepth === "2") {
+	  					prodName = analData[i].category2;
+	  				}
+					
+					if (!!analData[i] && !!analData[i].gender && analData[i].gender === seriesData.gender && analData[i].age == seriesData.age && prodName === seriesData.xAxisLabel) { // 데이터, 성별, 연령, 지역 데이터가 모두 있는 경우
+						if (!!analData[i].quantity) {
+							value = eval(analData[i].quantity);
 							break;
-						} else if (!!analData[i] && analData[i].age == seriesData.age && prodName === seriesData.xAxisLabel) { // 성별 데이터가 없는 경우, 연령이 같은 경우
-							if (!!analData[i].quantity) {
-								value = eval(analData[i].quantity);
-								break;
-							} else {
-								value = 0;
-								break;
-							}
-						} else if (!!analData[i] && analData[i].age != seriesData.age && prodName === seriesData.xAxisLabel) { // 연령이 다른 경우
-							value = 0;
-							break;
-						} else if (!!analData[i] && !!analData[i].gender && analData[i].gender === seriesData.gender && prodName === seriesData.xAxisLabel) { // 연령 데이터가 없는 경우
-							if (!!analData[i].quantity) {
-								value = eval(analData[i].quantity);
-								break;
-							} else {
-								value = 0;
-								break;
-							}
 						} else {
-							value = 0;
 							continue;
 						}
+					} else if (!!analData[i] && !!analData[i].gender && analData[i].gender !== seriesData.gender && analData[i].age == seriesData.age && prodName === seriesData.xAxisLabel) { // 성별이 다른 경우
+						continue;
+					} else if (!!analData[i] && analData[i].age == seriesData.age && prodName === seriesData.xAxisLabel) { // 성별 데이터가 없는 경우, 연령이 같은 경우
+						if (!!analData[i].quantity) {
+							value = eval(analData[i].quantity);
+							break;
+						} else {
+							continue;
+						}
+					} else if (!!analData[i] && analData[i].age != seriesData.age && prodName === seriesData.xAxisLabel) { // 연령이 다른 경우
+						continue;
+					} else if (!!analData[i] && !!analData[i].gender && analData[i].gender === seriesData.gender && prodName === seriesData.xAxisLabel) { // 연령 데이터가 없는 경우
+						if (!!analData[i].quantity) {
+							value = eval(analData[i].quantity);
+							break;
+						} else {
+							continue;
+						}
+					} else {
+						value = 0;
+						continue;
 					}
 				}
 				
@@ -537,45 +529,38 @@
 			function setPeriodValue(seriesData) {
 				var value = 0;
 				for (var i = 0; i < analData.length; i++) {
-				 	if (condition.xAxisLabel === "period") {
-						if (condition.period === "Year") {
-			  				periodName = analData[i].year;
-			  			} else if (condition.period === "Quater") {
-			  				periodName = analData[i].year + "년 " + analData[i].quater + "분기";
-			  			} else if (condition.period === "Month") {
-			  				periodName = analData[i].year + "년 " + analData[i].month + "월";
-			  			} else if (condition.period === "Specified") {
-			  				periodName = condition.periodFrom + " ~ " + condition.periodTo;
-			  			} else if (condition.period === "All") {
-			  				periodName = "전체";
-			  			}
-						
-						if (!!analData[i] && !!analData[i].gender && analData[i].gender === seriesData.gender && analData[i].age == seriesData.age && periodName === seriesData.xAxisLabel) { // 데이터, 성별, 연령, 지역 데이터가 모두 있는 경우
-							if (!!analData[i].quantity) {
-								value = eval(analData[i].quantity);
-								break;
-							} else {
-								value = 0;
-								break;
-							}
-						} else if (!!analData[i] && !!analData[i].gender && analData[i].gender !== seriesData.gender && analData[i].age == seriesData.age && periodName === seriesData.xAxisLabel) { // 데이터, 성별, 연령, 지역 데이터가 모두 있는 경우
-							value = 0;
+					if (condition.period === "Year") {
+		  				periodName = analData[i].year;
+		  			} else if (condition.period === "Quater") {
+		  				periodName = analData[i].year + "년 " + analData[i].quater + "분기";
+		  			} else if (condition.period === "Month") {
+		  				periodName = analData[i].year + "년 " + analData[i].month + "월";
+		  			} else if (condition.period === "Specified") {
+		  				periodName = condition.periodFrom + " ~ " + condition.periodTo;
+		  			} else if (condition.period === "All") {
+		  				periodName = "전체";
+		  			}
+					
+					if (!!analData[i] && !!analData[i].gender && analData[i].gender === seriesData.gender && analData[i].age == seriesData.age && periodName === seriesData.xAxisLabel) { // 데이터, 성별, 연령, 지역 데이터가 모두 있는 경우
+						if (!!analData[i].quantity) {
+							value = eval(analData[i].quantity);
 							break;
-						} else if (!!analData[i] && analData[i].age != seriesData.age && periodName === seriesData.xAxisLabel) { // 성별 데이터가 없는 경우
-							value = 0;
-							break;
-						} else if (!!analData[i] && !!analData[i].gender && analData[i].gender === seriesData.gender && periodName === seriesData.xAxisLabel) { // 연령 데이터가 없는 경우
-							if (!!analData[i].quantity) {
-								value = eval(analData[i].quantity);
-								break;
-							} else {
-								value = 0;
-								break;
-							}
 						} else {
-							value = 0;
 							continue;
 						}
+					} else if (!!analData[i] && !!analData[i].gender && analData[i].gender !== seriesData.gender && analData[i].age == seriesData.age && periodName === seriesData.xAxisLabel) { // 데이터, 성별, 연령, 지역 데이터가 모두 있는 경우
+						continue;
+					} else if (!!analData[i] && analData[i].age != seriesData.age && periodName === seriesData.xAxisLabel) { // 성별 데이터가 없는 경우
+						continue;
+					} else if (!!analData[i] && !!analData[i].gender && analData[i].gender === seriesData.gender && periodName === seriesData.xAxisLabel) { // 연령 데이터가 없는 경우
+						if (!!analData[i].quantity) {
+							value = eval(analData[i].quantity);
+							break;
+						} else {
+							continue;
+						}
+					} else {
+						continue;
 					}
 				}
 				
@@ -588,41 +573,33 @@
 			function setAreaValue(seriesData) {
 				var value = 0;
 				for (var i = 0 ; i < analData.length; i++) {
-				 	if (condition.xAxisLabel === "area") {
-						if (!!analData[i] && !!analData[i].gender && analData[i].gender === seriesData.gender && analData[i].age == seriesData.age && analData[i].address === seriesData.xAxisLabel) { // 데이터, 성별, 연령, 지역 데이터가 모두 있는 경우
-							if (!!analData[i].quantity) {
-								value = eval(analData[i].quantity);
-								break;
-							} else {
-								value = 0;
-								break;
-							}
-						} else if (!!analData[i] && !!analData[i].gender && analData[i].gender !== seriesData.gender && analData[i].age == seriesData.age && analData[i].address === seriesData.xAxisLabel) { // 데이터, 성별, 연령, 지역 데이터가 모두 있는 경우
-							value = 0;
+					if (!!analData[i] && !!analData[i].gender && analData[i].gender === seriesData.gender && analData[i].age == seriesData.age && analData[i].address === seriesData.xAxisLabel) { // 데이터, 성별, 연령, 지역 데이터가 모두 있는 경우
+						if (!!analData[i].quantity) {
+							value = eval(analData[i].quantity);
 							break;
-						} else if (!!analData[i] && analData[i].age == seriesData.age && analData[i].address === seriesData.xAxisLabel) { // 성별 데이터가 없는 경우
-							if (!!analData[i].quantity) {
-								value = eval(analData[i].quantity);
-								break;
-							} else {
-								value = 0;
-								break;
-							}
-						} else if (!!analData[i] && analData[i].age != seriesData.age && analData[i].address === seriesData.xAxisLabel) { // 성별 데이터가 없는 경우
-							value = 0;
-							break;
-						} else if (!!analData[i] && !!analData[i].gender && analData[i].gender === seriesData.gender && analData[i].address === seriesData.xAxisLabel) { // 연령 데이터가 없는 경우
-							if (!!analData[i].quantity) {
-								value = eval(analData[i].quantity);
-								break;
-							} else {
-								value = 0;
-								break;
-							}
 						} else {
-							value = 0;
 							continue;
 						}
+					} else if (!!analData[i] && !!analData[i].gender && analData[i].gender !== seriesData.gender && analData[i].age == seriesData.age && analData[i].address === seriesData.xAxisLabel) { // 데이터, 성별, 연령, 지역 데이터가 모두 있는 경우
+						continue;
+					} else if (!!analData[i] && analData[i].age == seriesData.age && analData[i].address === seriesData.xAxisLabel) { // 성별 데이터가 없는 경우
+						if (!!analData[i].quantity) {
+							value = eval(analData[i].quantity);
+							break;
+						} else {
+							continue;
+						}
+					} else if (!!analData[i] && analData[i].age != seriesData.age && analData[i].address === seriesData.xAxisLabel) { // 성별 데이터가 없는 경우
+						continue;
+					} else if (!!analData[i] && !!analData[i].gender && analData[i].gender === seriesData.gender && analData[i].address === seriesData.xAxisLabel) { // 연령 데이터가 없는 경우
+						if (!!analData[i].quantity) {
+							value = eval(analData[i].quantity);
+							break;
+						} else {
+							continue;
+						}
+					} else {
+						continue;
 					}
 				}
 				
@@ -671,6 +648,7 @@
 			 function initBarVariables(_condition, _data, _xAxisLabel) {
 				// 분석조건과 데이터 대입
 				condition = _condition;
+				analData = null;
 				analData = _data;
 				xAxisLabel = _xAxisLabel;
 				//=====
@@ -681,7 +659,9 @@
 					genderLength = 2;
 				}
 				if (!!condition.age) {
-					if (condition.age[0] === "All") {
+					if (condition.ageCompare === "Compare") {
+						ageLength = 6;
+					} else if (condition.age[0] === "All") {
 						ageLength = 1;
 					} else {
 						ageLength = condition.age.length;

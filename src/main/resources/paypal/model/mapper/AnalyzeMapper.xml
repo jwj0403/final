@@ -50,10 +50,10 @@
 	<!-- 데이터 분석, 차트 소스 데이터 -->
 	<select id="selectAnalyzedData" parameterType="paypal.dto.analyze.AnalyzeCondition"	resultMap="analizedResultMap">	
 	    SELECT sum(a.product_count) quantity
-	    <if test='gender != "All"'>/* 남녀비교 */
+	    <if test="gender != 'All'">/* 남녀비교 */
 			, a.gender
 		</if>
-		<if test="(ageAllClicked != null) and (ageAllClicked eq 'Not-Checked') and (ageLength > 0)">/* 연령 전체선택 */
+		<if test="ageCompare eq 'Compare' or (ageAllClicked eq 'Not-Checked' and ageLength > 0)">/* 연령 전체선택 */
 			, a.age
 		</if>
 		<if test="(areaAllClicked != null and areaAllClicked eq 'Not-Checked' and areaLength > 0) or (xAxisLabel eq 'area')">/* 지역 전체선택 */
@@ -101,26 +101,38 @@
 				AND pa.pay_no = pr.pay_no
 		
 		/* 성별 조건 공통 */
-		<if test='gender != null and (gender eq "M")'>/* 남자 */
-			AND me.gender = 'M'
-		</if>
-		<if test='gender != null and (gender eq "W")'>/* 여자 */
-			AND me.gender = 'W'
-		</if>
+		<choose>
+			<when test='gender eq "M"'>/* 남자 */
+				AND me.gender = 'M'
+			</when>
+			<when test='gender eq "W"'>/* 여자 */
+				AND me.gender = 'W'
+			</when>
+		</choose>
 		
 		/* 연령 조건 공통 */
 		<choose>
-			<when test="ageAllClicked != null and (ageAllClicked eq 'Checked')">/* 연령 전체선택 */
-				/* 아무것도 하지 않는다.*/
-			</when>
-			<when test="ageLength eq 0">
-				/* 아무것도 하지 않는다. */
-			</when>			
-			<otherwise>
-				AND FLOOR((YEAR(SYSDATE()) - SUBSTR(BIRTH, 1, 4)) / 10) IN
+			<when test="ageCompare eq 'Compare'">
+				AND FLOOR((YEAR(SYSDATE()) - SUBSTR(BIRTH, 1, 4)) / 10) IN 
 				<foreach collection="age" item="eachage" index="index" open="(" close=")" separator=",">
 					#{eachage}
 				</foreach>
+			</when>
+			<otherwise>
+				<choose>
+					<when test="ageAllClicked eq 'Checked'">/* 연령 전체선택 */
+						/* 아무것도 하지 않는다.*/
+					</when>
+					<when test="ageLength eq 0">
+						/* 아무것도 하지 않는다. */
+					</when>			
+					<otherwise>
+						AND FLOOR((YEAR(SYSDATE()) - SUBSTR(BIRTH, 1, 4)) / 10) IN 
+						<foreach collection="age" item="eachage" index="index" open="(" close=")" separator=",">
+							#{eachage}
+						</foreach>
+					</otherwise>
+				</choose>
 			</otherwise>
 		</choose>
 		
@@ -163,7 +175,7 @@
 		<choose>
 			<when test="xAxisLabel != null and (xAxisLabel eq 'product')">/* X축에 상품정보를 나타낼 경우 */
 			/* 성별, 연령, 지역, 기간 */
-				<if test="areaLength > 0 and areaLength != 17">
+				<if test="areaLength > 0 and areaLength != 18">
 					AND me.address1 IN
 					<foreach collection="area" item="eacharea" index="index" open="(" close=")" separator=",">/* b group by */
 						#{eacharea}
@@ -188,7 +200,7 @@
 				
 			<when test="xAxisLabel != null and (xAxisLabel eq 'period')">/* X축에 기간 정보를 나타낼 경우 */
 			/* 성별, 연령, 지역, 기간 */
-				<if test="areaLength > 0 and areaLength != 17">
+				<if test="areaLength > 0 and areaLength != 18">
 					AND me.address1 IN
 					<foreach collection="area" item="eacharea" index="index" open="(" close=")" separator=",">/* b group by */
 						#{eacharea}
@@ -221,8 +233,8 @@
 			<if test='gender != "All"'>
 				a.gender,
 			</if>
-			<if test="(ageAllClicked != null) and (ageAllClicked eq 'Not-Checked') and (ageLength > 0)">
-				a.age,
+			<if test="ageCompare eq 'Compare' or (ageAllClicked eq 'Not-Checked' and ageLength > 0)">/* 연령 전체선택 */
+				a.age, 
 			</if>
 			<if test="(areaAllClicked != null and areaAllClicked eq 'Not-Checked' and areaLength > 0) or (xAxisLabel eq 'area')">
 				a.address1,

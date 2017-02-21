@@ -19,10 +19,19 @@ $("document").ready(function() {
 		$(this).on("click", function() {
 			if ($("#age-ax1").prop("checked") && $("#age-ax2").prop("checked") && $("#age-ax3").prop("checked") && $("#age-ax4").prop("checked") && $("#age-ax5").prop("checked") && $("#age-ax6").prop("checked")) {
 				$("#age-a").prop("checked", true);
+				$("#age-compare-all").prop("checked", true);
 			} else {
 				$("#age-a").prop("checked", false);
+				$("#age-compare-all").prop("checked", false);
 			}
 		});
+	});
+	
+	// 전 연령 전체 비교
+	$("#age-compare-all").on("click", function() {
+		if ($(this).prop("checked")) {
+			$("input[name='age']").prop("checked", true);
+		}
 	});
 	
 	// 지역

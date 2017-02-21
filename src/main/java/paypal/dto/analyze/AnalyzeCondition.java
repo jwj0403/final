@@ -4,6 +4,7 @@ public class AnalyzeCondition {
 	private String group;
 	private String gender;
 	private String[] age;
+	private String ageCompare;
 	private int ageLength;
 	private String[] area;
 	private int areaLength;
@@ -34,6 +35,12 @@ public class AnalyzeCondition {
 	public void setAge(String[] age) {
 		this.ageLength = age.length;
 		this.age = age;
+	}
+	public String getAgeCompare() {
+		return ageCompare;
+	}
+	public void setAgeCompare(String ageCompare) {
+		this.ageCompare = ageCompare;
 	}
 	public String[] getArea() {
 		return area;
