@@ -125,8 +125,8 @@ img.emoji {
 			</style>
 		</head>
 
-<body class="home page page-id-106 page-template page-template-page-templates page-template-front-page page-template-page-templatesfront-page-php mp6 customizer-styles-applied hero-image has-quinary has-custom-background has-footer-navigation navigation-default no-sidebar-full highlander-enabled highlander-light demo-site">
-<div id="page" class="hfeed site">
+	<body class="home page page-id-106 page-template page-template-page-templates page-template-front-page page-template-page-templatesfront-page-php mp6 customizer-styles-applied hero-image has-quinary has-custom-background has-footer-navigation navigation-default no-sidebar-full highlander-enabled highlander-light demo-site">
+	<div id="page" class="hfeed site">
 	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
 
 	<header id="masthead" class="site-header" role="banner">
@@ -139,80 +139,75 @@ img.emoji {
 			<h2 class="site-description">Goran is a modern responsive business and corporate theme that helps you to create a strong&#8211;yet beautiful&#8211;online presence for your business</h2>
 		</div><!-- .site-branding -->
 
-					<nav id="site-navigation" class="main-navigation" role="navigation">
+			<nav id="site-navigation" class="main-navigation" role="navigation">
 				<button class="menu-toggle">Menu</button>
-				<div class="menu-primary"><ul id="menu-main" class="clear"><li id="menu-item-131" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-106 current_page_item menu-item-131"><a href="http://localhost:8888/paypal/">홈</a></li>
-<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/member/register.action">회원가입</a></li>
-<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/member/login.action">로그인</a></li>
-<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/notice/list.action">공지사항</a></li>
-
-<li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-135"><a href="https://gorandemo.wordpress.com/page-templates/">분석현황</a>
-<ul class="sub-menu">
-	<li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><a href="https://gorandemo.wordpress.com/page-templates/default-page/">Default Page</a></li>
-	<li id="menu-item-136" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-136"><a href="https://gorandemo.wordpress.com/page-templates/alternate-sidebar-page/">Alternate Sidebar Page</a></li>
-	<li id="menu-item-137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137"><a href="https://gorandemo.wordpress.com/page-templates/full-width-page/">Full Width Page</a></li>
-	<li id="menu-item-138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-138"><a href="https://gorandemo.wordpress.com/page-templates/grid-page/">Grid Page</a></li>
-</ul>
-</li>
-</ul></div>			</nav><!-- #site-navigation -->
+				<div class="menu-primary">
+					<ul id="menu-main" class="clear">
+						<li id="menu-item-131" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-106 current_page_item menu-item-131"><a href="http://localhost:8888/paypal/">홈</a></li>
+						<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/member/register.action">회원가입</a></li>
+						<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/member/login.action">로그인</a></li>
+						<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/notice/list.action">공지사항</a></li>
+		
+						<li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-135"><a href="https://gorandemo.wordpress.com/page-templates/">분석현황</a>
+				    <ul class="sub-menu">
+						<li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><a href="https://gorandemo.wordpress.com/page-templates/default-page/">Default Page</a></li>
+						<li id="menu-item-136" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-136"><a href="https://gorandemo.wordpress.com/page-templates/alternate-sidebar-page/">Alternate Sidebar Page</a></li>
+						<li id="menu-item-137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137"><a href="https://gorandemo.wordpress.com/page-templates/full-width-page/">Full Width Page</a></li>
+						<li id="menu-item-138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-138"><a href="https://gorandemo.wordpress.com/page-templates/grid-page/">Grid Page</a></li>
+					</ul>
+						</li>
+					</ul>
+				</div>			
+			</nav><!-- #site-navigation -->
 			</header><!-- #masthead -->
 
 	<div id="content" class="site-content">
 
 	
 		
-<div class="hero with-featured-image">
-	
+	<div class="hero with-featured-image">
 		<article id="post-106" class="post-106 page type-page status-publish has-post-thumbnail hentry">
-						<div class="entry-content">
+			<div class="entry-content">
 				<h2 style="color: aqua;">신세계가 구매자를 보호해 드립니다.</h2><br />
-<h5>걱정은 신세계에 맡기고 마음껏 쇼핑을 즐겨보세요.</h5><br />
-<a class="button" href="/paypal/member/register.action">지금 가입하기</a></p>
-							</div><!-- .entry-content -->
-					</article><!-- #post-## -->
-
+				<h5>걱정은 신세계에 맡기고 마음껏 쇼핑을 즐겨보세요.</h5><br />
+				<a class="button" href="/paypal/member/register.action">지금 가입하기</a></p>
+			</div><!-- .entry-content -->
+		</article><!-- #post-## -->
 	</div><!-- .hero -->
-
-
-	
-	
 
 	<div id="quaternary" class="featured-page-area">
 		<div class="featured-page-wrapper clear">
 
-												<div class="featured-page">
-
-						
+	    <div class="featured-page">
 						
 							
-<article id="post-117" class="post-117 page type-page status-publish has-post-thumbnail hentry">
+	<article id="post-117" class="post-117 page type-page status-publish has-post-thumbnail hentry">
 	
 	<a class="post-thumbnail">
-		<img width="314" height="228" src="https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=314&amp;h=228&amp;crop=1" class="attachment-edin-thumbnail-landscape size-edin-thumbnail-landscape wp-post-image" alt="goran-grid-page" srcset="https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=314&amp;h=228&amp;crop=1 314w, https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=628&amp;h=456&amp;crop=1 628w, https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=150&amp;h=109&amp;crop=1 150w, https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=300&amp;h=218&amp;crop=1 300w" sizes="(max-width: 314px) 100vw, 314px" data-attachment-id="372" data-permalink="https://gorandemo.wordpress.com/page-templates/grid-page/goran-grid-page/" data-orig-file="https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg" data-orig-size="1920,1271" data-comments-opened="0" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="goran-grid-page" data-image-description="" data-medium-file="https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=300" data-large-file="https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=1024" />	</a>
+		<img width="314" height="228" src="https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=314&amp;h=228&amp;crop=1" class="attachment-edin-thumbnail-landscape size-edin-thumbnail-landscape wp-post-image" alt="goran-grid-page" srcset="https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=314&amp;h=228&amp;crop=1 314w, https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=628&amp;h=456&amp;crop=1 628w, https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=150&amp;h=109&amp;crop=1 150w, https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=300&amp;h=218&amp;crop=1 300w" sizes="(max-width: 314px) 100vw, 314px" data-attachment-id="372" data-permalink="https://gorandemo.wordpress.com/page-templates/grid-page/goran-grid-page/" data-orig-file="https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg" data-orig-size="1920,1271" data-comments-opened="0" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="goran-grid-page" data-image-description="" data-medium-file="https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=300" data-large-file="https://gorandemo.files.wordpress.com/2014/08/goran-grid-page.jpg?w=1024" />
+	</a>
 
-
-	<header class="entry-header"><h1 class="entry-title"><a href="https://gorandemo.wordpress.com/page-templates/grid-page/" rel="bookmark">Anymall</a></h1></header>
+	<header class="entry-header">
+		<h1 class="entry-title">
+			<a href="https://gorandemo.wordpress.com/page-templates/grid-page/" rel="bookmark">Anymall</a>
+		</h1>
+	</header>
+	
 	<div class="entry-summary">
 		<p>인터넷 쇼핑몰, 오픈마켓, 의류, 유아용품, 전자제품, 티켓, 도서음반 등 판매</p>
-		<p><a class="more-link" href="" rel="bookmark">
+		<p><a class="more-link" href="http://192.168.13.16:8888/mall/" rel="bookmark">
 			쇼핑하기 <span class="screen-reader-text">Anymall</span>		</a></p>
 	</div><!-- .entry-summary -->
 
 	</article><!-- #post-## -->
 
-											</div><!-- .featured-page -->
-																<div class="featured-page">
-
-						
-						
+	</div><!-- .featured-page -->
+	<div class="featured-page">
 							
-<article id="post-120" class="post-120 page type-page status-publish has-post-thumbnail hentry">
+	<article id="post-120" class="post-120 page type-page status-publish has-post-thumbnail hentry">
 	
 	<a class="post-thumbnail">
 		<img width="314" height="228" src="https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=314&amp;h=228&amp;crop=1" class="attachment-edin-thumbnail-landscape size-edin-thumbnail-landscape wp-post-image" alt="goran-full-width-page" srcset="https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=314&amp;h=228&amp;crop=1 314w, https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=628&amp;h=456&amp;crop=1 628w, https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=150&amp;h=109&amp;crop=1 150w, https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=300&amp;h=218&amp;crop=1 300w" sizes="(max-width: 314px) 100vw, 314px" data-attachment-id="373" data-permalink="https://gorandemo.wordpress.com/page-templates/full-width-page/goran-full-width-page/" data-orig-file="https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg" data-orig-size="1920,1271" data-comments-opened="0" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="goran-full-width-page" data-image-description="" data-medium-file="https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=300" data-large-file="https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=1024" />	</a>
-<!--         <img width="314" height="228" src="/paypal/resources/images/sh.jpg" class="attachment-edin-thumbnail-landscape size-edin-thumbnail-landscape wp-post-image" alt="goran-full-width-page" />	</a>
-class="attachment-edin-thumbnail-landscape size-edin-thumbnail-landscape wp-post-image" alt="goran-full-width-page" srcset="https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=314&amp;h=228&amp;crop=1 314w, https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=628&amp;h=456&amp;crop=1 628w, https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=150&amp;h=109&amp;crop=1 150w, https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=300&amp;h=218&amp;crop=1 300w" sizes="(max-width: 314px) 100vw, 314px" data-attachment-id="373" data-permalink="https://gorandemo.wordpress.com/page-templates/full-width-page/goran-full-width-page/" data-orig-file="https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg" data-orig-size="1920,1271" data-comments-opened="0" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="goran-full-width-page" data-image-description="" data-medium-file="https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=300" data-large-file="https://gorandemo.files.wordpress.com/2014/08/goran-full-width-page.jpg?w=1024"        
- -->
 	<header class="entry-header"><h1 class="entry-title"><a href="" rel="bookmark">F-MARKET</a></h1></header>
 	<div class="entry-summary">
 		<p>백화점, 브랜드샵, 마트까지 쇼핑을 다담다. 오픈마켓, 의류, 생활용품, 가전, 매일 할인</p>
@@ -222,13 +217,11 @@ class="attachment-edin-thumbnail-landscape size-edin-thumbnail-landscape wp-post
 
 	</article><!-- #post-## -->
 
-											</div><!-- .featured-page -->
-																<div class="featured-page">
-
-						
+	</div><!-- .featured-page -->
+	<div class="featured-page">
 						
 							
-<article id="post-122" class="post-122 page type-page status-publish has-post-thumbnail hentry">
+	<article id="post-122" class="post-122 page type-page status-publish has-post-thumbnail hentry">
 	
 	<a class="post-thumbnail">
 		<img width="314" height="228" src="https://gorandemo.files.wordpress.com/2014/08/goran-alternate-sidebar-page.jpg?w=314&amp;h=228&amp;crop=1" class="attachment-edin-thumbnail-landscape size-edin-thumbnail-landscape wp-post-image" alt="goran-alternate-sidebar-page" srcset="https://gorandemo.files.wordpress.com/2014/08/goran-alternate-sidebar-page.jpg?w=314&amp;h=228&amp;crop=1 314w, https://gorandemo.files.wordpress.com/2014/08/goran-alternate-sidebar-page.jpg?w=628&amp;h=456&amp;crop=1 628w, https://gorandemo.files.wordpress.com/2014/08/goran-alternate-sidebar-page.jpg?w=150&amp;h=109&amp;crop=1 150w, https://gorandemo.files.wordpress.com/2014/08/goran-alternate-sidebar-page.jpg?w=300&amp;h=218&amp;crop=1 300w" sizes="(max-width: 314px) 100vw, 314px" data-attachment-id="374" data-permalink="https://gorandemo.wordpress.com/page-templates/alternate-sidebar-page/goran-alternate-sidebar-page/" data-orig-file="https://gorandemo.files.wordpress.com/2014/08/goran-alternate-sidebar-page.jpg" data-orig-size="1920,1271" data-comments-opened="0" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="goran-alternate-sidebar-page" data-image-description="" data-medium-file="https://gorandemo.files.wordpress.com/2014/08/goran-alternate-sidebar-page.jpg?w=300" data-large-file="https://gorandemo.files.wordpress.com/2014/08/goran-alternate-sidebar-page.jpg?w=1024" />	</a>
@@ -243,13 +236,10 @@ class="attachment-edin-thumbnail-landscape size-edin-thumbnail-landscape wp-post
 
 	</article><!-- #post-## -->
 
-											</div><!-- .featured-page -->
+		</div><!-- .featured-page -->
 							
 		</div><!-- .featured-page-wrapper -->
 	</div><!-- #quaternary -->
-
-
-
 
 
 
@@ -279,12 +269,18 @@ class="attachment-edin-thumbnail-landscape size-edin-thumbnail-landscape wp-post
 		    </div><!-- .footer-widget -->
 			
 			<div class="footer-widget">
-			<aside id="nav_menu-2" class="widget widget_nav_menu"><h2 class="widget-title">Follow Us</h2><div class="menu-social-container"><ul id="menu-social" class="menu"><li id="menu-item-111" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-111"><a href="http://facebook.com">Facebook</a></li>
-<li id="menu-item-112" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-112"><a href="http://twitter.com">Twitter</a></li>
-<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115"><a href="http://plus.google.com">Google Plus</a></li>
-<li id="menu-item-113" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-113"><a href="http://pinterest.com">Pinterest</a></li>
-<li id="menu-item-114" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-114"><a href="http://dribbble.com">Dribbble</a></li>
-</ul></div></aside>				</div><!-- .footer-widget -->
+			<aside id="nav_menu-2" class="widget widget_nav_menu"><h2 class="widget-title">Follow Us</h2>
+			<div class="menu-social-container">
+				<ul id="menu-social" class="menu">
+					<li id="menu-item-111" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-111"><a href="http://facebook.com">Facebook</a></li>
+					<li id="menu-item-112" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-112"><a href="http://twitter.com">Twitter</a></li>
+					<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115"><a href="http://plus.google.com">Google Plus</a></li>
+					<li id="menu-item-113" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-113"><a href="http://pinterest.com">Pinterest</a></li>
+					<li id="menu-item-114" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-114"><a href="http://dribbble.com">Dribbble</a></li>
+				</ul>
+			</div>
+			</aside>				
+			</div><!-- .footer-widget -->
 	    </div><!-- .footer-widget-wrapper -->
 	</div><!-- #tertiary -->
 
@@ -294,16 +290,16 @@ class="attachment-edin-thumbnail-landscape size-edin-thumbnail-landscape wp-post
         			<a>소비자에게 알림: 신세계™ 이용약관을 주의 깊게 읽어보시기 바랍니다.</a>
 				</div><!-- .site-info -->
 	</footer><!-- #colophon -->
-</div><!-- #page -->
+	</div><!-- #page -->
 
-<!--  -->
-<script type='text/javascript' src='//0.gravatar.com/js/gprofiles.js?ver=201708y'></script>
-<script type='text/javascript'>
-/* <![CDATA[ */
-var WPGroHo = {"my_hash":""};
-/* ]]> */
-</script>
-<script type='text/javascript' src='https://s1.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1380573781h'></script>
+
+	<script type='text/javascript' src='//0.gravatar.com/js/gprofiles.js?ver=201708y'></script>
+	<script type='text/javascript'>
+	/* <![CDATA[ */
+	var WPGroHo = {"my_hash":""};
+	/* ]]> */
+	</script>
+	<script type='text/javascript' src='https://s1.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1380573781h'></script>
 
 	<script>
 		//initialize and attach hovercards to all gravatars
@@ -330,45 +326,47 @@ var WPGroHo = {"my_hash":""};
 
 		<div id="demosite-activate-wrap" class="demosite-activate">
             
-<!-- 			<header class="demosite-header">
+			<!-- 			
+            <header class="demosite-header">
 				<p class="demosite-tagline">지금 회원 가입하세요.</p>
 				<a class="demosite-activate-trigger" href="https://wordpress.com/start/with-theme?theme=goran&#038;ref=demo-blog">가입하기</a>
-			</header> -->
+			</header> 
+			-->
 			
-			<div id="demosite-activate">
+		<div id="demosite-activate">
 
-							</div><!-- #demosite-activate -->
+		</div><!-- #demosite-activate -->
 		</div><!-- #demosite-activate-wrap -->
 	<script type='text/javascript' src='https://s2.wp.com/_static/??-eJyNjt0OgjAMRl/IWRESvTE+S2EFCls394M+vpMLQzQx3n1pz3dauHvVOUkkCaYImhbuyD/2U9zBZmWz8iYPLBEMzxThlinTiKINhU84jWQL4nMLpFle3jizV4ZlVr3rclQ9f53YtAYXcK0JLjxgYif/0Gv48Tlqy6JaDGAxJgolKbdQCKyL6j0rhqu9VM3p0NRNdT5OT7VabBU='></script>
-<script type="text/javascript">
-// <![CDATA[
-(function() {
-try{
-  if ( window.external &&'msIsSiteMode' in window.external) {
-    if (window.external.msIsSiteMode()) {
-      var jl = document.createElement('script');
-      jl.type='text/javascript';
-      jl.async=true;
-      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(jl, s);
-    }
-  }
-}catch(e){}
-})();
-// ]]>
-</script><script src="//stats.wp.com/w.js?56" type="text/javascript" async defer></script>
-<script type="text/javascript">
-_tkq = window._tkq || [];
-_stq = window._stq || [];
-_tkq.push(['storeContext', {'blog_id':'73011137','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
-_stq.push(['view', {'blog':'73011137','v':'wpcom','tz':'0','user_id':'0','post':'106','subd':'gorandemo'}]);
-_stq.push(['extra', {'crypt':'UE40eW5QN0p8M2Y/RE1oV0pFNEwueXFaVXlyMGwvVG9bYmZXaDJ1Nmx+ankzUUUvVlg4OF92Y0gwNXlOMVYwc1FKb3pmcFJbN3dUWmc5WldXR0Z+Vy8rJXJxd35UZXM/UERVR3hmQXxWLjVBZU1kSCwySDJMOFNYdVs1aFlVYjhhZENQcHdsK2xlbjFyWkw2bzUmT1RdW0g5OERpNWt3bCYsZ0dCaDdRaVNuVzNYcnlyQlh3ZGpPTl8wdG5OdTB3UWpHJS5QX1JhdW1ZdkNRQVRMPTdFOHBRZVFFTXZ3TnImLXpafFJ5XUZHSEU3OSZlUytrWFFReT9Rd0h4VzY='}]);
-_stq.push([ 'clickTrackerInit', '73011137', '106' ]);
+	<script type="text/javascript">
+	// <![CDATA[
+	(function() {
+	try{
+	  if ( window.external &&'msIsSiteMode' in window.external) {
+	    if (window.external.msIsSiteMode()) {
+	      var jl = document.createElement('script');
+	      jl.type='text/javascript';
+	      jl.async=true;
+	      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+	      var s = document.getElementsByTagName('script')[0];
+	      s.parentNode.insertBefore(jl, s);
+	    }
+	  }
+	}catch(e){}
+	})();
+	// ]]>
+	</script><script src="//stats.wp.com/w.js?56" type="text/javascript" async defer></script>
+	<script type="text/javascript">
+	_tkq = window._tkq || [];
+	_stq = window._stq || [];
+	_tkq.push(['storeContext', {'blog_id':'73011137','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+	_stq.push(['view', {'blog':'73011137','v':'wpcom','tz':'0','user_id':'0','post':'106','subd':'gorandemo'}]);
+	_stq.push(['extra', {'crypt':'UE40eW5QN0p8M2Y/RE1oV0pFNEwueXFaVXlyMGwvVG9bYmZXaDJ1Nmx+ankzUUUvVlg4OF92Y0gwNXlOMVYwc1FKb3pmcFJbN3dUWmc5WldXR0Z+Vy8rJXJxd35UZXM/UERVR3hmQXxWLjVBZU1kSCwySDJMOFNYdVs1aFlVYjhhZENQcHdsK2xlbjFyWkw2bzUmT1RdW0g5OERpNWt3bCYsZ0dCaDdRaVNuVzNYcnlyQlh3ZGpPTl8wdG5OdTB3UWpHJS5QX1JhdW1ZdkNRQVRMPTdFOHBRZVFFTXZ3TnImLXpafFJ5XUZHSEU3OSZlUytrWFFReT9Rd0h4VzY='}]);
+	_stq.push([ 'clickTrackerInit', '73011137', '106' ]);
 	</script>
-<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
-<script>
-if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+	<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+	<script>
+	if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
 
 	wpcom_mobile_user_agent_info.init();
 	var mobileStatsQueryString = "";
@@ -386,8 +384,8 @@ if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
 		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
 	}
 	
-}
-</script>
+	}
+	</script>
 </body>
 </html>
 <!--
