@@ -161,7 +161,8 @@
 			var login_birth  = document.getElementById("birth");
 			var login_gen  = document.getElementById("gender");
 			var login_phone  = document.getElementById("phone");
-			var login_address = document.getElementById("sample6_address");
+			var login_address2 = document.getElementById("sample6_address");
+			var login_address3 = document.getElementById("address3");
 			
 			//이메일 입력여부 검사
 			if(login_email.value == "") {
@@ -246,10 +247,16 @@
 				 }
 			};
 			
-			//주소 입력여부 검사
-			if(login_address.value == ""){ 
-				alert("주소를 입력해주세요.");
-				login_address.focus();
+			//주소 입력 여부 검사
+			if(login_address2.value == ""){ 
+				alert("주소를 입력 해주세요.");
+				login_address2.focus();
+				return;
+			};
+			//상세주소 입력 여부 검사
+			if(login_address3.value == ""){ 
+				alert("상세 주소를 입력 해주세요.");
+				login_address3.focus();
 				return;
 			};
 
@@ -257,7 +264,7 @@
 			$.ajax({
 				type : "POST",
 				url : "register.action",
-				data : $('#thisForm').serialize(),
+				data : $('#registerForm').serialize(),
 				success:function(data){   //성공시 가져오는 데이터를 data에 저장하여 사용
 			         alert("회원가입을 축하합니다!");
 			         location.href='../' //'login.action?email=' + $("#email").val() + '&passwd=' + $("#passwd").val();
@@ -290,10 +297,6 @@
 			event.preventDefault();
 		})
 		
-		
-		/* $(document).on("keyup", "input:text[numberOnly]", function() {
-			$(this).val( $(this).val().replace(/^(01[01]{1})-?([0-9]{3,4})-?([0-9]{4})$/gi,""));
-		}); */
 			 		
  	});
  	
@@ -309,7 +312,7 @@
 	<br><br>
 	
 	<div class="containerw3layouts-agileits">		
-	    <form id="thisForm" action="register.action" method="post" action="login.action" method="post" novalidate>
+	    <form id="registerForm" action="register.action" method="post" action="login.action" method="post" novalidate>
 		<%-- <form id="thisForm" action="register.action" method="post" novalidate > --%>
         	
         	<div class="form-group agileits-w3layouts">
@@ -344,15 +347,18 @@
 			</div>
 					        		        
 	        <div class="form-group w3-agile password">
-	        	<input type="text" name="postNo" id="sample6_postcode" class="form-control agileinfo textbox" placeholder="우편번호" />      
+	        	<input type="text" name="zipCode" id="sample6_postcode" class="form-control agileinfo textbox" placeholder="우편번호" readonly="readonly" style="color: black;" />      
 	        </div>
-	        <div class="form-group w3-agile password">		                    
-				<input type="text" name="address3" id="sample6_address" class="form-control agileinfo textbox" placeholder="상세주소"/>
-			</div>
-			<div class="form-group w3-agile password"  style="text-align:left;">
+	        <div class="form-group w3-agile password"  style="text-align:left;">
 				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="text-align:left;"/>
 			</div>
-               
+           <div class="form-group w3-agile password">		                    
+				<input type="text" name="address2" id="sample6_address" class="form-control agileinfo textbox" placeholder="주소"/>
+			</div>
+			<div class="form-group w3-agile password">		                    
+				<input type="text" name="address3" id="address3" class="form-control agileinfo textbox" placeholder="상세 주소"/>
+			</div>
+			    
              
 			<div class="form-group w3-agile submit">				
 				<button type="submit" id="register_button" class="btn btn-default btn-osx w3-agileits btn-lg"><i class="fa agileinfo fa-arrow-circle-right"></i></button>				

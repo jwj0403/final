@@ -24,7 +24,11 @@ public class NoticeService {
 	public List<Notice> getNoticeList() {
 		
 		List<Notice> notice = noticeDao.getNoticeList();
-//		System.out.println(notice+"SERVICE");
+		return notice;
+	}
+
+	public Notice getNoticeByNo(String noticeNo) {
+		Notice notice = noticeDao.getNoticeByNo(noticeNo);
 		return notice;
 	}
 

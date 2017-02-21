@@ -39,6 +39,8 @@ public class MemberController {
 		
 		member.setPasswd(Util.getHashedString(member.getPasswd(), "SHA-256"));
 		
+		//정보 분석을 위한 지역 정보 입력 (시/도 까지만 입력)
+		member.setAddress1(member.getAddress2().split(" ")[0]);		
 		memberService.insertMemberTx(member);	
 		
 		return "redirect:/";
@@ -58,11 +60,11 @@ public class MemberController {
 		
 		member = memberService.getMemberByEmail(member.getEmail());
 
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String regdate = transFormat.format(member.getRegdate());
+//		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+//		String regdate = transFormat.format(member.getRegdate());
 						
 		model.addAttribute("member", member);
-		model.addAttribute("regdate", regdate);
+//		model.addAttribute("regdate", regdate);
 
 		return "member/mypage";
 	}
@@ -95,8 +97,12 @@ public class MemberController {
 		if (email == null || email.length() == 0) {
 			return "redirect:/";
 		}
-			
+		
 		Member member = memberService.getMemberByEmail(email);
+		//정보 분석을 위한 지역 정보 입력 (시/도 + 시/군/구 까지 입력)
+		String[] add = member.getAddress2().split(" "); 
+		member.setAddress1(add[0] + " " + add[1]);
+		
 		model.addAttribute("member", member);				
 		
 		return "member/editform";

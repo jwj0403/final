@@ -22,11 +22,18 @@ public class NoticeDaoImpl implements NoticeDao {
 //		memberMapper.insertMember(member);
 //	}
 	
-	//공지 조회
+	//공지 목록 조회
 	@Override
 	public List<Notice> getNoticeList() {
 		List<Notice> notice = noticeMapper.selectNoticeList();
 //		System.out.println(notice+"DAO");
+		return notice;
+	}
+
+	//공지 세부 내용 조회
+	@Override
+	public Notice getNoticeByNo(String noticeNo) {
+		Notice notice = noticeMapper.selectNoticeByNo(noticeNo);
 		return notice;
 	}
 	

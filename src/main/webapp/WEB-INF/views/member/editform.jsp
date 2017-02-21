@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-    
+<%@ page import="paypal.dto.member.Member"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -76,8 +76,9 @@
 			//전송할 데이터의 형식 검사를 위해서 요소들을 변수에 담기
 			var login_pw  = document.getElementById("passwd");
 			var login_pw2  = document.getElementById("passwd_chk");
-			var login_pnum  = document.getElementById("pnum");
-			
+			var login_phone  = document.getElementById("phone");
+			var login_address2 = document.getElementById("sample6_address");
+			var login_address3 = document.getElementById("address3");
 		 
 			//패스워드 유효성 검사(영문 + 숫자 6~20자리)
 			for (var i = 0; i < login_pw.value.length; i++) {
@@ -100,17 +101,30 @@
 			 
 					 
 			//전화번호 정규식
-			for (var i = 0; i < login_pnum.value.length; i++) {
+			for (var i = 0; i < login_phone.value.length; i++) {
 				var regexp =  /[01](0|1|6|7|8|9)-(\d{4}|\d{3})-\d{4}$/g;
-				 if (!regexp.test(login_pnum.value)) {
+				 if (!regexp.test(login_phone.value)) {
 					alert("핸드폰 번호를 확인해 주세요.");
-					login_pnum.focus();
-					login_pnum.select();
-					login_pnum.value ="";
+					login_phone.focus();
+					login_phone.select();
+					login_phone.value ="";
 						return;
 				 }
 			};
-			
+
+			//주소 입력 여부 검사
+			/* if(login_address2.value == ""){ 
+				alert("주소를 입력해주세요.");
+				login_address2.focus();
+				return;
+			}; */
+			//우편번호or주소 입력 시에 상세주소 입력 여부 검사
+			if(login_address2.value != "" && login_address3.value == ""){ 
+				alert("상세 주소를 입력해주세요.");
+				login_address3.focus();
+				return;
+			};
+
 			//AJAX로 수정 할 정보 form 보내기
 			$.ajax({
 				type : "POST",
@@ -140,6 +154,9 @@
 
 
 <div class="container">
+	
+	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+	
 	<hr>
 	<h1>회원 정보 수정</h1>
 	<hr>
@@ -161,37 +178,45 @@
 		</div>    
 		
 		<div class="input-group">
-		    <span class="input-group-addon">핸드폰번호 : </span> 
-		    <input type="text" id="pnum" name="phone" class="form-control" /> 
+		    <span class="input-group-addon">핸드폰번호 : ${ member.phone } </span> 
+		    <input type="text" id="phone" name="phone" class="form-control" /> 
 		</div>
-	
+
+    	<hr>
+		<div class="input-group">
+		    <span class="input-group-addon">우편번호 : ${ member.zipCode }</span> 
+		    <input type="text" name="zipCode" id="sample6_postcode" class="form-control" readonly="readonly" /> 
+		</div>
+		<div class="input-group">
+		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"/>
+		</div>
+		<br/>
+		
+		<div class="input-group">
+		    <span class="input-group-addon">주소 : ${ member.address1 }</span> 
+		    <input type="text" name="address2" id="sample6_address" class="form-control" /> 
+		</div>
 		<div class="input-group">
 		    <span class="input-group-addon">상세주소 : </span> 
-		    <input type="text" name="address3" id="sample6_address" class="form-control" /> 
-		</div>
-		    
-		<div class="input-group">
-		    <span class="input-group-addon">우편번호 : </span> 
-		    <input type="text" name="postNo" id="sample6_postcode" class="form-control" /> 
+		    <input type="text" name="address3" id="address3" class="form-control" /> 
 		</div>
 		
-		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"/>
 		<hr>       
 		
 		<div class="input-group">
-		    <span class="input-group-addon">카드종류 : </span> 
+		    <span class="input-group-addon">카드종류 : ${ member.cardType }</span> 
 		    <input type="text" name="cardType" class="form-control" /> 
 		</div>
 		<div class="input-group">
-		    <span class="input-group-addon">카드번호 : </span> 
+		    <span class="input-group-addon">카드번호 : ${ member.cardNo }</span> 
 		    <input type="text" name="cardNo" class="form-control" /> 
 		</div>
 		<div class="input-group">
-		    <span class="input-group-addon">카드CVC : </span> 
+		    <span class="input-group-addon">카드CVC : ${ member.cardCvc }</span> 
 		    <input type="text" name="cardCvc" class="form-control" /> 
 		</div>
 		<div class="input-group">
-		    <span class="input-group-addon">카드유효기간 : </span> 
+		    <span class="input-group-addon">카드유효기간 : ${ member.cardValidThru }</span> 
 		    <input type="text" name="cardValidThru" class="form-control" /> 
 		</div>
 	

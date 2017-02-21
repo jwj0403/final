@@ -3,13 +3,13 @@
 <%@ page import="paypal.dto.notice.Notice" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>​
 
 
 <!DOCTYPE html>
 <html>
 <head>
-  <title>회원 정보</title>
+  <title>공지 목록</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -141,11 +141,15 @@
 				<tr style="height: 30px">
 					<td>${ notice.noticeNo }</td>
 					<td style='text-align:left;padding-left:5px'>
-						<a href='../board/detail.toran?articleNo=${ notice.noticeNo }&pageNo=${ requestScope.pageNo }'>${ notice.title }</a>
+						<a href='detail.action?noticeNo=${ notice.noticeNo }&pageNo=${ requestScope.pageNo }'>${ notice.title }</a>
 					</td>
 					<td>${ notice.writer }</td>
-					<td>${ notice.regdate }</td>
-					<td>${ article.hit }</td>
+					
+					<%-- <fmt:formatDate var="parsedDate" value="${ notice.regdate }" pattern="dd-MM-yyyy"> --%>
+					<td>
+					<fmt:formatDate value="${ notice.regdate }" pattern="yyyy-MM-dd" />
+					</td>
+					<td>${ notice.readCount }</td>
 				</tr>
 				</c:forEach>
 			

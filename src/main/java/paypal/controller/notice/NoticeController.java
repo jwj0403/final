@@ -28,12 +28,11 @@ public class NoticeController {
 		return "notice/list";
 	}
 	
-	//공지 보여 주기.
+	//공지 목록 보여 주기.
 	@RequestMapping(value = "list.action", method = RequestMethod.GET)
 	public String noticeList(Model model) {
 		
 		List<Notice> notice = noticeService.getNoticeList();
-		System.out.println(notice+"CONT");
 
 //		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 //		String regdate = transFormat.format(notice.get(i).getRegdate());
@@ -43,6 +42,22 @@ public class NoticeController {
 
 		return "notice/list";
 	}
+
+	//공지 세부사항 보여 주기.
+	@RequestMapping(value = "detail.action", method = RequestMethod.GET)
+	public String noticeByNo(Model model, String noticeNo) {
+		
+		Notice notice = noticeService.getNoticeByNo(noticeNo);
+
+//		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+//		String regdate = transFormat.format(notice.get(i).getRegdate());
+						
+		model.addAttribute("notice", notice);
+		//model.addAttribute("regdate", regdate);
+
+		return "notice/detail";
+	}
+	
 }
 
 

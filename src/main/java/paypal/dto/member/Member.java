@@ -16,6 +16,8 @@ public class Member implements Serializable {
 	@NotEmpty
 	private String phone;
 	@NotEmpty
+	private String zipCode;
+	@NotEmpty
 	private String address1;
 	@NotEmpty
 	private String address2;
@@ -61,6 +63,12 @@ public class Member implements Serializable {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public String getZipCode() {
+		return zipCode;
+	}
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 	public String getAddress1() {
 		return address1;

@@ -1,9 +1,8 @@
 <%@page import="paypal.dto.member.Member"%>
-<%-- <%@page import="paypal.dao.member.MemberDao"%> --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -59,6 +58,8 @@
 
 <div class="container">
 
+	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+	
 	<hr>
 	<h1>회원 정보</h1>
 	<hr>
@@ -90,17 +91,17 @@
 	
 	<div class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
-		<input type="text" value="주소1 : ${ requestScope.member.address1 }" class="form-control" readonly="true" /> 
+		<input type="text" value="우편번호 : ${ requestScope.member.zipCode }" class="form-control" readonly="true" /> 
 	</div>
 	
 	<div class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
-		<input type="text" value="주소 2: ${ requestScope.member.address2 }" class="form-control" readonly="true" /> 
+		<input type="text" value="주소 : ${ requestScope.member.address2 }" class="form-control" readonly="true" /> 
 	</div>
 	
 	<div class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
-		<input type="text" value="주소3 : ${ requestScope.member.address3 }" class="form-control" readonly="true" /> 
+		<input type="text" value="상세주소 : ${ requestScope.member.address3 }" class="form-control" readonly="true" /> 
 	</div>
 	
 	<div class="input-group">
@@ -125,7 +126,7 @@
 	
 	<div class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span> 
-		<input type="text" value="가입일 : ${ regdate }" class="form-control" readonly="true" /> 
+		<input type="text" value="가입일 : <fmt:formatDate value="${ member.regdate }" pattern="yyyy-MM-dd" />" class="form-control" readonly="true" /> 
 	</div>
 	<hr>
 	

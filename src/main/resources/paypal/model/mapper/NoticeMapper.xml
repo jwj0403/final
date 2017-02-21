@@ -7,10 +7,11 @@
 <mapper namespace="paypal.model.mapper.NoticeMapper">
 	
 	
-<!-- 	<sql id="selectNotice">
-		SELECT notice_no, title, writer, content, read_count, regdate, deleted
+	<sql id="selectNotice">
+		SELECT notice_no noticeNo, title, writer, content, read_count readCount, regdate, deleted
 		FROM NOTICE
-	</sql> -->
+		
+	</sql>
 	
 <!-- 
 	<insert id="insertMember" parameterType="Member">
@@ -20,13 +21,20 @@
 			(#{ email }, #{ passwd }, #{ name }, #{ address1 }, #{ address2 }, #{ address3 }, #{ phone }, #{ birth }, #{ gender }, 'N', NOW())		
 	</insert>
  -->
+ 	<!-- 공지 목록 조회 -->
  	<select id="selectNoticeList" parameterType="String" resultType="Notice">
-		<!-- <include refid="selectNotice" /> -->
-		SELECT notice_no noticeNo, title, writer, content, read_count readCount, regdate, deleted
-		FROM NOTICE
+		<include refid="selectNotice" />
 		WHERE deleted='N'
 		ORDER BY notice_no DESC
 	</select>
+	
+	<!-- 공지 번호로 공지 조회 -->
+	<select id="selectNoticeByNo" parameterType="String" resultType="Notice">
+		<include refid="selectNotice" />
+		WHERE notice_no = #{ noticeNo } and  deleted='N'
+	</select>
+	
+	
 <!-- 		
 	<update id="updateMemberByEmail" parameterType="Member">
 		UPDATE MEMBER

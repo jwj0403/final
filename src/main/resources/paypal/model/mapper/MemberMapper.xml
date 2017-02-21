@@ -8,16 +8,16 @@
 	
 	
 	<sql id="selectMember">
-		SELECT email, name, phone, birth, gender, address1, address2, address3, regdate <!-- DATE_FORMAT(regdate,'%Y-%m%-%d')  -->
+		SELECT email, name, phone, birth, gender, zip_code zipCode, address1, address2, address3, regdate <!-- DATE_FORMAT(regdate,'%Y-%m%-%d')  -->
 			,card_type cardType, card_no cardNo, card_cvc cardCvc, card_valid_thru cardValidThru 
 		FROM MEMBER
 	</sql>
 
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
-			(email, passwd, name, address1, address2, address3, phone, birth, gender, deleted, regdate)
+			(email, passwd, name, zip_code, address1, address2, address3, phone, birth, gender, deleted, regdate)
 		VALUES
-			(#{ email }, #{ passwd }, #{ name }, #{ address1 }, #{ address2 }, #{ address3 }, #{ phone }, #{ birth }, #{ gender }, 'N', NOW())		
+			(#{ email }, #{ passwd }, #{ name }, #{ zipCode }, #{ address1 }, #{ address2 }, #{ address3 }, #{ phone }, #{ birth }, #{ gender }, 'N', NOW())		
 	</insert>
 
  	<select id="selectMemberByEmail" parameterType="String" resultType="Member">
@@ -31,6 +31,8 @@
 				<if test="passwd != null and passwd != '' 
 					and passwd != 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'">passwd = #{ passwd }, </if>
 				<if test="phone != null and phone != ''">phone = #{ phone }, </if>
+				<if test="zipCode != null and zipCode != ''">zip_code = #{ zipCode }, </if>
+				<if test="address2 != null and address2 != ''">address2 = #{ address2 }, </if>
 				<if test="address3 != null and address3 != ''">address3 = #{ address3 }, </if>
 				<if test="cardType != null and cardType != ''">card_type = #{ cardType }, </if>
 				<if test="cardNo != null and cardNo != ''">card_no = #{ cardNo }, </if>
