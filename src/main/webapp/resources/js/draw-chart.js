@@ -200,7 +200,7 @@ $("document").ready(function() {
 				$("#grouped").prop("checked", true);
 			},
 			error: function (xhr, textStatus, error) {
-				alert("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+error);
+				//alert("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+error);
 		    }
 		});
 	});
