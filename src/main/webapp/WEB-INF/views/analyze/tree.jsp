@@ -418,6 +418,7 @@
 					genders[1] = "W";
 				} else if (condition.gender === "M") {
 					genders[0] = "M";
+					console.log("genderBB : " + genders.length);
 				} else if (condition.gender === "W") {
 					genders[0] = "W";
 				} else {
@@ -425,6 +426,7 @@
 				}
 				
 				if (!!condition.age) {
+					ages = [];
 					if (condition.ageCompare === "Compare") {
 						ages = ["1", "2", "3", "4", "5", "6"];
 					} else if (condition.age[0] === "All") {
