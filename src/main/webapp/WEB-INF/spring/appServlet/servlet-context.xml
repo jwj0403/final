@@ -26,5 +26,4 @@
 	<context:component-scan base-package="paypal.controller" />
 	
 	
-	
 </beans:beans>
