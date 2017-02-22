@@ -265,7 +265,7 @@
 								<input id="area-ar4" type="checkbox" name="area" value="강원">&nbsp;강원&nbsp;&nbsp;&nbsp;
 								<input id="area-ar5" type="checkbox" name="area" value="충북">&nbsp;충북&nbsp;&nbsp;&nbsp;
 								<input id="area-ar6" type="checkbox" name="area" value="충남">&nbsp;충남&nbsp;&nbsp;&nbsp;
-								<input id="area-ar7" type="checkbox" name="area" value="세종">&nbsp;세종&nbsp;&nbsp;&nbsp;
+								<input id="area-ar7" type="checkbox" name="area" value="세종특별자치시">&nbsp;세종&nbsp;&nbsp;&nbsp;
 								<input id="area-ar8" type="checkbox" name="area" value="대전">&nbsp;대전&nbsp;&nbsp;&nbsp;
 								<input id="area-ar9" type="checkbox" name="area" value="전북">&nbsp;전북&nbsp;&nbsp;&nbsp;
 								<input id="area-ar10" type="checkbox" name="area" value="전남">&nbsp;전남&nbsp;&nbsp;&nbsp;
@@ -275,7 +275,7 @@
 								<input id="area-ar14" type="checkbox" name="area" value="경남">&nbsp;경남&nbsp;&nbsp;&nbsp;
 								<input id="area-ar15" type="checkbox" name="area" value="부산">&nbsp;부산&nbsp;&nbsp;&nbsp;
 								<input id="area-ar16" type="checkbox" name="area" value="울산">&nbsp;울산&nbsp;&nbsp;&nbsp;
-								<input id="area-ar17" type="checkbox" name="area" value="제주">&nbsp;제주&nbsp;&nbsp;&nbsp;
+								<input id="area-ar17" type="checkbox" name="area" value="제주특별자치도">&nbsp;제주&nbsp;&nbsp;&nbsp;
 							</div>
 						</td>
 					</tr>
