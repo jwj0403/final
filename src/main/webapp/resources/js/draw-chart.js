@@ -175,7 +175,8 @@ $("document").ready(function() {
 				"type": "radio",
 				"name": "mode",
 				"value": "grouped",
-				"id": "grouped"
+				"id": "grouped",
+				"class": "svg"
 			})).append(" Grouped").after($("<br>")));
 			$("#svg").append($("<label>").append($("<input>", {
 				"type": "radio",
@@ -187,7 +188,7 @@ $("document").ready(function() {
 		
 		$.ajax({
 			type: "GET",
-			url: "../analyze/analyze.action",
+			url: "../analyze/analyzeData.action",
 			data: $("#conditions").serialize(),
 			success: function(data, textStatus) {
 				initBarVariables(data.condition, data.data, data.xAxisLabel);
