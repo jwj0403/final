@@ -37,7 +37,7 @@ public class AnalyzeController {
 		AnalyzeCondition con = new AnalyzeCondition();
 		con.setGroup("G");
 		con.setAgeCompare("Compare");
-		con.setAgeAllClicked("Not-Clicked");
+		con.setAgeAllClicked("Not-Checked");
 		con.setAreaAllClicked("Not-Checked");
 		con.setTreeNodeDepth("1");
 		con.setPeriod("All");

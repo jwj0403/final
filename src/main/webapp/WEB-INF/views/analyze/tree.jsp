@@ -906,7 +906,7 @@
 				y1Max = d3.max(y01z, function(y) { return d3.max(y, function(d) { return d[1]; }); });
 				
 				svg = d3.select("svg"),
-				margin = {top: 40, right: 10, bottom: 50, left: 30},
+				margin = {top: 40, right: 10, bottom: 130, left: 30},
 				width = svg.attr("width") - margin.left - margin.right,
 				height = svg.attr("height") - margin.top - margin.bottom,
 				g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
