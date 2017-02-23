@@ -21,7 +21,9 @@
  	
 	<script>
     function sample6_execDaumPostcode() {
-        new daum.Postcode({
+    	var width = 500; //팝업의 너비
+    	var height = 600; //팝업의 높이
+		new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
@@ -57,9 +59,15 @@
                 document.getElementById('sample6_address').value = fullAddr;
 
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById('sample6_address2').focus();
+                document.getElementById('address3').focus();
             }
-        }).open();
+        }).open({
+			q : '',
+			left : (window.screen.width / 2) - (width / 2),
+		    top : (window.screen.height / 2) - (height / 2),
+			popupName : 'zipsearch',
+			autoClose : true
+		});
     }
     </script>
 	

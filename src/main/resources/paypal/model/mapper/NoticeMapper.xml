@@ -6,21 +6,22 @@
 <!-- namespace는 패키지.클래스이름을 의미 -->
 <mapper namespace="paypal.model.mapper.NoticeMapper">
 	
-	
+	<!-- 공지 조회 sql문 -->
 	<sql id="selectNotice">
 		SELECT notice_no noticeNo, title, writer, content, read_count readCount, regdate, deleted
 		FROM NOTICE
 		
 	</sql>
 	
-<!-- 
-	<insert id="insertMember" parameterType="Member">
-		INSERT INTO MEMBER
-			(email, passwd, name, address1, address2, address3, phone, birth, gender, deleted, regdate)
+	<!-- 작성한 공지 데이터 DB에 Insert하기 -->
+	<insert id="insertNotice">
+		INSERT INTO NOTICE
+			(title, writer, content, deleted)
 		VALUES
-			(#{ email }, #{ passwd }, #{ name }, #{ address1 }, #{ address2 }, #{ address3 }, #{ phone }, #{ birth }, #{ gender }, 'N', NOW())		
+			(#{ title }, #{ writer }, #{ content }, 'N')
+	
 	</insert>
- -->
+
  	<!-- 공지 목록 조회 -->
  	<select id="selectNoticeList" parameterType="String" resultType="Notice">
 		<include refid="selectNotice" />
@@ -34,39 +35,21 @@
 		WHERE notice_no = #{ noticeNo } and  deleted='N'
 	</select>
 	
+	<!-- 공지 수정하기 -->
+	<update id="updateNotice" parameterType="Notice">
+		UPDATE NOTICE
+		SET title = #{ title }, content = #{content}
+		WHERE notice_no = #{ noticeNo }
+	</update>
+
 	
-<!-- 		
-	<update id="updateMemberByEmail" parameterType="Member">
-		UPDATE MEMBER
-			<set>
-				<if test="passwd != null and passwd != '' 
-					and passwd != 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'">passwd = #{ passwd }, </if>
-				<if test="phone != null and phone != ''">phone = #{ phone }, </if>
-				<if test="address3 != null and address3 != ''">address3 = #{ address3 }, </if>
-				<if test="cardType != null and cardType != ''">card_type = #{ cardType }, </if>
-				<if test="cardNo != null and cardNo != ''">card_no = #{ cardNo }, </if>
-				<if test="cardCvc != null and cardCvc != ''">card_cvc =  #{ cardCvc }, </if>
-				<if test="cardValidThru != null and cardValidThru != ''">card_valid_thru = #{ cardValidThru } </if>
-			</set>
-		WHERE email = #{ email }
+	<!-- 공지 삭제하기(deleted 컬럼에 'D' flag 주기 -->
+	<update id="deleteNotice">
+		UPDATE NOTICE
+		SET deleted='D'
+		WHERE notice_no = #{ noticeNo }
 	</update>
-		
-    <update id="deleteMemberByEmail" parameterType="String">
-        UPDATE MEMBER 
-        SET deleted = 'D'
-        WHERE email = #{email}
-	</update>
- -->	
-
-
-<!-- 로그인 관련 SQL문 -->
-<!-- 
-	<select id="selectMemberLoginData" resultType="Member" parameterType="HashMap">
-		<include refid="selectMember" />
-		WHERE email = #{email} AND passwd = #{passwd} AND deleted = 'N'
-	</select>
- -->
-		
+	
 </mapper>
 
 

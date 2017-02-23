@@ -21,20 +21,31 @@ public class NoticeDaoImpl implements NoticeDao {
 //	public void insertMember(Member member) {
 //		memberMapper.insertMember(member);
 //	}
-	
+
+	//작성한 공지 DB에 입력 하기
+	@Override
+	public void writeNotice(Notice notice) {
+		noticeMapper.insertNotice(notice);
+	}
 	//공지 목록 조회
 	@Override
 	public List<Notice> getNoticeList() {
 		List<Notice> notice = noticeMapper.selectNoticeList();
-//		System.out.println(notice+"DAO");
 		return notice;
 	}
-
 	//공지 세부 내용 조회
 	@Override
 	public Notice getNoticeByNo(String noticeNo) {
 		Notice notice = noticeMapper.selectNoticeByNo(noticeNo);
 		return notice;
+	}
+	@Override
+	public void modifyNotice(Notice notice) {
+		noticeMapper.updateNotice(notice);
+	}
+	@Override
+	public void deleteNotice(String noticeNo) {
+		noticeMapper.deleteNotice(noticeNo);
 	}
 	
 //	//회원 정보 수정

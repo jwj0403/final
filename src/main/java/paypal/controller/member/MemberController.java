@@ -1,16 +1,13 @@
 package paypal.controller.member;
 
-import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,17 +26,16 @@ public class MemberController {
 
 	//가입 양식 불러오기.
 	@RequestMapping(value = "register.action", method = RequestMethod.GET)
-	public String registerForm(@ModelAttribute Member member) {		
+	public String registerForm() {		
 		return "member/registerform";
 	}
 			
 	//가입 정보 등록을 위한 DB Insert 실행 메서드.
 	@RequestMapping(value = "register.action", method = RequestMethod.POST)
-	public String register(Member member, BindingResult result) {	
+	public String register(Member member) {	
 		
 		member.setPasswd(Util.getHashedString(member.getPasswd(), "SHA-256"));
-		
-		//정보 분석을 위한 지역 정보 입력 (시/도 까지만 입력)
+		//정보 분석을 위한 지역 정보 입력 (address1 : 시/도 까지만 입력)
 		member.setAddress1(member.getAddress2().split(" ")[0]);		
 		memberService.insertMemberTx(member);	
 		
@@ -112,6 +108,8 @@ public class MemberController {
 	@RequestMapping(value = "modifymember.action", method = RequestMethod.POST)
 	public String modifyMember(Member member, BindingResult result) {	
 		member.setPasswd(Util.getHashedString(member.getPasswd(), "SHA-256"));
+		//정보 분석을 위한 지역 정보 입력 (address1 : 시/도 까지만 입력)
+		member.setAddress1(member.getAddress2().split(" ")[0]);		
 		memberService.modifyMemberTx(member);	
 		
 		return "redirect:/";
@@ -141,7 +139,6 @@ public class MemberController {
 		passwd = Util.getHashedString(passwd, "SHA-256");		
 		
 		Member member = memberService.getMemberLoginData(email, passwd);
-		
 		//Member member = memberService.getMemberByEmail(email);
 		//String message = "";
 		

@@ -32,6 +32,7 @@
 					and passwd != 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'">passwd = #{ passwd }, </if>
 				<if test="phone != null and phone != ''">phone = #{ phone }, </if>
 				<if test="zipCode != null and zipCode != ''">zip_code = #{ zipCode }, </if>
+				<if test="address1 != null and address1 != ''">address1 = #{ address1 }, </if>
 				<if test="address2 != null and address2 != ''">address2 = #{ address2 }, </if>
 				<if test="address3 != null and address3 != ''">address3 = #{ address3 }, </if>
 				<if test="cardType != null and cardType != ''">card_type = #{ cardType }, </if>

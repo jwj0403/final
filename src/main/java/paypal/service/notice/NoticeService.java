@@ -17,19 +17,27 @@ public class NoticeService {
 	@Qualifier(value = "noticeDao")
 	private NoticeDao noticeDao;
 
-//	public void insertMemberTx(Member member) {
-//		memberDao.insertMember(member);
-//	}
-
+	//작성 한 공지 글 DB에 쓰기.
+	public void writeNoticeTx(Notice notice) {
+		noticeDao.writeNotice(notice);
+	}
+	//공지 목록 가져 오기.
 	public List<Notice> getNoticeList() {
-		
 		List<Notice> notice = noticeDao.getNoticeList();
 		return notice;
 	}
-
+	//공지 번호로 공지글 가져 오기.
 	public Notice getNoticeByNo(String noticeNo) {
 		Notice notice = noticeDao.getNoticeByNo(noticeNo);
 		return notice;
+	}
+	//공지 글 수정 하기.
+	public void modifyNoticeTx(Notice notice) {
+		noticeDao.modifyNotice(notice);
+	}
+	//공지 삭제하기.
+	public void deleteNoticeTx(String noticeNo) {
+		noticeDao.deleteNotice(noticeNo);
 	}
 
 //	public void modifyMemberTx(Member member) {

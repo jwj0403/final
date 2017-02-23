@@ -10,22 +10,42 @@
 <!DOCTYPE html>
 <html>
 
-<style>
-
-span 
-
-</style>
 
 <head>
-  <title>사이트 공지</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  
-  <script type="text/javascript" src="/paypal/resources/js/jquery-3.1.1.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>사이트 공지</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<script type="text/javascript" src="/paypal/resources/js/jquery-3.1.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$("#delete").click(function() {
+			if(confirm("삭제 하시겠습니까?")){
+				$("#deleteForm").submit();	
+			}
+		});
+		
+	/* 	$('#toHome').click(function(){
+			$('#toHome').attr({
+				'method' : 'post',
+				'action' : '../paypal/'
+			})
+		}); */
+		
+		
+	})
+
+</script>
+
+<style>
+
+/* a { text-align: right; font-size:25pt } */
+
+</style>
  
 </head>
 
@@ -72,10 +92,14 @@ span
 	<br>
 	<div id="paging" style="text-align:center">${ requestScope.paging }</div>
 	<br>
-	<span class="label label-default hand-cursor" id="toHome">홈으로</span><br>
-	<span class="label label-default hand-cursor" id="toList">목록으로</span><br>
-	<form id="article-write"></form>
+	<a href='modifyform.action?noticeNo=${ notice.noticeNo }' class="label label-default hand-cursor" id="modify">수정하기</a>&nbsp;
+	<a class="label label-default hand-cursor" id="delete">삭제하기</a>&nbsp;
+	<a href='list.action' class="label label-default hand-cursor" id="toHome">목록으로</a><br>	
 	
+	<form id="deleteForm" method="post" action="delete.action">
+		<input type="hidden" name="noticeNo" value="${ notice.noticeNo }" />
+	</form>
+
 
 </body>
 </html>

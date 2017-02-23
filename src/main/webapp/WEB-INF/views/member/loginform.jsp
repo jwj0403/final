@@ -151,7 +151,7 @@
 	<body>
 		<br><br><br><br><br>
 				
-		<h1 id="title" style="font-size:50pt;color: white;">Login User</h1>
+		<h1 id="title" style="font-size:50pt;color: black;">Login User</h1>
 		
 		<br><br><br>
 		
@@ -174,10 +174,10 @@
 				</div>
 				<!-- <div class="alert agileits-w3layouts alert-success hidden" role="alert">Login Successful!</div> -->
 			</form>
-		</div>
+		</div><br/><br/><br/>
 
-		<div class="w3lsfooteragileits">
-			<p> &copy; 2016 Valid Login Form. All Rights Reserved | Design by <a href="http://w3layouts.com" target="=_blank">W3layouts</a></p>
+		<div>
+			<p style="color:black;"><a href="../"> &copy; 2016 Valid Login Form. TarJane.</a></p>
 		</div>
 
 

@@ -21,26 +21,25 @@ public class NoticeController {
 	@Qualifier(value = "noticeService")
 	private NoticeService noticeService;
 	
-	
-	@RequestMapping(value="write.action", method=RequestMethod.GET) 
+
+	//공지 작성 폼 불러 오기.
+	@RequestMapping(value = "writeform.action", method = RequestMethod.GET)
+	public String writeForm() {
+		return "notice/writeform";
+	}
+	//작성한 공지 내용 DB에 Insert.
+	@RequestMapping(value="write.action", method=RequestMethod.POST) 
 	public String writeNotice (Notice notice) {
-		//writeNoticeTx
-		return "notice/list";
+		noticeService.writeNoticeTx(notice);
+		return "redirect:list.action";
 	}
 	
 	//공지 목록 보여 주기.
 	@RequestMapping(value = "list.action", method = RequestMethod.GET)
 	public String noticeList(Model model) {
-		
 		List<Notice> notice = noticeService.getNoticeList();
-
-//		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		String regdate = transFormat.format(notice.get(i).getRegdate());
-						
 		model.addAttribute("notice", notice);
-		//model.addAttribute("regdate", regdate);
-
-		return "notice/list";
+		return "notice/list2";
 	}
 
 	//공지 세부사항 보여 주기.
@@ -48,15 +47,32 @@ public class NoticeController {
 	public String noticeByNo(Model model, String noticeNo) {
 		
 		Notice notice = noticeService.getNoticeByNo(noticeNo);
-
-//		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		String regdate = transFormat.format(notice.get(i).getRegdate());
-						
 		model.addAttribute("notice", notice);
-		//model.addAttribute("regdate", regdate);
 
 		return "notice/detail";
 	}
+
+	//공지 수정 폼 불러 오기.
+	@RequestMapping(value = "modifyform.action", method = RequestMethod.GET)
+	public String modifyForm(String noticeNo, Model model) {
+		Notice notice = noticeService.getNoticeByNo(noticeNo);
+		model.addAttribute("notice", notice);
+		return "notice/modifyform";
+	}
+	//수정한 공지 내용 DB에 Insert.
+	@RequestMapping(value="modify.action", method=RequestMethod.POST) 
+	public String modifyNotice (Notice notice) {
+		noticeService.modifyNoticeTx(notice);
+		return "redirect:list.action";
+	}
+
+	//공지 삭제하기(deleted falg를 'D'로 업데이트)
+	@RequestMapping(value="delete.action", method=RequestMethod.POST)
+	public String deleteNotice (String noticeNo) {
+		noticeService.deleteNoticeTx(noticeNo);
+		return "redirect:/";
+	}
+	
 	
 }
 

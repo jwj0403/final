@@ -97,10 +97,14 @@
 	<!-- //Style -->
 
 	
-	<script>
+	 <script type="text/javascript">
+	 
 	//다음 우편번호 Open API
     function sample6_execDaumPostcode() {
-        new daum.Postcode({
+    	var dwidth = 500; //팝업의 너비
+    	var dheight = 600; //팝업의 높이
+		
+		new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
@@ -136,14 +140,20 @@
                 document.getElementById('sample6_address').value = fullAddr;
 
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById('sample6_address2').focus();
+                document.getElementById('address3').focus();
             }
-        }).open();
+        }).open({
+       			q : '',
+				left : (window.screen.width / 2) - (dwidth / 2),
+			    top : (window.screen.height / 2) - (dheight / 2),
+				popupName : 'zipsearch',
+				autoClose : true
+				});
     }
-    </script>
-    <!-- 다음 우편번호 종료---------------------- -->
+   
+    //<!-- 다음 우편번호 종료---------------------- -->
     
-    <script type="text/javascript">
+   //<!-- 유효성 검사, 가입버튼 동작 관련 스크립트  -->
     
  	$(function(){
  		
@@ -171,12 +181,17 @@
 				return
 			};	
 			//이메일 형식체크 (@,'.' 가 있아야함) 
-			 if (((login_email.value.indexOf('@')) <=0) && (login_email.value.indexOf('.')<=0)){
+			 if (((login_email.value.indexOf('@')) <=0) || (login_email.value.indexOf('.')<=0)){
 				alert("이메일 형식을 확인해주세요.");
 				login_email.value = "";
 				login_email.focus();
 				return;
 			 };
+			 //일반 가입 페이지에서는 운영자 계정으로 가입 불가.
+			 if(login_email.value.split("@")[1] == "tarjane.com"){
+					alert("tarjane.com 이메일은 사용할 수 없습니다.");
+					return;
+			}
 			 
 			//패스워드 입력여부 검사
 			if(login_pw.value == "") {
@@ -308,9 +323,9 @@
 <body>
 	
 	<br><br>
-	<h1 id="title" style="font-size:30pt;color: white;">TarJane 가입 하기</h1>
-	<br><br>
-	
+	<h1 id="title" style="font-size:30pt;color: black;">TarJane 가입 하기</h1>
+	<p><a href="../"> &copy; 2016 Valid Register Form. TarJane.<br> To Home.</a></p>
+	<br>
 	<div class="containerw3layouts-agileits">		
 	    <form id="registerForm" action="register.action" method="post" action="login.action" method="post" novalidate>
 		<%-- <form id="thisForm" action="register.action" method="post" novalidate > --%>
@@ -338,8 +353,8 @@
 		    	<input type="text" id="birth" name="birth" class="form-control agileinfo textbox" placeholder="생년월일 ex)1970-01-01 )"/>
 	        </div>
 	        <div class="form-group w3-agile password" style="text-align:left;">
-				<a style="color: white;">남성 </a><input type="radio" id="m" name="gender" value="M"  checked="checked"/>
-				<a style="color: white;">여성 </a> <input type="radio" id="w" name="gender" value="F" />	    
+				<a style="color: white;">남성 </a><input type="radio" id="M" name="gender" value="M"  checked="checked"/>
+				<a style="color: white;">여성 </a> <input type="radio" id="W" name="gender" value="W" />	    
 			</div>
 			
 	      	<div class="form-group w3-agile password" >
@@ -367,11 +382,6 @@
 			<div class="alert agileits-w3layouts alert-success hidden" role="alert">등록완료!</div>
 		</form>
 	</div>
-
-		<div class="w3lsfooteragileits">
-			<p> &copy; 2016 Valid Register Form. All Rights Reserved | Design by <a href="http://w3layouts.com" target="=_blank">W3layouts</a></p>
-		</div>
-		
   
   
 	

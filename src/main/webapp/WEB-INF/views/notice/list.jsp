@@ -5,7 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>​
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,14 +33,16 @@
  
 <script type="text/javascript">
 	$(document).ready(function() {
-		var params = "searchSelect=" + $("select#searchSelect option:selected").val() + "&searchText=" + $("#searchText").val();
+		
+		
+		/* var params = "searchSelect=" + $("select#searchSelect option:selected").val() + "&searchText=" + $("#searchText").val();
 		$("#write").on("click", function() {
 			$("#article-write").attr({
 				"method" : "post",
-				"action" : "../board/writeform.toran?" + params
+				"action" : "writeform.action?" + params
 			});
 			$("#article-write").submit();
-		});
+		}); */
 		
 		// select 옵션 체인지
 		$("#searchSelect").on("change", function() {
@@ -143,7 +144,9 @@
 					<td style='text-align:left;padding-left:5px'>
 						<a href='detail.action?noticeNo=${ notice.noticeNo }&pageNo=${ requestScope.pageNo }'>${ notice.title }</a>
 					</td>
-					<td>${ notice.writer }</td>
+					<c:set var='auth' value="${ notice.writer }" />
+					<c:set var='auth2' value="${ fn:split (auth, '@') }" />
+					<td>${ auth2[0] }</td>
 					
 					<%-- <fmt:formatDate var="parsedDate" value="${ notice.regdate }" pattern="dd-MM-yyyy"> --%>
 					<td>
@@ -222,8 +225,13 @@
 	<br>
 	<div id="paging" style="text-align:center">${ requestScope.paging }</div>
 	<br>
-	<span class="label label-default hand-cursor" id="write">글쓰기</span><br>
-	<form id="article-write"></form>
+	
+	<a href='writeform.action' class="label label-default hand-cursor" id="toHome">글쓰기</a>&nbsp;
+	<a href='../' class="label label-default hand-cursor" id="toHome">홈으로</a><br>
+	
+	
+	<!-- 버튼이 완료 되면 삭제 합니다. <span class="label label-default hand-cursor" id="write">글쓰기</span><br>
+	<form id="article-write"></form> -->
 	
 
 </body>
