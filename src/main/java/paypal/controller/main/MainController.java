@@ -78,9 +78,6 @@ public class MainController {
    
 	    MainTransportTotDto mainTransportTotDto = gson.fromJson(result, MainTransportTotDto.class);
 	    
-		    System.out.println(mainTransportTotDto.getEmail());
-		    System.out.println(mainTransportTotDto.getGender());
-		    
 	    	service.insertMainTx(mainTransportTotDto);
 	    
 	    

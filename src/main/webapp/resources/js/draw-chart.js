@@ -19,10 +19,19 @@ $("document").ready(function() {
 		$(this).on("click", function() {
 			if ($("#age-ax1").prop("checked") && $("#age-ax2").prop("checked") && $("#age-ax3").prop("checked") && $("#age-ax4").prop("checked") && $("#age-ax5").prop("checked") && $("#age-ax6").prop("checked")) {
 				$("#age-a").prop("checked", true);
+				$("#age-compare-all").prop("checked", true);
 			} else {
 				$("#age-a").prop("checked", false);
+				$("#age-compare-all").prop("checked", false);
 			}
 		});
+	});
+	
+	// 전 연령 전체 비교
+	$("#age-compare-all").on("click", function() {
+		if ($(this).prop("checked")) {
+			$("input[name='age']").prop("checked", true);
+		}
 	});
 	
 	// 지역
@@ -112,6 +121,10 @@ $("document").ready(function() {
 				alert("검색시작일자가 검색종료일자보다 클 수 없습니다.");
 				return;
 			}
+			if ($("input[name='age']:checked").length === 0) {
+				alert("조회하고자 하는 연령조건을 선택하십시오.");
+				$("#age-a")[0].click();
+			}
 		}
 		
 		// 데이터 전송
@@ -162,7 +175,8 @@ $("document").ready(function() {
 				"type": "radio",
 				"name": "mode",
 				"value": "grouped",
-				"id": "grouped"
+				"id": "grouped",
+				"class": "svg"
 			})).append(" Grouped").after($("<br>")));
 			$("#svg").append($("<label>").append($("<input>", {
 				"type": "radio",
@@ -174,7 +188,7 @@ $("document").ready(function() {
 		
 		$.ajax({
 			type: "GET",
-			url: "../analyze/analyze.action",
+			url: "../analyze/analyzeData.action",
 			data: $("#conditions").serialize(),
 			success: function(data, textStatus) {
 				initBarVariables(data.condition, data.data, data.xAxisLabel);
@@ -186,7 +200,7 @@ $("document").ready(function() {
 				$("#grouped").prop("checked", true);
 			},
 			error: function (xhr, textStatus, error) {
-				alert("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+error);
+				//alert("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+error);
 		    }
 		});
 	});

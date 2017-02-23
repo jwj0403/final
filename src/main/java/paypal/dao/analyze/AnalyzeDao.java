@@ -10,7 +10,7 @@ import paypal.dto.analyze.XAxisLabel;
 public interface AnalyzeDao {
 
 	List<AnalyzeData> selectAnalyzedData(AnalyzeCondition con);
-
+	
 	ProductNode selectProductNodes();
 
 	List<XAxisLabel> selectXAxisLabel(AnalyzeCondition con);
