@@ -17,7 +17,7 @@
 		INSERT INTO PAY_INFO
 		(cancel, order_no, email, client_no, shop_id)
 		VALUES
-		('S', #{orderListNo}, #{email}, '15', #{memberId})
+		('S', #{orderListNo}, #{paypalEmail}, '15', #{memberId})
 	</insert>
 
 	<insert id="insertProductInfoMainTransportProDto" parameterType="paypal.dto.main.MainTransportProDto">
