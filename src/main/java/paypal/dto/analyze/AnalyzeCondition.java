@@ -4,6 +4,7 @@ public class AnalyzeCondition {
 	private String group;
 	private String gender;
 	private String[] age;
+	private String ageCompare;
 	private int ageLength;
 	private String[] area;
 	private int areaLength;
@@ -35,6 +36,12 @@ public class AnalyzeCondition {
 		this.ageLength = age.length;
 		this.age = age;
 	}
+	public String getAgeCompare() {
+		return ageCompare;
+	}
+	public void setAgeCompare(String ageCompare) {
+		this.ageCompare = ageCompare;
+	}
 	public String[] getArea() {
 		return area;
 	}
@@ -49,16 +56,18 @@ public class AnalyzeCondition {
 		this.period = period;
 	}
 	public String getPeriodFrom() {
+		System.out.println("periodFrom : " + this.periodFrom);
 		return periodFrom;
 	}
 	public void setPeriodFrom(String periodFrom) {
-		this.periodFrom = periodFrom;
+		this.periodFrom = periodFrom.replaceAll("-", ",");
 	}
 	public String getPeriodTo() {
+		System.out.println("periodTo : " + this.periodTo);
 		return periodTo;
 	}
 	public void setPeriodTo(String periodTo) {
-		this.periodTo = periodTo;
+		this.periodTo = periodTo.replaceAll("-", ",");
 	}
 	public String getTreeNodeName() {
 		return treeNodeName;

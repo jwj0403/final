@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 
+import paypal.controller.analyze.AnalyzeConditionForMall;
 import paypal.dao.analyze.AnalyzeDao;
 import paypal.dto.analyze.AnalyzeCondition;
 
@@ -25,5 +26,4 @@ public class AnalyzeService {
 		result += "}";
 		return result;
 	}
-
 }
