@@ -971,6 +971,7 @@
 			<div class="footer-widget">
 			    <aside id="text-3" class="widget widget_text"><h2 class="widget-title">누구에게나 언제든지 결제가 가능합니다.</h2>
 			    <div class="textwidget"><p>이메일 주소 하나로 더욱 쉽고 안전하게 물건이나 서비스 금액을 결제하세요. 모든 지역의 판매자들이 타제인을 이용한 결제를 환영할 것입니다.</p>
+			    <p><a href="/paypal/">메인 페이지 가기</a></p>
 			</div>
 			
 			    </aside>				

@@ -328,7 +328,7 @@
 			SELECT 
     	<choose>
     		<when test="xAxisLabel eq 'product'">
-    			<choose>
+    			<choose> 
     				<when test="treeNodeDepth eq 0">
     					product_name as label 
     				</when>

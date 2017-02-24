@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
@@ -137,7 +138,7 @@
 		</div><!-- .site-top-content -->
 		
 		<div class="site-branding">
-						<h1 class="site-title"><a href="" rel="home">T A R J A N E</a></h1>
+						<h1 class="site-title"><a href="" rel="home">T a r &nbsp;&nbsp; J a n e</a></h1>
 			<h2 class="site-description">Goran is a modern responsive business and corporate theme that helps you to create a strong&#8211;yet beautiful&#8211;online presence for your business</h2>
 		</div><!-- .site-branding -->
 
@@ -147,8 +148,12 @@
 					<ul id="menu-main" class="clear">
 						<li id="menu-item-131" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-106 current_page_item menu-item-131"><a href="http://localhost:8888/paypal/">홈</a></li>
 						<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/notice/list.action">공지사항</a></li>
-						<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="">구매분석</a></li>
 						
+						<c:set var='auth' value='${ sessionScope.loginuser.email }' />
+						<c:set var='auth2' value="${ fn:split(auth, '@') }" />
+						<c:if test="${ auth2[1] eq 'tarjane.com' }">
+						<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/analyze/chart.action">구매분석</a></li>
+						</c:if>
 						<c:choose >
 							<c:when test="${ empty sessionScope.loginuser }">
 								<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/member/register.action">회원가입</a></li>

@@ -14,8 +14,7 @@
 <head>
 <title>사이트 공지</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
 <script type="text/javascript" src="/paypal/resources/js/jquery-3.1.1.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -30,7 +29,12 @@
 			}
 		});
 		
-	})
+		$("#delete").click(function() {
+			if(confirm("삭제 하시겠습니까?")){
+				$("#deleteForm").submit();	
+			}
+		});
+	});
 
 </script>
 
@@ -120,8 +124,12 @@
 						<ul id="menu-main" class="clear">
 							<li id="menu-item-131" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-106 current_page_item menu-item-131"><a href="http://localhost:8888/paypal/">홈</a></li>
 							<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/notice/list.action">공지사항</a></li>
-							<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/analyze/analyzeData.action">구매분석</a></li>
 							
+							<c:set var='auth' value='${ sessionScope.loginuser.email }' />
+							<c:set var='auth2' value="${ fn:split(auth, '@') }" />
+							<c:if test="${ auth2[1] eq 'tarjane.com' }">
+							<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/analyze/chart.action">구매분석</a></li>
+							</c:if>
 							<c:choose >
 								<c:when test="${ empty sessionScope.loginuser }">
 									<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/member/register.action">회원가입</a></li>
@@ -131,7 +139,7 @@
 									<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/member/logout.action">로그아웃</a></li>
 								</c:otherwise>
 							</c:choose>
-						
+							
 						</ul>
 					</div>			
 				</nav>
@@ -147,8 +155,8 @@
 		<!-- <article id="post-106" class="post-106 page type-page status-publish"> -->
 		<table class="table table-striped table-width">
 			<!-- <tr style="background-color:#cccccc;height:25px"> -->
-			<tr>
-				<th style="width:50px">번호</th>
+			<tr style="background-color:#cccccc;height:30px">
+				<th style="width:60px">번호</th>
 				<th style="width:700px">제목</th>
 				<th style="width:100px">작성자</th>
 				<th style="width:100px">작성일</th>
@@ -256,7 +264,7 @@
 	_stq.push(['extra', {'crypt':'UE40eW5QN0p8M2Y/RE1oV0pFNEwueXFaVXlyMGwvVG9bYmZXaDJ1Nmx+ankzUUUvVlg4OF92Y0gwNXlOMVYwc1FKb3pmcFJbN3dUWmc5WldXR0Z+Vy8rJXJxd35UZXM/UERVR3hmQXxWLjVBZU1kSCwySDJMOFNYdVs1aFlVYjhhZENQcHdsK2xlbjFyWkw2bzUmT1RdW0g5OERpNWt3bCYsZ0dCaDdRaVNuVzNYcnlyQlh3ZGpPTl8wdG5OdTB3UWpHJS5QX1JhdW1ZdkNRQVRMPTdFOHBRZVFFTXZ3TnImLXpafFJ5XUZHSEU3OSZlUytrWFFReT9Rd0h4VzY='}]);
 	_stq.push([ 'clickTrackerInit', '73011137', '106' ]);
 	</script>
-	<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+	<!-- <noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript> -->
 	<script>
 	if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
 

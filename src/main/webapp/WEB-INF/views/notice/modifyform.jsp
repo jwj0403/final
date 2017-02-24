@@ -25,18 +25,12 @@
 <script type="text/javascript">
 	$(function() {
 		
-	/* 	$('#toHome').click(function(){
-			$('#toHome').attr({
-				'method' : 'post',
-				'action' : '../paypal/'
-			})
-		}); */
-		$('#title').click(function(){
+		/* $('#title').click(function(){
 			this.value = "";
 		});
 		$('#content').click(function(){
 			this.value = "";
-		});
+		}); */
 		
 		$('#modify_button').click(function(){
 
@@ -165,13 +159,13 @@
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea cols="100" rows="20" name="content" id="content" value="${ notice.content }"></textarea></td>
+						<td><textarea cols="100" rows="20" name="content" id="content">${ notice.content }</textarea></td>
 					</tr>
 				</tbody>
 			</table>
 			<br/>
 			<div style="text-align: right;font-size: 15pt;">		
-				<a class="label label-default hand-cursor" id="write_button">수정하기</a>&nbsp;
+				<a class="label label-default hand-cursor" id=modify_button>수정하기</a>&nbsp;
 				<a href='list.action' class="label label-default hand-cursor" id="toList">목록으로</a>&nbsp;
 				<a href='../' class="label label-default hand-cursor" id="toHome">홈으로</a>
 			</div>
@@ -181,10 +175,6 @@
 		</form>
 	</div>
 
-<c:set var='auth' value="${ sessionScope.loginuser.email }"></c:set>
-<c:set var='auth2' value="${fn:split(auth, '@') }"></c:set>
-<c:if test="${ auth2[1] eq 'tarjane.com' }" >운영자 입니다.</c:if>
-<c:if test="${ auth2[1] ne 'tarjane.com' }" >운영자 아닙니다.</c:if>
 
 </body>
 </html>

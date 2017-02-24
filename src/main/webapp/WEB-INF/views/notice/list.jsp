@@ -198,8 +198,12 @@
 					<ul id="menu-main" class="clear">
 						<li id="menu-item-131" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-106 current_page_item menu-item-131"><a href="http://localhost:8888/paypal/">홈</a></li>
 						<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/notice/list.action">공지사항</a></li>
-						<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/analyze/analyzeData.action">구매분석</a></li>
 						
+						<c:set var='auth' value='${ sessionScope.loginuser.email }' />
+						<c:set var='auth2' value="${ fn:split(auth, '@') }" />
+						<c:if test="${ auth2[1] eq 'tarjane.com' }">
+						<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/analyze/chart.action">구매분석</a></li>
+						</c:if>
 						<c:choose >
 							<c:when test="${ empty sessionScope.loginuser }">
 								<li id="menu-item-132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-132"><a href="/paypal/member/register.action">회원가입</a></li>
@@ -226,8 +230,8 @@
 		<table class="table table-striped table-width" align="center">
 			
 			<tr style="background-color:#cccccc;height:25px">
-				<th style="width:50px">번호</th>
-				<th style="width:300px">제목</th>
+				<th style="width:60px">번호</th>
+				<th style="width:800px">제목</th>
 				<th style="width:150px">작성자</th>
 				<th style="width:120px">작성일</th>
 				<th style="width:80px">조회수</th>
@@ -237,7 +241,7 @@
 				<tr style="height: 30px">
 					<td>${ notice.noticeNo }</td>
 					<td style='text-align:left;padding-left:5px'>
-						<a href='detail.action?noticeNo=${ notice.noticeNo }&pageNo=${ requestScope.pageNo }'>${ notice.title }</a>
+						<a href='detail.action?noticeNo=${ notice.noticeNo }'>${ notice.title }</a>
 					</td>
 					<c:set var='auth' value="${ notice.writer }" />
 					<c:set var='auth2' value="${ fn:split (auth, '@') }" />
@@ -250,36 +254,6 @@
 					<td>${ notice.readCount }</td>
 				</tr>
 			</c:forEach>
-			
-			
-			
-			
-				<!-- 검색 관련 -->
-				<%-- <tr>
-					<td colspan="5">
-						<form id="search">
-							<span id="searchSelectDiv">
-								<select id="searchSelect" name="searchSelect">
-									<option id="none" value="none">선택</option>
-									<option id="title" value="title">제목</option>
-									<option id="content" value="content">내용</option>
-									<option id="vote" value="vote">추천</option>
-									<option id="mine" value="mine">내글</option>
-									<option id="tag" value="tag">태그</option>
-									<option id="writer" value="writer">글쓴이</option>
-								</select>
-							</span>
-							<span id="searchTextDiv">
-								<input type="text" id="searchText" name="searchText">
-							</span>
-							<span id="searchButtonDiv">
-								<span class="label label-default hand-cursor" id="searchButton">조회</span>
-							</span>
-							<input type="hidden" name="boardName" value="자유게시판">
-						</form>
-					</td>
-				</tr> --%>
-			
 			
 		</table>
 		<!-- </article> -->
