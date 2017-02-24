@@ -27,7 +27,7 @@ public class NoticeService {
 		return notice;
 	}
 	//공지 번호로 공지글 가져 오기.
-	public Notice getNoticeByNo(String noticeNo) {
+	public Notice getNoticeByNo(int noticeNo) {
 		Notice notice = noticeDao.getNoticeByNo(noticeNo);
 		return notice;
 	}
@@ -36,23 +36,13 @@ public class NoticeService {
 		noticeDao.modifyNotice(notice);
 	}
 	//공지 삭제하기.
-	public void deleteNoticeTx(String noticeNo) {
+	public void deleteNoticeTx(int noticeNo) {
 		noticeDao.deleteNotice(noticeNo);
 	}
+	//조회수 증가
+	public void increaseReadCount(int noticeNo) {
+		noticeDao.increaseReadCount(noticeNo);
+	}
 
-//	public void modifyMemberTx(Member member) {
-//		memberDao.modifyMember(member);
-//	}
-//
-//	public void dropOutAccount(String email) {
-//		memberDao.dropOutAccount(email);
-//	}
-//
-//	public Member getMemberLoginData(String email, String passwd) {
-//
-//		Member member = memberDao.getMemberLoginData(email, passwd);
-//		
-//		return member;
-//	}
 
 }

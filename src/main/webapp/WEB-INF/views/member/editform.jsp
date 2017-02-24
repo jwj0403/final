@@ -77,76 +77,77 @@
  		
  		//등록 버튼 눌렀을 때 유효성 검사.
  		$('#modify_button').click(function(event) {
- 			
-			event.preventDefault();
-			event.stopPropagation();
-			
-			//전송할 데이터의 형식 검사를 위해서 요소들을 변수에 담기
-			var login_pw  = document.getElementById("passwd");
-			var login_pw2  = document.getElementById("passwd_chk");
-			var login_phone  = document.getElementById("phone");
-			var login_address2 = document.getElementById("sample6_address");
-			var login_address3 = document.getElementById("address3");
-		 
-			//패스워드 유효성 검사(영문 + 숫자 6~20자리)
-			for (var i = 0; i < login_pw.value.length; i++) {
-				var regexp =  /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
-				if (!regexp.test(login_pw.value)) {
-					alert("패스워드는 6~20자의 영문자와 숫자로 만들어야 합니다.");
-					login_pw.focus();
-					login_pw.select();
+	 		if(confirm("정보를 수정하시겠습니까?")) {
+	 			event.preventDefault();
+				event.stopPropagation();
+				
+				//전송할 데이터의 형식 검사를 위해서 요소들을 변수에 담기
+				var login_pw  = document.getElementById("passwd");
+				var login_pw2  = document.getElementById("passwd_chk");
+				var login_phone  = document.getElementById("phone");
+				var login_address2 = document.getElementById("sample6_address");
+				var login_address3 = document.getElementById("address3");
+			 
+				//패스워드 유효성 검사(영문 + 숫자 6~20자리)
+				for (var i = 0; i < login_pw.value.length; i++) {
+					var regexp =  /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+					if (!regexp.test(login_pw.value)) {
+						alert("패스워드는 6~20자의 영문자와 숫자로 만들어야 합니다.");
+						login_pw.focus();
+						login_pw.select();
+						login_pw.value ="";
+						return;
+					};
+				};
+				//패스워드와 패스워드 확인 일치여부 체크
+				if (login_pw.value != login_pw2.value) {
+					alert("패스워드가 일치하지않습니다");
 					login_pw.value ="";
+					login_pw2.value ="";
 					return;
 				};
-			};
-			//패스워드와 패스워드 확인 일치여부 체크
-			if (login_pw.value != login_pw2.value) {
-				alert("패스워드가 일치하지않습니다");
-				login_pw.value ="";
-				login_pw2.value ="";
-				return;
-			};
-			 
-					 
-			//전화번호 정규식
-			for (var i = 0; i < login_phone.value.length; i++) {
-				var regexp =  /[01](0|1|6|7|8|9)-(\d{4}|\d{3})-\d{4}$/g;
-				 if (!regexp.test(login_phone.value)) {
-					alert("핸드폰 번호를 확인해 주세요.");
-					login_phone.focus();
-					login_phone.select();
-					login_phone.value ="";
-						return;
-				 }
-			};
-
-			//주소 입력 여부 검사
-			/* if(login_address2.value == ""){ 
-				alert("주소를 입력해주세요.");
-				login_address2.focus();
-				return;
-			}; */
-			//우편번호or주소 입력 시에 상세주소 입력 여부 검사
-			if(login_address2.value != "" && login_address3.value == ""){ 
-				alert("상세 주소를 입력해주세요.");
-				login_address3.focus();
-				return;
-			};
-
-			//AJAX로 수정 할 정보 form 보내기
-			$.ajax({
-				type : "POST",
-				url : "modifymember.action",
-				data : $('#modify_form').serialize(),
-				success:function(data){   //성공시 가져오는 데이터를 data에 저장하여 사용
-			         alert("정보가 수정 되었습니다.");
-			         location.href='mypage.action?email=' + $('#email')
-			     },
-			     error:function(jqXHR, textStatus, errorThrown){
-			         alert("수정 할 정보를 입력 해주세요.");
-			         self.close();
-			     }
-			});
+				 
+						 
+				//전화번호 정규식
+				for (var i = 0; i < login_phone.value.length; i++) {
+					var regexp =  /[01](0|1|6|7|8|9)(\d{4}|\d{3})\d{4}$/g;
+					 if (!regexp.test(login_phone.value)) {
+						alert("'-'를 제외한 숫자만 입력 해주세요. ex)01012345678 ");
+						login_phone.focus();
+						login_phone.select();
+						login_phone.value ="";
+							return;
+					 }
+				};
+	
+				//주소 입력 여부 검사
+				/* if(login_address2.value == ""){ 
+					alert("주소를 입력해주세요.");
+					login_address2.focus();
+					return;
+				}; */
+				//우편번호or주소 입력 시에 상세주소 입력 여부 검사
+				if(login_address2.value != "" && login_address3.value == ""){ 
+					alert("상세 주소를 입력해주세요.");
+					login_address3.focus();
+					return;
+				};
+	
+				//AJAX로 수정 할 정보 form 보내기
+				$.ajax({
+					type : "POST",
+					url : "modifymember.action",
+					data : $('#modify_form').serialize(),
+					success:function(data){   //성공시 가져오는 데이터를 data에 저장하여 사용
+				         alert("정보가 수정 되었습니다.");
+				         location.href='mypage.action?email=' + $('#email')
+				     },
+				     error:function(jqXHR, textStatus, errorThrown){
+				         alert("수정 할 정보를 입력 해주세요.");
+				         self.close();
+				     }
+				});
+	 		}
 		})
 		//---- 유효성 검사 종료--------------------
 				
@@ -162,8 +163,6 @@
 
 
 <div class="container">
-	
-	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	
 	<hr>
 	<h1>회원 정보 수정</h1>
@@ -227,10 +226,11 @@
 		    <span class="input-group-addon">카드유효기간 : ${ member.cardValidThru }</span> 
 		    <input type="text" name="cardValidThru" class="form-control" /> 
 		</div>
-	
-		<button id="modify_button">정보수정</button>
-	
+		
 	</form>
+	
+	<br/>
+	<button id="modify_button">정보수정</button>
 	<button onclick="location.href='mypage.action?email=${ member.email}';" >취소</button>
 
 </div>

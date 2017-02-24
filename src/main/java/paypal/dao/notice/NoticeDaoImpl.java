@@ -35,7 +35,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 	//공지 세부 내용 조회
 	@Override
-	public Notice getNoticeByNo(String noticeNo) {
+	public Notice getNoticeByNo(int noticeNo) {
 		Notice notice = noticeMapper.selectNoticeByNo(noticeNo);
 		return notice;
 	}
@@ -44,37 +44,14 @@ public class NoticeDaoImpl implements NoticeDao {
 		noticeMapper.updateNotice(notice);
 	}
 	@Override
-	public void deleteNotice(String noticeNo) {
+	public void deleteNotice(int noticeNo) {
 		noticeMapper.deleteNotice(noticeNo);
 	}
-	
-//	//회원 정보 수정
-//	@Override
-//	public void modifyMember(Member member) {
-//		memberMapper.updateMemberByEmail(member);
-//	}
-//	//회원 탈퇴
-//	@Override
-//	public void dropOutAccount(String email) {
-//		memberMapper.deleteMemberByEmail(email);
-//	}
-//
-//	
-//	
-//	//로그인 정보 불러오기
-//	@Override
-//	public Member getMemberLoginData(String email, String passwd) {
-//
-//		HashMap<String, Object> param = new HashMap<>();
-//		param.put("email", email);
-//		param.put("passwd", passwd);
-//		
-//		Member member = memberMapper.selectMemberLoginData(param);
-//		
-//		return member;
-//	}
-
-	
+	@Override
+	public void increaseReadCount(int noticeNo) {
+		noticeMapper.increaseReadCount(noticeNo);
+	}
+		
 }
 
 

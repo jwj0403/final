@@ -11,11 +11,13 @@ public interface NoticeDao {
 	//공지 목록 불러 오기
 	List<Notice> getNoticeList();
 	//공지 번호로 공지 내용 불러 오기
-	Notice getNoticeByNo(String noticeNo);
+	Notice getNoticeByNo(int noticeNo);
 	//공지 수정 하기.
 	void modifyNotice(Notice notice);
 	//공지 삭제하기.
-	void deleteNotice(String noticeNo);
+	void deleteNotice(int noticeNo);
+	//조회수 증가
+	void increaseReadCount(int noticeNo);
 	
 //	//회원정보 수정
 //	void modifyMember(Member member);

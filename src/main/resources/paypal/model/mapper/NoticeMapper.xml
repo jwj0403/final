@@ -16,9 +16,9 @@
 	<!-- 작성한 공지 데이터 DB에 Insert하기 -->
 	<insert id="insertNotice">
 		INSERT INTO NOTICE
-			(title, writer, content, deleted)
+			(title, writer, content, deleted, read_count)
 		VALUES
-			(#{ title }, #{ writer }, #{ content }, 'N')
+			(#{ title }, #{ writer }, #{ content }, 'N', 0)
 	
 	</insert>
 
@@ -30,10 +30,17 @@
 	</select>
 	
 	<!-- 공지 번호로 공지 조회 -->
-	<select id="selectNoticeByNo" parameterType="String" resultType="Notice">
+	<select id="selectNoticeByNo" parameterType="int" resultType="Notice">
 		<include refid="selectNotice" />
 		WHERE notice_no = #{ noticeNo } and  deleted='N'
 	</select>
+	
+	<!-- 공지글 조회 시에 조회수 증가 -->
+	<update id="increaseReadCount">
+		UPDATE NOTICE
+		SET read_count = read_count +1
+		WHERE notice_no = #{ noticeNo }
+	</update>
 	
 	<!-- 공지 수정하기 -->
 	<update id="updateNotice" parameterType="Notice">

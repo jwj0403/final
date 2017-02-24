@@ -11,10 +11,12 @@ public interface NoticeMapper {
 	//공지 목록 조회
 	List<Notice> selectNoticeList();
 	//공지 번호로 공지 조회
-	Notice selectNoticeByNo(String noticeNo);
+	Notice selectNoticeByNo(int noticeNo);
 	//공지 수정.
 	void updateNotice(Notice notice);
 	//공지 삭제.
-	void deleteNotice(String noticeNo);
+	void deleteNotice(int noticeNo);
+	//조회수 증가
+	void increaseReadCount(int noticeNo);
 		
 }

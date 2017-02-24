@@ -54,12 +54,11 @@
  
 </head>
 
+<!-- <body background="/paypal/resources/images/bgy.jpg"> -->
 <body>
 
 <div class="container">
 
-	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
-	
 	<hr>
 	<h1>회원 정보</h1>
 	<hr>
@@ -132,9 +131,11 @@
 	
 	<div>  
 		<button onclick="location.href='../';">홈으로</button>	
-		<c:url value="/member/editform.action" var="viewUrl">
-		<c:param name="email" value="${ loginuser.email }" />
+		
+		<c:url var="viewUrl" value="/member/editform.action">
+			<c:param name="email" value="${ loginuser.email }" />
 		</c:url>
+		
 		<button onclick="location.href='${ viewUrl }';">회원정보수정</button>
 		<button id='dropout_button' >회원탈퇴</button>
 		

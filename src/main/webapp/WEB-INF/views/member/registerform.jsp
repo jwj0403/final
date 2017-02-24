@@ -246,7 +246,7 @@
 					 
 			//전화번호 입력여부 검사
 			if(login_phone.value == ""){ 
-				alert("핸드폰 번호를 입력해주세요.");
+				alert("'-'를 제외한 숫자만 입력 해주세요. ex)01012345678 ");
 				login_phone.focus();
 				return;
 			};
@@ -358,7 +358,7 @@
 			</div>
 			
 	      	<div class="form-group w3-agile password" >
-				<input type="tel" id="phone" name="phone" class="form-control agileinfo textbox" placeholder="핸드폰번호  ex)010-1234-5678"/>
+				<input type="tel" id="phone" name="phone" class="form-control agileinfo textbox" placeholder="핸드폰 : '-'를 제외한 숫자만 입력 해주세요. ex)01012345678 "/>
 			</div>
 					        		        
 	        <div class="form-group w3-agile password">
