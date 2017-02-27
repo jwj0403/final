@@ -79,8 +79,16 @@
 	</div>
 	
 	<div class="input-group">
-		<span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i></span> 
-		<input type="text" value="성별 : ${ requestScope.member.gender }" class="form-control" readonly="true" /> 
+	<c:choose>
+		<c:when test="${ requestScope.member.gender eq M }">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i></span> 
+			<input type="text" value="성별 : 남" class="form-control" readonly="true" />
+		</c:when>
+		<c:otherwise>
+			<span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i></span> 
+			<input type="text" value="성별 : 여" class="form-control" readonly="true" />
+		</c:otherwise>
+	</c:choose> 
 	</div>
 	 
 	<div class="input-group">

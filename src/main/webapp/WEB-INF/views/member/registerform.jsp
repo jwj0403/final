@@ -236,7 +236,7 @@
 				 //var regexp = /[19|20][0-9]{2}-[01|02|03|04|05|06|07|08|09|10|11|12]-[01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31]/;
 				 var regexp = /[12][0-9]{3}-[01][0-9]-[0-3][0-9]/;
 				 if (!regexp.test(login_birth.value)) {
-					alert("생년월일을 확인 해주세요.");
+					alert("생년월일을 확인해주세요.");
 					login_birth.focus();
 					login_birth.select();
 					login_birth.value ="";
@@ -244,17 +244,17 @@
 				 }
 			 };	 
 					 
-			//전화번호 입력여부 검사
+			//휴대폰번호 입력여부 검사
 			if(login_phone.value == ""){ 
-				alert("'-'를 제외한 숫자만 입력 해주세요. ex)01012345678 ");
+				alert("휴대폰 번호를 확인해주세요. ex)010-1234-5678");
 				login_phone.focus();
 				return;
 			};
 			//전화번호 정규식
 			for (var i = 0; i < login_phone.value.length; i++) {
-				var regexp =  /[01](0|1|6|7|8|9)(\d{4}|\d{3})\d{4}$/g;
+				var regexp =  /[01](0|1|6|7|8|9)-(\d{4}|\d{3})-\d{4}$/g;
 				 if (!regexp.test(login_phone.value)) {
-					alert("핸드폰 번호를 확인해 주세요.");
+					alert("휴대폰 번호를 확인해주세요. ex)010-1234-5678");
 					login_phone.focus();
 					login_phone.select();
 					login_phone.value ="";
@@ -285,7 +285,7 @@
 			         location.href='../' //'login.action?email=' + $("#email").val() + '&passwd=' + $("#passwd").val();
 			     },
 			     error:function(jqXHR, textStatus, errorThrown){     //에러발생시 출력할 메세지
-			         alert("에러 발생가 발생했습니다. 다시 시도 해주세요.");
+			         alert("에러 발생가 발생했습니다. 가입 항목을 확인해주세요.");
 			         self.close();
 			     }
 			});
@@ -358,7 +358,7 @@
 			</div>
 			
 	      	<div class="form-group w3-agile password" >
-				<input type="tel" id="phone" name="phone" class="form-control agileinfo textbox" placeholder="핸드폰 : '-'를 제외한 숫자만 입력 해주세요. ex)01012345678 "/>
+				<input type="tel" id="phone" name="phone" class="form-control agileinfo textbox" placeholder="휴대폰 ex)010-1234-5678 "/>
 			</div>
 					        		        
 	        <div class="form-group w3-agile password">
